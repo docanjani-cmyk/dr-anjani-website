@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react'
 
+const track = (e) => window.gtag?.('event', e)
+
 const CFG = {
   name: 'Dr. Anjani Dixit',
   email: 'doc.anjani@gmail.com',
@@ -156,7 +158,7 @@ export default function Home() {
 
           <div className="hidden lg:flex items-center gap-3">
             <a
-              href={`https://wa.me/${CFG.whatsapp}`}
+              onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}`}
               target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all hover:shadow-sm"
               style={{ borderColor: '#25D366', color: '#25D366' }}
@@ -164,7 +166,7 @@ export default function Home() {
               <IconWhatsApp size="w-4 h-4" /> WhatsApp
             </a>
             <a
-              href={CFG.booking}
+              href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')}
               target="_blank" rel="noopener noreferrer"
               className="px-5 py-2 rounded-full text-sm font-semibold text-white transition-all hover:opacity-90 hover:shadow-lg"
               style={{ backgroundColor: '#2C5249' }}
@@ -191,7 +193,7 @@ export default function Home() {
             {[['About', '#about'], ['Services', '#services'], ['Testimonials', '#testimonials'], ['FAQ', '#faq'], ['Contact', '#contact']].map(([label, href]) => (
               <a key={label} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
             ))}
-            <a href={CFG.booking} target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}
+            <a href={CFG.booking} onClick={() => { track('ads_conversion_Contact_Us_1'); setMenuOpen(false); }} target="_blank" rel="noopener noreferrer"
               className="block w-full text-center text-white py-3 rounded-full text-sm font-semibold"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
@@ -227,7 +229,7 @@ export default function Home() {
 
               <div className="flex flex-col sm:flex-row gap-3 mb-10">
                 <a
-                  href={CFG.booking}
+                  href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')}
                   target="_blank" rel="noopener noreferrer"
                   className="px-8 py-4 rounded-full font-semibold text-white text-center transition-all hover:shadow-xl hover:-translate-y-0.5 duration-200"
                   style={{ backgroundColor: '#2C5249' }}
@@ -235,7 +237,7 @@ export default function Home() {
                   Book a Consultation
                 </a>
                 <a
-                  href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
+                  onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
                   target="_blank" rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-center transition-all hover:shadow-md duration-200 border-2"
                   style={{ borderColor: '#2C5249', color: '#2C5249' }}
@@ -401,7 +403,7 @@ export default function Home() {
             </div>
 
             <a
-              href={CFG.booking}
+              href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')}
               target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-white transition-all hover:shadow-lg hover:-translate-y-0.5 duration-200"
               style={{ backgroundColor: '#2C5249' }}
@@ -686,7 +688,7 @@ export default function Home() {
               <div className="space-y-5 mb-8">
                 {[
                   { icon: <IconPin />, label: 'Clinic', content: <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-medium hover:underline" style={{ color: '#1A2E28' }}>{CFG.clinic}<br />{CFG.address}</a> },
-                  { icon: <IconPhone />, label: 'Phone', content: <a href={`tel:${CFG.phone}`} className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.phoneDisplay}</a> },
+                  { icon: <IconPhone />, label: 'Phone', content: <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.phoneDisplay}</a> },
                   { icon: <IconMail />, label: 'Email', content: <a href={`mailto:${CFG.email}`} className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.email}</a> },
                 ].map(({ icon, label, content }, i) => (
                   <div key={i} className="flex gap-4 items-start">
@@ -721,7 +723,7 @@ export default function Home() {
               <p className="text-sm mb-6" style={{ color: '#7A9C90' }}>In-person and video consultations available · Mon–Sat, 9 AM – 7 PM</p>
 
               <a
-                href={CFG.booking} target="_blank" rel="noopener noreferrer"
+                href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center w-full py-4 rounded-2xl text-sm font-semibold text-white mb-3 transition-all hover:shadow-lg hover:opacity-95 duration-200"
                 style={{ backgroundColor: '#2C5249' }}
               >
@@ -735,7 +737,7 @@ export default function Home() {
                 Book on Practo
               </a>
               <a
-                href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
+                onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl text-sm font-medium border transition-all hover:shadow-sm duration-200"
                 style={{ borderColor: '#25D366', color: '#25D366' }}
@@ -778,7 +780,7 @@ export default function Home() {
               <address className="not-italic space-y-2 text-sm" style={{ color: '#5A8070' }}>
                 <p>{CFG.clinic}</p>
                 <p>{CFG.address}</p>
-                <a href={`tel:${CFG.phone}`} className="block transition-colors hover:text-white">{CFG.phoneDisplay}</a>
+                <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="block transition-colors hover:text-white">{CFG.phoneDisplay}</a>
                 <a href={`mailto:${CFG.email}`} className="block transition-colors hover:text-white">{CFG.email}</a>
               </address>
             </div>
@@ -797,7 +799,7 @@ export default function Home() {
 
       {/* ── FLOATING WHATSAPP ── */}
       <a
-        href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
+        onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
         target="_blank" rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
         className="fixed z-50 flex items-center justify-center rounded-full shadow-xl transition-transform hover:scale-110 duration-200"
@@ -812,7 +814,7 @@ export default function Home() {
         style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}
       >
         <a
-          href={CFG.booking} target="_blank" rel="noopener noreferrer"
+          href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
           className="flex items-center justify-center w-full py-3.5 rounded-full text-sm font-semibold text-white"
           style={{ backgroundColor: '#2C5249' }}
         >

@@ -1,4 +1,5 @@
 import './globals.css'
+import Script from 'next/script'
 
 export const metadata = {
   title: 'Dr. Anjani Dixit | Laparoscopic Surgeon & IVF Specialist, Bangalore',
@@ -70,7 +71,17 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-TKCQJPPP68" strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-TKCQJPPP68');
+          gtag('config', 'AW-1796712782');
+        `}</Script>
+      </body>
     </html>
   )
 }

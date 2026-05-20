@@ -12,6 +12,8 @@ const CFG = {
   address: '31, 80 Feet Rd, Indiranagar, Bengaluru 560038',
 }
 
+const track = (e) => window.gtag?.('event', e)
+
 const IMG = {
   logo: 'https://www.anjanidixit.com/image.webp',
   hero: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg',
@@ -67,10 +69,10 @@ export default function LaparoscopicSurgeryPage() {
             </div>
           </a>
           <div className="flex items-center gap-3">
-            <a href={`tel:${CFG.phone}`} className="hidden sm:flex items-center gap-1.5 text-sm font-medium" style={{ color: '#2C5249' }}>
+            <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="hidden sm:flex items-center gap-1.5 text-sm font-medium" style={{ color: '#2C5249' }}>
               <IconPhone /> {CFG.phoneDisplay}
             </a>
-            <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
+            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
               className="px-5 py-2 rounded-full text-sm font-semibold text-white"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
@@ -99,12 +101,12 @@ export default function LaparoscopicSurgeryPage() {
               1000+ procedures · Fellowship in Minimal Access Surgery · 12+ years experience
             </p>
             <div className="flex flex-col sm:flex-row gap-3 mb-8">
-              <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
+              <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
                 className="px-8 py-4 rounded-full font-semibold text-white text-center hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: '#2C5249' }}>
                 Book a Consultation
               </a>
-              <a href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to know more about laparoscopic surgery.`}
+              <a onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to know more about laparoscopic surgery.`}
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold border-2 hover:shadow-md transition-shadow"
                 style={{ borderColor: '#25D366', color: '#25D366' }}>
@@ -213,7 +215,7 @@ export default function LaparoscopicSurgeryPage() {
             <p className="text-sm leading-relaxed mb-6" style={{ color: '#4A6860' }}>
               She is a life member of FOGSI, AMASI, and ASI — and approaches every procedure with both technical precision and deep care for the person on the table.
             </p>
-            <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
+            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
               className="inline-block w-full text-center py-3 rounded-xl text-sm font-semibold text-white"
               style={{ backgroundColor: '#2C5249' }}>
               Book a Consultation
@@ -298,12 +300,12 @@ export default function LaparoscopicSurgeryPage() {
             Book a consultation with Dr. Anjani Dixit at Kasper Multi-Speciality Clinic, Indiranagar. In-person and video consultations available.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
+            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
               className="px-8 py-4 rounded-full font-semibold text-center bg-white hover:bg-gray-50 transition-colors"
               style={{ color: '#2C5249' }}>
               Book a Consultation
             </a>
-            <a href={`tel:${CFG.phone}`}
+            <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')}
               className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold border-2 text-white hover:bg-white/10 transition-colors"
               style={{ borderColor: 'rgba(255,255,255,0.4)' }}>
               <IconPhone /> {CFG.phoneDisplay}
@@ -319,7 +321,7 @@ export default function LaparoscopicSurgeryPage() {
       </footer>
 
       {/* FLOATING WHATSAPP */}
-      <a href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to know more about laparoscopic surgery.`}
+      <a onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to know more about laparoscopic surgery.`}
         target="_blank" rel="noopener noreferrer"
         className="fixed z-50 flex items-center justify-center rounded-full shadow-xl"
         style={{ bottom: '5.5rem', right: '1.5rem', width: '56px', height: '56px', backgroundColor: '#25D366' }}>
@@ -329,7 +331,7 @@ export default function LaparoscopicSurgeryPage() {
       {/* MOBILE STICKY CTA */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3"
         style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}>
-        <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
+        <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
           className="flex items-center justify-center w-full py-3.5 rounded-full text-sm font-semibold text-white"
           style={{ backgroundColor: '#2C5249' }}>
           Book a Consultation
