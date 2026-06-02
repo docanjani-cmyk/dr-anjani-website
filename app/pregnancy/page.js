@@ -1,19 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const CFG = {
   phone: '7411722580',
   phoneDisplay: '+91 74117 22580',
   whatsapp: '917411722580',
   booking: 'https://meet-my-doctor.firebaseapp.com/#/?uid=47150&eid=38605',
+  maps: 'https://maps.app.goo.gl/8MKPqCCGujp34cXe7',
+  practo: 'https://www.practo.com/bangalore/doctor/anjani-dixit-gynecologist-obstetrician',
 }
 
 const track = (e) => window.gtag?.('event', e)
 
 const IMG = {
-  logo: 'https://www.anjanidixit.com/image.webp',
-  hero: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg',
+  logo: '/Photos/Anjani%20website/Anjani%20Prityn%20DP.png',
+  hero: '/Gallery/About%20us%203.jpg',
 }
 
 const IconStar = () => (
@@ -43,8 +45,26 @@ const FAQS = [
   { q: 'What postnatal support do you provide?', a: 'Postnatal care includes a 6-week check-up to assess your physical recovery, mental wellbeing, breastfeeding support, and contraception counselling. Dr. Anjani remains available after delivery for any concerns — the care does not end when the baby arrives.' },
 ]
 
+const NAV_LINKS = [
+  ['Home', '/'],
+  ['Laparoscopic Surgery', '/laparoscopic-surgery'],
+  ['IVF & Fertility', '/ivf-infertility'],
+  ['PCOS Treatment', '/pcos'],
+  ['Cosmetic Gynaecology', '/cosmetic-gynecology'],
+]
+
 export default function PregnancyPage() {
   const [openFaq, setOpenFaq] = useState(null)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onClick = (e) => { if (!e.target.closest('header')) setMenuOpen(false) }
+    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false) }
+    document.addEventListener('click', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => { document.removeEventListener('click', onClick); document.removeEventListener('keydown', onKey) }
+  }, [menuOpen])
 
   return (
     <div style={{ backgroundColor: '#FAFAF8', color: '#1A2E28' }}>
@@ -64,18 +84,44 @@ export default function PregnancyPage() {
               <IconPhone /> {CFG.phoneDisplay}
             </a>
             <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
-              className="px-5 py-2 rounded-full text-sm font-semibold text-white"
+              className="hidden lg:inline-block px-5 py-2 rounded-full text-sm font-semibold text-white"
+              style={{ backgroundColor: '#2C5249' }}>
+              Book Consultation
+            </a>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden p-2"
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+            >
+              <div className="w-5 flex flex-col gap-1.5">
+                <span className="block h-px w-full transition-all origin-center" style={{ backgroundColor: '#1A2E28', transform: menuOpen ? 'rotate(45deg) translateY(5px)' : 'none' }} />
+                <span className="block h-px transition-all" style={{ backgroundColor: '#1A2E28', width: menuOpen ? 0 : '100%' }} />
+                <span className="block h-px w-full transition-all origin-center" style={{ backgroundColor: '#1A2E28', transform: menuOpen ? 'rotate(-45deg) translateY(-5px)' : 'none' }} />
+              </div>
+            </button>
+          </div>
+        </nav>
+
+        {menuOpen && (
+          <div className="lg:hidden px-5 pb-5 space-y-3" style={{ borderTop: '1px solid #E3EDE9', paddingTop: '1rem' }}>
+            {NAV_LINKS.map(([label, href]) => (
+              <a key={href} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
+            ))}
+            <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
+              onClick={() => { track('ads_conversion_Contact_Us_1'); setMenuOpen(false) }}
+              className="block w-full text-center text-white py-3 rounded-full text-sm font-semibold mt-3"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
             </a>
           </div>
-        </nav>
+        )}
       </header>
 
       {/* HERO */}
       <section style={{ background: 'linear-gradient(135deg, #f5f0e8 0%, #fafaf8 55%, #eef4f1 100%)' }}>
-        <div className="max-w-6xl mx-auto px-5 py-16 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+        <div className="max-w-6xl mx-auto px-5 py-12 lg:py-24 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="order-2 lg:order-1">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-6"
               style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>
               Obstetrician · High-Risk Pregnancy · Indiranagar · Bangalore
@@ -89,9 +135,9 @@ export default function PregnancyPage() {
               Attentive antenatal care, expert high-risk pregnancy management, and compassionate support from first scan to postnatal recovery — with a doctor who truly sees you.
             </p>
             <p className="text-sm font-medium mb-8" style={{ color: '#7A9C90' }}>
-              DNB Obstetrics & Gynaecology · 12+ years · FOGSI Life Member
+              DNB Obstetrics & Gynaecology · 14+ years · FOGSI Life Member
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <div className="hidden lg:flex gap-3 mb-8">
               <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
                 className="px-8 py-4 rounded-full font-semibold text-white text-center hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: '#2C5249' }}>
@@ -104,17 +150,16 @@ export default function PregnancyPage() {
                 <IconWhatsApp /> WhatsApp Us
               </a>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex gap-0.5">            {[
-              { name: 'Baidyanath Sinha', condition: 'Pregnancy Care', img: 'https://lh3.googleusercontent.com/a-/ALV-UjUUdzLFKPeVX2_bJ2jHhewapprBgjvVebSSDecly9bsgqIiNzq9Fw=s120-c-rp-mo-ba3-br100', review: 'Dr. Anjani Dixit is truly exceptional! Her expertise, warmth, and genuine care made my wife\'s pregnancy journey smooth, safe, and beautiful. She listens patiently, explains everything clearly, and never leaves you with unanswered questions. What sets her apart is how she treats you as a person, not just a patient. Every visit left us feeling confident and reassured. Her clinical knowledge combined with her compassionate approach is rare and priceless.' },
-              { name: 'Shri Gopinath Malik', condition: 'Pregnancy Care', img: '/reviewers/shri-gopinath-malik.jpg', review: 'Dr. Anjani Dixit is very patient, calm, and knowledgeable. She explains everything clearly and gives confidence during pregnancy. Every appointment felt thorough and reassuring. I never felt rushed or unheard. Highly recommended for any expectant mother looking for an obstetrician who genuinely cares.' },
-              { name: 'Muneerah Khan', condition: 'Long-term Patient', img: '/reviewers/muneerah-khan.jpg', review: 'I have known Dr. Anjani for the past 5 years. Her consultation skills, knowledge, and expertise in her domain are excellent. I am really happy to have found such a wonderful gynaecologist who I can be open about my health issues with and always get the right guidance. A doctor who truly listens and never makes you feel like just another appointment.' },
-            ].map((_, i) => <IconStar key={i} />)}</div>
-              <span className="text-sm font-semibold" style={{ color: '#1A2E28' }}>5.0 on Google</span>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>· 347 reviews</span>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
+              <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>· 354 reviews</span>
+              <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
+              <a href={CFG.practo} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#5B2D8E' }}>99% on Practo</a>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>(278 patients)</span>
             </div>
           </div>
-          <div className="rounded-3xl overflow-hidden shadow-2xl" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
+          <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
             <img src={IMG.hero} alt="Dr. Anjani Dixit – Obstetrician Bangalore"
               className="w-full h-full object-cover object-top" />
           </div>
@@ -157,22 +202,35 @@ export default function PregnancyPage() {
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>What Patients Say</h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-3 gap-5">
             {[
-              { name: 'Baidyanath Sinha', condition: 'Pregnancy Care', img: 'https://lh3.googleusercontent.com/a-/ALV-UjUUdzLFKPeVX2_bJ2jHhewapprBgjvVebSSDec=s120-c-rp-mo-br100', review: 'Dr. Anjani Dixit is truly exceptional. Her expertise, warmth, and genuine care made my wife\'s pregnancy journey smooth, safe, and beautiful. She listens patiently, explains everything clearly. What sets her apart is how she treats you as a person, not just a patient.' },
-              { name: 'Sneha John', condition: 'Consultation', img: 'https://lh3.googleusercontent.com/a/ACg8ocKeei3HsSNWqUGdj9xG3vjotrzVJgqfPeRUF0Hl=s120-c-rp-mo-br100', review: 'I had a really good experience with Dr. Anjani. She was very patient, listened to all my concerns, and explained everything clearly without rushing. She made me feel comfortable and reassured throughout the consultation. I felt I was in safe and capable hands.' },
+              { name: 'Baidyanath Sinha', condition: 'Pregnancy Care', img: 'https://lh3.googleusercontent.com/a-/ALV-UjUUdzLFKPeVX2_bJ2jHhewapprBgjvVebSSDec=s120-c-rp-mo-br100', review: 'Dr. Anjani Dixit is truly exceptional. Her expertise, warmth, and genuine care made my wife\'s pregnancy journey smooth, safe, and beautiful. She listens patiently, explains everything clearly. What sets her apart is how she treats you as a person, not just a patient. Every visit left us feeling confident and reassured.' },
+              { name: 'Rishu Kumari', condition: 'Pregnancy Care', img: null, source: 'practo', review: 'Finding Dr. Anjani was the best decision I made during my pregnancy! She is not just a brilliant gynecologist but a doctor with a golden heart. Her calm demeanor and ability to explain even complex things simply is remarkable. She made every appointment feel reassuring and never once made me feel rushed. I always left her clinic smiling and stress-free.' },
+              { name: 'Akanksha', condition: 'Pregnancy Check Up', img: null, source: 'practo', review: 'I am beyond grateful for the exceptional care I received from Dr. Anjani. From the moment I walked in, I felt welcomed and truly cared for. What sets Dr. Anjani apart is her holistic approach — she not only addressed my medical needs but also made sure I felt comfortable and supported throughout. I always felt like I was in the best possible hands.' },
             ].map((t, i) => (
               <div key={i} className="rounded-2xl p-6" style={{ backgroundColor: '#FAFAF8', border: '1px solid #E3EDE9' }}>
                 <div className="flex items-center gap-3 mb-4">
-                  <img src={t.img} alt={t.name} referrerPolicy="no-referrer"
-                    className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-                    onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'flex' }} />
-                  <div className="w-10 h-10 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
-                    style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
-                  <div>
-                    <div className="font-semibold text-sm" style={{ color: '#1A2E28' }}>{t.name}</div>
-                    <div className="text-xs" style={{ color: '#7A9C90' }}>{t.condition}</div>
+                  {t.img ? (
+                    <>
+                      <img src={t.img} alt={t.name} referrerPolicy="no-referrer"
+                        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                        onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'flex' }} />
+                      <div className="w-10 h-10 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
+                        style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
+                    </>
+                  ) : (
+                    <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-semibold"
+                      style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="font-semibold text-sm truncate" style={{ color: '#1A2E28' }}>{t.name}</div>
+                    <div className="text-xs truncate" style={{ color: '#7A9C90' }}>{t.condition}</div>
                   </div>
+                  {t.source === 'practo' ? (
+                    <span className="flex-shrink-0 font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: '#5B2D8E', color: 'white', fontSize: '10px' }}>Practo</span>
+                  ) : (
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-4 h-4 flex-shrink-0" />
+                  )}
                 </div>
                 <div className="flex gap-0.5 mb-3">{[...Array(5)].map((_, j) => <IconStar key={j} />)}</div>
                 <p className="text-sm leading-relaxed" style={{ color: '#4A6860' }}>"{t.review}"</p>

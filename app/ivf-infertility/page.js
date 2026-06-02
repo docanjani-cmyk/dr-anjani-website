@@ -1,19 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const CFG = {
   phone: '7411722580',
   phoneDisplay: '+91 74117 22580',
   whatsapp: '917411722580',
   booking: 'https://meet-my-doctor.firebaseapp.com/#/?uid=47150&eid=38605',
+  maps: 'https://maps.app.goo.gl/8MKPqCCGujp34cXe7',
+  practo: 'https://www.practo.com/bangalore/doctor/anjani-dixit-gynecologist-obstetrician',
 }
 
 const track = (e) => window.gtag?.('event', e)
 
 const IMG = {
-  logo: 'https://www.anjanidixit.com/image.webp',
-  hero: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg',
+  logo: '/Photos/Anjani%20website/Anjani%20Prityn%20DP.png',
+  hero: '/Gallery/About%20us%2010.jpg',
 }
 
 const IconStar = () => (
@@ -49,8 +51,36 @@ const FAQS = [
   { q: 'Can structural problems like fibroids or blocked tubes be treated before IVF?', a: 'Yes. Conditions like submucous fibroids, polyps, blocked fallopian tubes, or a uterine septum can reduce IVF success and are often best corrected surgically before proceeding. Dr. Anjani\'s expertise in both laparoscopic surgery and fertility treatment means she can manage all aspects of your care in one place.' },
 ]
 
+const NAV_LINKS = [
+  ['Home', '/'],
+  ['Laparoscopic Surgery', '/laparoscopic-surgery'],
+  ['Pregnancy Care', '/pregnancy'],
+  ['PCOS Treatment', '/pcos'],
+  ['Cosmetic Gynaecology', '/cosmetic-gynecology'],
+]
+
 export default function IVFInfertilityPage() {
   const [openFaq, setOpenFaq] = useState(null)
+  const [isBookingOpen, setIsBookingOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const openBooking = (eventName = 'ads_conversion_Contact_Us_1') => {
+    track(eventName)
+    setIsBookingOpen(true)
+  }
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') { setIsBookingOpen(false); setMenuOpen(false) } }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onClick = (e) => { if (!e.target.closest('header')) setMenuOpen(false) }
+    document.addEventListener('click', onClick)
+    return () => document.removeEventListener('click', onClick)
+  }, [menuOpen])
 
   return (
     <div style={{ backgroundColor: '#FAFAF8', color: '#1A2E28' }}>
@@ -69,19 +99,45 @@ export default function IVFInfertilityPage() {
             <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="hidden sm:flex items-center gap-1.5 text-sm font-medium" style={{ color: '#2C5249' }}>
               <IconPhone /> {CFG.phoneDisplay}
             </a>
-            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
-              className="px-5 py-2 rounded-full text-sm font-semibold text-white"
+            <button onClick={() => openBooking()}
+              className="hidden lg:inline-block px-5 py-2 rounded-full text-sm font-semibold text-white"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
-            </a>
+            </button>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden p-2"
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+            >
+              <div className="w-5 flex flex-col gap-1.5">
+                <span className="block h-px w-full transition-all origin-center" style={{ backgroundColor: '#1A2E28', transform: menuOpen ? 'rotate(45deg) translateY(5px)' : 'none' }} />
+                <span className="block h-px transition-all" style={{ backgroundColor: '#1A2E28', width: menuOpen ? 0 : '100%' }} />
+                <span className="block h-px w-full transition-all origin-center" style={{ backgroundColor: '#1A2E28', transform: menuOpen ? 'rotate(-45deg) translateY(-5px)' : 'none' }} />
+              </div>
+            </button>
           </div>
         </nav>
+
+        {menuOpen && (
+          <div className="lg:hidden px-5 pb-5 space-y-3" style={{ borderTop: '1px solid #E3EDE9', paddingTop: '1rem' }}>
+            {NAV_LINKS.map(([label, href]) => (
+              <a key={href} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
+            ))}
+            <button
+              onClick={() => { openBooking(); setMenuOpen(false) }}
+              className="block w-full text-center text-white py-3 rounded-full text-sm font-semibold mt-3"
+              style={{ backgroundColor: '#2C5249' }}>
+              Book Consultation
+            </button>
+          </div>
+        )}
       </header>
 
       {/* HERO */}
       <section style={{ background: 'linear-gradient(135deg, #f5f0e8 0%, #fafaf8 55%, #eef4f1 100%)' }}>
-        <div className="max-w-6xl mx-auto px-5 py-16 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+        <div className="max-w-6xl mx-auto px-5 py-12 lg:py-24 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="order-2 lg:order-1">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-6"
               style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>
               IVF & Fertility Specialist · Indiranagar · Bangalore
@@ -95,14 +151,14 @@ export default function IVFInfertilityPage() {
               Compassionate, evidence-based fertility care — from thorough evaluation through IVF, IUI, and surgical treatment. Honest guidance and emotional support at every step.
             </p>
             <p className="text-sm font-medium mb-8" style={{ color: '#7A9C90' }}>
-              Reproductive Medicine Certification · ICOG · 12+ years experience
+              Reproductive Medicine Certification · ICOG · 14+ years experience
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
-              <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+            <div className="hidden lg:flex gap-3 mb-8">
+              <button onClick={() => openBooking()}
                 className="px-8 py-4 rounded-full font-semibold text-white text-center hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: '#2C5249' }}>
                 Book a Consultation
-              </a>
+              </button>
               <a onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to discuss fertility treatment options.`}
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold border-2 hover:shadow-md transition-shadow"
@@ -110,17 +166,16 @@ export default function IVFInfertilityPage() {
                 <IconWhatsApp /> WhatsApp Us
               </a>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex gap-0.5">            {[
-              { name: 'B. Naga', condition: 'IVF Treatment', img: '/reviewers/b-naga.jpg', review: 'We are immensely grateful to Dr. Anjani Dixit for her exceptional support and expertise throughout our IVF journey. Dr. Dixit is not only an outstanding IVF specialist with extensive experience, but she is also a compassionate and empathetic doctor who truly cares for her patients. Thanks to her unwavering dedication, our IVF treatment was successful, and we are now the proud parents of a healthy baby girl. Thank you, Dr. Dixit, for making our dream of becoming parents come true.' },
-              { name: 'Akanksha Sachdeva', condition: 'Gynaecological Care', img: '/reviewers/akanksha-sachdeva.jpg', review: 'I am beyond grateful for the exceptional care I received from Dr. Anjani. From the moment I walked in, I felt welcomed and truly cared for. She took the time to listen to my concerns and thoroughly explained every aspect of my care. What sets Dr. Anjani apart is her holistic approach — she not only addressed my medical needs but also made sure I felt comfortable and supported throughout the entire process. I always felt like I was in the best possible hands.' },
-              { name: 'Jaydeep H. Padariya', condition: 'Gynaecological Care', img: '/reviewers/jaydeep-padariya.jpg', review: 'Dr. Anjani Dixit is an exceptionally knowledgeable gynaecologist. She has always been thorough in her explanations and ensures that every question is answered with patience and clarity. Her calm and composed demeanour instantly puts you at ease, especially during moments that can be overwhelming. She takes the time to listen, provides thoughtful responses, and never rushes through appointments. I always leave her office feeling confident and reassured.' },
-            ].map((_, i) => <IconStar key={i} />)}</div>
-              <span className="text-sm font-semibold" style={{ color: '#1A2E28' }}>5.0 on Google</span>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>· 347 reviews</span>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
+              <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>· 354 reviews</span>
+              <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
+              <a href={CFG.practo} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#5B2D8E' }}>99% on Practo</a>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>(278 patients)</span>
             </div>
           </div>
-          <div className="rounded-3xl overflow-hidden shadow-2xl" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
+          <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
             <img src={IMG.hero} alt="Dr. Anjani Dixit – IVF Specialist Bangalore"
               className="w-full h-full object-cover object-top" />
           </div>
@@ -205,22 +260,35 @@ export default function IVFInfertilityPage() {
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>What Patients Say</h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-3 gap-5">
             {[
-              { name: 'Baidyanath Sinha', condition: 'Pregnancy Care', img: 'https://lh3.googleusercontent.com/a-/ALV-UjUUdzLFKPeVX2_bJ2jHhewapprBgjvVebSSDec=s120-c-rp-mo-br100', review: 'Dr. Anjani Dixit is truly exceptional. Her expertise, warmth, and genuine care made my wife\'s pregnancy journey smooth, safe, and beautiful. She listens patiently, explains everything clearly. What sets her apart is how she treats you as a person, not just a patient.' },
-              { name: 'Riya Jati', condition: 'Endometriosis & Fibroids', img: 'https://lh3.googleusercontent.com/a/ACg8ocLTyhWPsfGLFr5GFNcONZ4lkvTb5AC5H-0aeV4z=s120-c-rp-mo-br100', review: 'Suffering from lower back pain due to endometriosis cyst and multiple fibroids, I am extremely thankful — Madam demonstrated everything very politely. She has very polished surgical hands and exceptional expertise in minimally invasive procedures.' },
+              { name: 'Brijesh', condition: 'IVF After Fibroid Surgery', img: null, source: 'practo', review: 'We came to Dr. Anjani for difficulty in conceiving — fibroid and low egg reserve. She planned keyhole fibroid removal, then guided us through IVF. We had a successful delivery of a baby girl. She was supportive and explained everything in detail at every step. Really grateful for the entire experience. It was smooth and I am very thankful.' },
+              { name: 'Kanti Nisha', condition: 'IVF Treatment', img: null, source: 'practo', review: 'My relative had ovarian cyst and fibroid and was not able to conceive for so long. We had laparoscopic surgery with Dr. Anjani, then the IVF procedure. Now they are proud parents of a healthy baby girl. Thank you for the great treatment and making their journey smooth. She explains very well and gives time to her patients.' },
+              { name: 'Shakti Singh', condition: 'IVF & Laparoscopic Surgery', img: null, source: 'practo', review: 'Extremely experienced doctor. Had IVF treatment and laparoscopic treatment, and conceived finally. Had a caesarean delivery. Now we are parents of a healthy baby. Highly grateful to the doctor and her team. Highly recommended. Very happy.' },
             ].map((t, i) => (
               <div key={i} className="bg-white rounded-2xl p-6" style={{ border: '1px solid #E3EDE9' }}>
                 <div className="flex items-center gap-3 mb-4">
-                  <img src={t.img} alt={t.name} referrerPolicy="no-referrer"
-                    className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-                    onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'flex' }} />
-                  <div className="w-10 h-10 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
-                    style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
-                  <div>
-                    <div className="font-semibold text-sm" style={{ color: '#1A2E28' }}>{t.name}</div>
-                    <div className="text-xs" style={{ color: '#7A9C90' }}>{t.condition}</div>
+                  {t.img ? (
+                    <>
+                      <img src={t.img} alt={t.name} referrerPolicy="no-referrer"
+                        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                        onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'flex' }} />
+                      <div className="w-10 h-10 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
+                        style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
+                    </>
+                  ) : (
+                    <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-semibold"
+                      style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="font-semibold text-sm truncate" style={{ color: '#1A2E28' }}>{t.name}</div>
+                    <div className="text-xs truncate" style={{ color: '#7A9C90' }}>{t.condition}</div>
                   </div>
+                  {t.source === 'practo' ? (
+                    <span className="flex-shrink-0 font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: '#5B2D8E', color: 'white', fontSize: '10px' }}>Practo</span>
+                  ) : (
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-4 h-4 flex-shrink-0" />
+                  )}
                 </div>
                 <div className="flex gap-0.5 mb-3">{[...Array(5)].map((_, j) => <IconStar key={j} />)}</div>
                 <p className="text-sm leading-relaxed" style={{ color: '#4A6860' }}>"{t.review}"</p>
@@ -271,11 +339,11 @@ export default function IVFInfertilityPage() {
             Book a consultation with Dr. Anjani Dixit at Kasper Multi-Speciality Clinic, Indiranagar. Video consultations available for initial assessment.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+            <button onClick={() => openBooking()}
               className="px-8 py-4 rounded-full font-semibold text-center bg-white hover:bg-gray-50 transition-colors"
               style={{ color: '#2C5249' }}>
               Book a Consultation
-            </a>
+            </button>
             <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')}
               className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold border-2 text-white hover:bg-white/10 transition-colors"
               style={{ borderColor: 'rgba(255,255,255,0.4)' }}>
@@ -299,12 +367,46 @@ export default function IVFInfertilityPage() {
 
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3"
         style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}>
-        <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+        <button onClick={() => openBooking()}
           className="flex items-center justify-center w-full py-3.5 rounded-full text-sm font-semibold text-white"
           style={{ backgroundColor: '#2C5249' }}>
           Book a Consultation
-        </a>
+        </button>
       </div>
+
+      {/* BOOKING MODAL */}
+      {isBookingOpen && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+          style={{ backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
+          onClick={() => setIsBookingOpen(false)}
+        >
+          <div
+            className="relative bg-white rounded-2xl overflow-hidden shadow-2xl w-full max-w-2xl flex flex-col"
+            style={{ height: '85vh', maxHeight: '700px' }}
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-5 py-3 flex-shrink-0" style={{ borderBottom: '1px solid #E3EDE9' }}>
+              <span className="font-semibold text-sm" style={{ color: '#1A2E28' }}>Book a Consultation</span>
+              <button
+                onClick={() => setIsBookingOpen(false)}
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors hover:bg-gray-100"
+                style={{ color: '#7A9C90' }}
+                aria-label="Close"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <iframe
+              src={CFG.booking}
+              className="w-full flex-1 border-0"
+              title="Book a Consultation with Dr. Anjani Dixit"
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

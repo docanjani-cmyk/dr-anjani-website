@@ -1,19 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const CFG = {
   phone: '7411722580',
   phoneDisplay: '+91 74117 22580',
   whatsapp: '917411722580',
   booking: 'https://meet-my-doctor.firebaseapp.com/#/?uid=47150&eid=38605',
+  maps: 'https://maps.app.goo.gl/8MKPqCCGujp34cXe7',
+  practo: 'https://www.practo.com/bangalore/doctor/anjani-dixit-gynecologist-obstetrician',
 }
 
 const track = (e) => window.gtag?.('event', e)
 
 const IMG = {
-  logo: 'https://www.anjanidixit.com/image.webp',
-  hero: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg',
+  logo: '/Photos/Anjani%20website/Anjani%20Prityn%20DP.png',
+  hero: '/Photos/Anjani%20website/Informal%20photos/About%20me.jpg',
 }
 
 const IconStar = () => (
@@ -43,8 +45,26 @@ const FAQS = [
   { q: 'What tests will I need?', a: 'Typically: hormonal blood tests (LH, FSH, AMH, testosterone, insulin, thyroid), a pelvic ultrasound, and sometimes a glucose tolerance test. Dr. Anjani reviews all results with you at your follow-up and explains exactly what each finding means for your health and treatment.' },
 ]
 
+const NAV_LINKS = [
+  ['Home', '/'],
+  ['Laparoscopic Surgery', '/laparoscopic-surgery'],
+  ['IVF & Fertility', '/ivf-infertility'],
+  ['Pregnancy Care', '/pregnancy'],
+  ['Cosmetic Gynaecology', '/cosmetic-gynecology'],
+]
+
 export default function PCOSPage() {
   const [openFaq, setOpenFaq] = useState(null)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onClick = (e) => { if (!e.target.closest('header')) setMenuOpen(false) }
+    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false) }
+    document.addEventListener('click', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => { document.removeEventListener('click', onClick); document.removeEventListener('keydown', onKey) }
+  }, [menuOpen])
 
   return (
     <div style={{ backgroundColor: '#FAFAF8', color: '#1A2E28' }}>
@@ -64,18 +84,44 @@ export default function PCOSPage() {
               <IconPhone /> {CFG.phoneDisplay}
             </a>
             <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
-              className="px-5 py-2 rounded-full text-sm font-semibold text-white"
+              className="hidden lg:inline-block px-5 py-2 rounded-full text-sm font-semibold text-white"
+              style={{ backgroundColor: '#2C5249' }}>
+              Book Consultation
+            </a>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden p-2"
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+            >
+              <div className="w-5 flex flex-col gap-1.5">
+                <span className="block h-px w-full transition-all origin-center" style={{ backgroundColor: '#1A2E28', transform: menuOpen ? 'rotate(45deg) translateY(5px)' : 'none' }} />
+                <span className="block h-px transition-all" style={{ backgroundColor: '#1A2E28', width: menuOpen ? 0 : '100%' }} />
+                <span className="block h-px w-full transition-all origin-center" style={{ backgroundColor: '#1A2E28', transform: menuOpen ? 'rotate(-45deg) translateY(-5px)' : 'none' }} />
+              </div>
+            </button>
+          </div>
+        </nav>
+
+        {menuOpen && (
+          <div className="lg:hidden px-5 pb-5 space-y-3" style={{ borderTop: '1px solid #E3EDE9', paddingTop: '1rem' }}>
+            {NAV_LINKS.map(([label, href]) => (
+              <a key={href} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
+            ))}
+            <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
+              onClick={() => { track('ads_conversion_Contact_Us_1'); setMenuOpen(false) }}
+              className="block w-full text-center text-white py-3 rounded-full text-sm font-semibold mt-3"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
             </a>
           </div>
-        </nav>
+        )}
       </header>
 
       {/* HERO */}
       <section style={{ background: 'linear-gradient(135deg, #f5f0e8 0%, #fafaf8 55%, #eef4f1 100%)' }}>
-        <div className="max-w-6xl mx-auto px-5 py-16 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+        <div className="max-w-6xl mx-auto px-5 py-12 lg:py-24 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="order-2 lg:order-1">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-6"
               style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>
               PCOS / PCOD Specialist · Indiranagar · Bangalore
@@ -89,9 +135,9 @@ export default function PCOSPage() {
               Comprehensive, personalised management for PCOS and PCOD — addressing irregular periods, hormonal imbalance, weight, acne, and fertility with a holistic, evidence-based approach.
             </p>
             <p className="text-sm font-medium mb-8" style={{ color: '#7A9C90' }}>
-              12+ years experience · IVF & Fertility Certified · FOGSI Life Member
+              14+ years experience · IVF & Fertility Certified · FOGSI Life Member
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <div className="hidden lg:flex gap-3 mb-8">
               <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
                 className="px-8 py-4 rounded-full font-semibold text-white text-center hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: '#2C5249' }}>
@@ -104,17 +150,16 @@ export default function PCOSPage() {
                 <IconWhatsApp /> WhatsApp Us
               </a>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex gap-0.5">            {[
-              { name: 'Sandra Gerard', condition: 'PCOD Treatment', img: 'https://lh3.googleusercontent.com/a-/ALV-UjWPvR1UHnpPQDFkcQ9EQcHv0n3rPBE_P4kILflUfE2F4cP85vvd=s120-c-rp-mo-br100', review: 'Visited Dr. Anjani regarding PCOD and the doctor was very helpful in explaining every minute detail and helped me regulating my periods. I felt completely understood and supported throughout — would absolutely recommend to anyone dealing with hormonal issues.' },
-              { name: 'Muneerah Khan', condition: 'Ongoing Gynaecological Care', img: '/reviewers/muneerah-khan.jpg', review: 'I have known Dr. Anjani for the past 5 years. Her consultation skills, knowledge, and expertise in her domain are excellent. I have consulted her multiple times and I am really happy to have found such a wonderful gynaecologist who I can be open about my health issues with and get the right guidance. Thank you Doctor for diagnosing and helping me.' },
-              { name: 'AB Way', condition: 'Gynaecological Care', img: '/reviewers/ab-way.jpg', review: 'I had an exceptional experience with Dr. Anjani Dixit! She is truly an outstanding gynaecologist, with a warm and caring demeanour that immediately puts you at ease. Her expertise and knowledge in her field are evident in the way she listens attentively to your concerns, answers questions clearly, and provides personalised care. Her dedication to her patients\' well-being is genuinely inspiring.' },
-            ].map((_, i) => <IconStar key={i} />)}</div>
-              <span className="text-sm font-semibold" style={{ color: '#1A2E28' }}>5.0 on Google</span>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>· 347 reviews</span>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
+              <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>· 354 reviews</span>
+              <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
+              <a href={CFG.practo} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#5B2D8E' }}>99% on Practo</a>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>(278 patients)</span>
             </div>
           </div>
-          <div className="rounded-3xl overflow-hidden shadow-2xl" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
+          <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
             <img src={IMG.hero} alt="Dr. Anjani Dixit – PCOS Specialist Bangalore"
               className="w-full h-full object-cover object-top" />
           </div>
@@ -173,6 +218,51 @@ export default function PCOSPage() {
               <div key={i} className="bg-white rounded-2xl p-6">
                 <h3 className="font-semibold text-base mb-2" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>{c.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: '#5A7870' }}>{c.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="py-20 px-5 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
+            <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>What Patients Say</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              { name: 'Sandra Gerard', condition: 'PCOD Treatment', img: 'https://lh3.googleusercontent.com/a-/ALV-UjWPvR1UHnpPQDFkcQ9EQcHv0n3rPBE_P4kILflUfE2F4cP85vvd=s120-c-rp-mo-br100', review: 'Visited Dr. Anjani regarding PCOD and the doctor was very helpful in explaining every minute detail and helped me regulating my periods. I felt completely understood and supported throughout — would absolutely recommend to anyone dealing with hormonal issues.' },
+              { name: 'Verified Patient', condition: 'PCOD/PCOS Treatment', img: null, source: 'practo', review: 'Consulted Dr. Anjani — very gentle and soft spoken, cleared all my doubts. The staff were equally helpful. What I really appreciated was that she advised only the necessary blood tests and scans — no unnecessary investigations. I had a really good experience. Highly recommended.' },
+              { name: 'AB Way', condition: 'Gynaecological Care', img: '/reviewers/ab-way.jpg', review: 'Dr. Anjani Dixit is truly an outstanding gynaecologist, with a warm and caring demeanour that immediately puts you at ease. Her expertise is evident in the way she listens attentively to your concerns, answers questions clearly, and provides personalised care. Her dedication to her patients\' well-being is genuinely inspiring.' },
+            ].map((t, i) => (
+              <div key={i} className="bg-white rounded-2xl p-6" style={{ border: '1px solid #E3EDE9' }}>
+                <div className="flex items-center gap-3 mb-4">
+                  {t.img ? (
+                    <>
+                      <img src={t.img} alt={t.name} referrerPolicy="no-referrer"
+                        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                        onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'flex' }} />
+                      <div className="w-10 h-10 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
+                        style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
+                    </>
+                  ) : (
+                    <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-semibold"
+                      style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="font-semibold text-sm truncate" style={{ color: '#1A2E28' }}>{t.name}</div>
+                    <div className="text-xs truncate" style={{ color: '#7A9C90' }}>{t.condition}</div>
+                  </div>
+                  {t.source === 'practo' ? (
+                    <span className="flex-shrink-0 font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: '#5B2D8E', color: 'white', fontSize: '10px' }}>Practo</span>
+                  ) : (
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-4 h-4 flex-shrink-0" />
+                  )}
+                </div>
+                <div className="flex gap-0.5 mb-3">{[...Array(5)].map((_, j) => <IconStar key={j} />)}</div>
+                <p className="text-sm leading-relaxed" style={{ color: '#4A6860' }}>"{t.review}"</p>
               </div>
             ))}
           </div>

@@ -1,13 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const CFG = {
   phone: '7411722580',
   phoneDisplay: '+91 74117 22580',
   whatsapp: '917411722580',
   booking: 'https://meet-my-doctor.firebaseapp.com/#/?uid=47150&eid=38605',
-  maps: 'https://maps.google.com/maps/place//data=!4m2!3m1!1s0x3bae176f18b50aff:0xe91df7456f7f6c4b',
+  maps: 'https://maps.app.goo.gl/8MKPqCCGujp34cXe7',
+  practo: 'https://www.practo.com/bangalore/doctor/anjani-dixit-gynecologist-obstetrician',
   clinic: 'Kasper Multi-Speciality Clinic',
   address: '31, 80 Feet Rd, Indiranagar, Bengaluru 560038',
 }
@@ -15,8 +16,8 @@ const CFG = {
 const track = (e) => window.gtag?.('event', e)
 
 const IMG = {
-  logo: 'https://www.anjanidixit.com/image.webp',
-  hero: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg',
+  logo: '/Photos/Anjani%20website/Anjani%20Prityn%20DP.png',
+  hero: '/IMG-20251024-WA0023.jpg',
 }
 
 const IconStar = () => (
@@ -47,13 +48,31 @@ const FAQS = [
   { q: 'What is laparoscopic surgery and how is it different from open surgery?', a: 'Laparoscopic (keyhole) surgery uses small incisions of 5–10 mm through which a camera and instruments are inserted. Unlike open surgery, there is no large abdominal cut — meaning less pain, significantly faster recovery, minimal scarring, and lower risk of infection. Most patients go home within 24 hours.' },
   { q: 'What conditions can be treated laparoscopically?', a: 'Dr. Anjani performs laparoscopic treatment for uterine fibroids (myomectomy), endometriosis (including deeply infiltrating disease), ovarian cysts, hysterectomy (uterus removal), diagnostic laparoscopy, and adhesiolysis. Most gynaecological conditions that previously required open surgery can now be done laparoscopically.' },
   { q: 'How long is recovery after laparoscopic surgery?', a: 'Most patients resume light activity within 3–5 days and return to normal work within 1–2 weeks. This compares to 4–6 weeks for open surgery. Dr. Anjani provides detailed post-operative instructions and remains available for follow-up throughout your recovery.' },
-  { q: 'Is laparoscopic surgery safe? What are the risks?', a: 'Laparoscopic surgery is well-established and safe. With over 1000 procedures performed, Dr. Anjani has extensive experience managing all stages of complexity. As with any surgery, minor risks exist (anaesthetic reactions, minor bleeding) but serious complications are rare and significantly lower than with open procedures.' },
+  { q: 'Is laparoscopic surgery safe? What are the risks?', a: 'Laparoscopic surgery is well-established and safe. With over 300 laparoscopic procedures performed, Dr. Anjani has extensive experience managing all stages of complexity. As with any surgery, minor risks exist (anaesthetic reactions, minor bleeding) but serious complications are rare and significantly lower than with open procedures.' },
   { q: 'Will laparoscopic surgery affect my fertility?', a: 'For most conditions — including fibroid removal and endometriosis excision — laparoscopic surgery is performed with fertility preservation as a key goal. Dr. Anjani discusses your fertility plans in detail before recommending any procedure and tailors the surgical approach accordingly.' },
   { q: 'How do I know if I need laparoscopic surgery vs. medication?', a: 'Not all conditions require surgery. During your consultation, Dr. Anjani will review your symptoms, imaging, and history to recommend the most appropriate treatment — which may be medical management, surgery, or a combination. Surgery is only recommended when it offers a clear benefit over non-surgical options.' },
 ]
 
+const NAV_LINKS = [
+  ['Home', '/'],
+  ['IVF & Fertility', '/ivf-infertility'],
+  ['Pregnancy Care', '/pregnancy'],
+  ['PCOS Treatment', '/pcos'],
+  ['Cosmetic Gynaecology', '/cosmetic-gynecology'],
+]
+
 export default function LaparoscopicSurgeryPage() {
   const [openFaq, setOpenFaq] = useState(null)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onClick = (e) => { if (!e.target.closest('header')) setMenuOpen(false) }
+    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false) }
+    document.addEventListener('click', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => { document.removeEventListener('click', onClick); document.removeEventListener('keydown', onKey) }
+  }, [menuOpen])
 
   return (
     <div style={{ backgroundColor: '#FAFAF8', color: '#1A2E28' }}>
@@ -73,18 +92,44 @@ export default function LaparoscopicSurgeryPage() {
               <IconPhone /> {CFG.phoneDisplay}
             </a>
             <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
-              className="px-5 py-2 rounded-full text-sm font-semibold text-white"
+              className="hidden lg:inline-block px-5 py-2 rounded-full text-sm font-semibold text-white"
+              style={{ backgroundColor: '#2C5249' }}>
+              Book Consultation
+            </a>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden p-2"
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+            >
+              <div className="w-5 flex flex-col gap-1.5">
+                <span className="block h-px w-full transition-all origin-center" style={{ backgroundColor: '#1A2E28', transform: menuOpen ? 'rotate(45deg) translateY(5px)' : 'none' }} />
+                <span className="block h-px transition-all" style={{ backgroundColor: '#1A2E28', width: menuOpen ? 0 : '100%' }} />
+                <span className="block h-px w-full transition-all origin-center" style={{ backgroundColor: '#1A2E28', transform: menuOpen ? 'rotate(-45deg) translateY(-5px)' : 'none' }} />
+              </div>
+            </button>
+          </div>
+        </nav>
+
+        {menuOpen && (
+          <div className="lg:hidden px-5 pb-5 space-y-3" style={{ borderTop: '1px solid #E3EDE9', paddingTop: '1rem' }}>
+            {NAV_LINKS.map(([label, href]) => (
+              <a key={href} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
+            ))}
+            <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
+              onClick={() => { track('ads_conversion_Contact_Us_1'); setMenuOpen(false) }}
+              className="block w-full text-center text-white py-3 rounded-full text-sm font-semibold mt-3"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
             </a>
           </div>
-        </nav>
+        )}
       </header>
 
       {/* HERO */}
       <section style={{ background: 'linear-gradient(135deg, #f5f0e8 0%, #fafaf8 55%, #eef4f1 100%)' }}>
-        <div className="max-w-6xl mx-auto px-5 py-16 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+        <div className="max-w-6xl mx-auto px-5 py-12 lg:py-24 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="order-2 lg:order-1">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-6"
               style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>
               Laparoscopic Surgeon · Indiranagar · Bangalore
@@ -98,9 +143,9 @@ export default function LaparoscopicSurgeryPage() {
               Minimally invasive keyhole surgery for fibroids, endometriosis, ovarian cysts, and hysterectomy — with faster recovery, minimal scarring, and expert precision.
             </p>
             <p className="text-sm font-medium mb-8" style={{ color: '#7A9C90' }}>
-              1000+ procedures · Fellowship in Minimal Access Surgery · 12+ years experience
+              300+ laparoscopic procedures · Fellowship in Minimal Access Surgery · 14+ years experience
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <div className="hidden lg:flex gap-3 mb-8">
               <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
                 className="px-8 py-4 rounded-full font-semibold text-white text-center hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: '#2C5249' }}>
@@ -113,17 +158,16 @@ export default function LaparoscopicSurgeryPage() {
                 <IconWhatsApp /> WhatsApp Us
               </a>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex gap-0.5">            {[
-              { name: 'Harshit Kakkar', condition: 'Laparoscopic Hysterectomy', img: '/reviewers/harshit-kakkar.jpg', review: 'We consulted Dr. Anjani for my mother\'s laparoscopic hysterectomy and had a great experience. She is very knowledgeable, explains everything clearly, and makes you feel comfortable and confident throughout. The surgery and recovery both went smoothly. What stands out is her calm, reassuring approach and genuine care.' },
-              { name: 'Sai Tharun', condition: 'Laparoscopic Surgery', img: 'https://lh3.googleusercontent.com/a/ACg8ocJQn1TlJrxRNDiHJGeklIeY6SODpfd0bNVvApAlcWRe2Ci6xpc4=s120-c-rp-mo-ba2-br100', review: 'I had a laparoscopic surgery recently, and I am extremely grateful for the care and expertise provided. From the very first consultation, the doctor explained everything clearly and made me feel confident about the procedure. The surgery went smoothly, and the minimally invasive approach really helped in faster recovery with less pain. The doctor and the team were very supportive throughout, including post-surgery follow-ups.' },
-              { name: 'Hanamanth Boralkar', condition: 'Laparoscopic Surgery', img: '/reviewers/hanamanth-boralkar.jpg', review: 'Best gynae laparoscopy doctor in Bangalore. Best gynaecologist in Bangalore Indiranagar — had very successful treatment. Highly recommended for anyone needing laparoscopic gynaecological care.' },
-            ].map((_, i) => <IconStar key={i} />)}</div>
-              <span className="text-sm font-semibold" style={{ color: '#1A2E28' }}>5.0 on Google</span>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>· 347 reviews</span>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
+              <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>· 354 reviews</span>
+              <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
+              <a href={CFG.practo} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#5B2D8E' }}>99% on Practo</a>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>(278 patients)</span>
             </div>
           </div>
-          <div className="rounded-3xl overflow-hidden shadow-2xl" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
+          <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
             <img src={IMG.hero} alt="Dr. Anjani Dixit – Laparoscopic Surgeon Bangalore"
               className="w-full h-full object-cover object-top" />
           </div>
@@ -132,15 +176,20 @@ export default function LaparoscopicSurgeryPage() {
 
       {/* STATS */}
       <section className="py-12 bg-white">
-        <div className="max-w-4xl mx-auto px-5 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div className="max-w-5xl mx-auto px-5 grid grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6 text-center">
           {[
-            { value: '1000+', label: 'Laparoscopic Procedures' },
-            { value: '12+', label: 'Years Experience' },
+            { value: '300+', label: 'Laparoscopic Procedures' },
+            { value: '14+', label: 'Years Experience' },
             { value: '1–2 wks', label: 'Average Recovery' },
-            { value: '5.0 ★', label: 'Google Rating' },
+            { value: '5.0 ★', label: 'Google Rating', href: CFG.maps },
+            { value: '99%', label: 'Practo Rating · 278 patients', href: CFG.practo },
           ].map((s, i) => (
             <div key={i}>
-              <div className="text-3xl font-bold mb-1" style={{ fontFamily: 'Playfair Display, serif', color: '#2C5249' }}>{s.value}</div>
+              {s.href ? (
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="text-3xl font-bold mb-1 hover:underline block" style={{ fontFamily: 'Playfair Display, serif', color: '#2C5249' }}>{s.value}</a>
+              ) : (
+                <div className="text-3xl font-bold mb-1" style={{ fontFamily: 'Playfair Display, serif', color: '#2C5249' }}>{s.value}</div>
+              )}
               <div className="text-xs" style={{ color: '#7A9C90' }}>{s.label}</div>
             </div>
           ))}
@@ -210,7 +259,7 @@ export default function LaparoscopicSurgeryPage() {
               Fellowship-Trained in Minimal Access Surgery
             </h3>
             <p className="text-sm leading-relaxed mb-4" style={{ color: '#4A6860' }}>
-              Dr. Anjani Dixit holds a Fellowship in Minimal Access Surgery (FMAS) and has performed over 1000 laparoscopic gynaecological procedures across 12+ years. She trained at leading institutions including IPGME&R Kolkata and Holy Family Hospital, New Delhi.
+              Dr. Anjani Dixit holds a Fellowship in Minimal Access Surgery (FMAS) and has performed over 300 laparoscopic gynaecological procedures across 14+ years. She trained at leading institutions including IPGME&R Kolkata and Holy Family Hospital, New Delhi.
             </p>
             <p className="text-sm leading-relaxed mb-6" style={{ color: '#4A6860' }}>
               She is a life member of FOGSI, AMASI, and ASI — and approaches every procedure with both technical precision and deep care for the person on the table.
@@ -237,19 +286,31 @@ export default function LaparoscopicSurgeryPage() {
             {[
               { name: 'Harshit Kakkar', condition: 'Laparoscopic Hysterectomy', img: '/reviewers/harshit-kakkar.jpg', review: 'We consulted Dr. Anjani for my mother\'s laparoscopic hysterectomy and had a great experience. She is very knowledgeable, explains everything clearly, and makes you feel comfortable and confident throughout. The surgery and recovery both went smoothly.' },
               { name: 'Rupa Ganamaneni', condition: 'Laparoscopic Surgery', img: 'https://lh3.googleusercontent.com/a/ACg8ocJ_p7iQhbSEjIwoDfSOYf7LDU4N2DDn_A4Y_LUl=s120-c-rp-mo-br100', review: 'One of the best gyno surgeons I have met. She addressed all my concerns and doubts. She did laparoscopy surgery for my mom — all went fine without any issues. She gave all the tips, diet plan, and suggestions for post-surgery care.' },
-              { name: 'Sai Tharun', condition: 'Laparoscopic Surgery', img: 'https://lh3.googleusercontent.com/a/ACg8ocJQn1TlJrxRNDiHJGeklIeY6SODpfd0bNVvApAl=s120-c-rp-mo-br100', review: 'I had a laparoscopic surgery recently and I am extremely grateful for the care and expertise provided. From the very first consultation, the doctor explained everything clearly, addressed all my concerns, and made me feel comfortable and confident.' },
+              { name: 'Brijesh', condition: 'Fibroid Removal & IVF', img: null, source: 'practo', review: 'We came to Dr. Anjani for difficulty in conceiving — it turned out to be a uterine fibroid and low egg reserve. She planned the fibroid removal via keyhole surgery, then guided us through IVF. We had a successful delivery of a baby girl. In the whole journey she was really supportive and explained everything in detail at every step. Really grateful for the entire experience.' },
             ].map((t, i) => (
               <div key={i} className="bg-white rounded-2xl p-6" style={{ border: '1px solid #E3EDE9' }}>
                 <div className="flex items-center gap-3 mb-4">
-                  <img src={t.img} alt={t.name} referrerPolicy="no-referrer"
-                    className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-                    onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'flex' }} />
-                  <div className="w-10 h-10 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
-                    style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
-                  <div>
-                    <div className="font-semibold text-sm" style={{ color: '#1A2E28' }}>{t.name}</div>
-                    <div className="text-xs" style={{ color: '#7A9C90' }}>{t.condition}</div>
+                  {t.img ? (
+                    <>
+                      <img src={t.img} alt={t.name} referrerPolicy="no-referrer"
+                        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                        onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'flex' }} />
+                      <div className="w-10 h-10 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
+                        style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
+                    </>
+                  ) : (
+                    <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-semibold"
+                      style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="font-semibold text-sm truncate" style={{ color: '#1A2E28' }}>{t.name}</div>
+                    <div className="text-xs truncate" style={{ color: '#7A9C90' }}>{t.condition}</div>
                   </div>
+                  {t.source === 'practo' ? (
+                    <span className="flex-shrink-0 font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: '#5B2D8E', color: 'white', fontSize: '10px' }}>Practo</span>
+                  ) : (
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-4 h-4 flex-shrink-0" />
+                  )}
                 </div>
                 <div className="flex gap-0.5 mb-3">{[...Array(5)].map((_, j) => <IconStar key={j} />)}</div>
                 <p className="text-sm leading-relaxed" style={{ color: '#4A6860' }}>"{t.review}"</p>

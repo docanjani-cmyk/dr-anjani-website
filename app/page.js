@@ -15,16 +15,16 @@ const CFG = {
   youtube: 'https://www.youtube.com/@dr.anjanidixitsengar7299',
   practo: 'https://www.practo.com/Bangalore/doctor/anjani-dixit-gynecologist-obstetrician',
   booking: 'https://meet-my-doctor.firebaseapp.com/#/?uid=47150&eid=38605',
-  maps: 'https://maps.google.com/maps/place//data=!4m2!3m1!1s0x3bae176f18b50aff:0xe91df7456f7f6c4b',
+  maps: 'https://maps.app.goo.gl/8MKPqCCGujp34cXe7',
   clinic: 'Kasper Multi-Speciality Clinic',
   address: '31, 80 Feet Rd, Indiranagar, Bengaluru 560038',
   license: 'DLH 2013 0000613KTK',
 }
 
 const IMG = {
-  logo: 'https://www.anjanidixit.com/image.webp',
-  hero: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg',
-  about: 'https://www.anjanidixit.com/WhatsApp%20Image%202025-10-24%20at%2009.22.25_52f468ef.jpg',
+  logo: '/Photos/Anjani%20website/Anjani%20Prityn%20DP.png',
+  hero: '/IMG-20251024-WA0023.jpg',
+  about: '/Photos/Anjani%20website/Anjani%20with%20baby.jpg',
 }
 
 const TESTIMONIALS = [
@@ -34,17 +34,26 @@ const TESTIMONIALS = [
   { name: 'Rupa Ganamaneni', condition: 'Laparoscopic Surgery', date: 'April 2026', img: 'https://lh3.googleusercontent.com/a/ACg8ocJ_p7iQhbSEjIwoDfSOYf7LDU4N2DDn_A4Y_LUl=s120-c-rp-mo-br100', review: 'One of the best gyno surgeons I have met. She addressed all my concerns and doubts. She did laparoscopy surgery for my mom — all went fine without any issues. She gave all the tips, diet plan, and suggestions for post-surgery care.' },
   { name: 'Sai Tharun', condition: 'Laparoscopic Surgery', date: 'April 2026', img: 'https://lh3.googleusercontent.com/a/ACg8ocJQn1TlJrxRNDiHJGeklIeY6SODpfd0bNVvApAl=s120-c-rp-mo-br100', review: 'I had a laparoscopic surgery recently and I am extremely grateful for the care and expertise provided. From the very first consultation, the doctor explained everything clearly, addressed all my concerns, and made me feel comfortable and confident.' },
   { name: 'Riya Jati', condition: 'Endometriosis & Fibroids', date: 'February 2026', img: 'https://lh3.googleusercontent.com/a/ACg8ocLTyhWPsfGLFr5GFNcONZ4lkvTb5AC5H-0aeV4z=s120-c-rp-mo-br100', review: 'Suffering from lower back pain due to endometriosis cyst and multiple fibroids, I am extremely thankful — Madam demonstrated everything very politely. She has very polished surgical hands and exceptional expertise in minimally invasive procedures.' },
+  { name: 'Rishu Kumari', condition: 'Pregnancy Care', date: 'May 2026', img: null, source: 'practo', review: 'Finding Dr. Anjani was the best decision I made during my pregnancy! She is not just a brilliant gynecologist but a doctor with a golden heart. Her calm demeanor and ability to explain even complex things simply is remarkable. She made every appointment feel reassuring and never once made me feel rushed. I always left her clinic smiling and stress-free.' },
+  { name: 'Pradeep Shrivastava', condition: 'Laparoscopic Hysterectomy', date: 'March 2026', img: null, source: 'practo', review: 'Dr. Anjani Dixit is a very professional and experienced doctor. She understands the patient very well before starting treatment. Excellent in nature, listens very carefully, and gave correct advice throughout. Available when in need and very patient with us.' },
+  { name: 'Smart Teja Brothers', condition: 'Laparoscopic Surgery', date: 'April 2026', img: null, source: 'practo', review: 'Had a great experience with the doctor. Successfully had laparoscopic removal of uterus — very kind, caring, truly listens and understands. She explained everything and cared for us well throughout the entire process. Highly recommended.' },
 ]
 
 const FAQS = [
   { q: 'What conditions do you specialise in?', a: 'Dr. Anjani specialises in advanced laparoscopic surgery (fibroids, endometriosis, ovarian cysts, hysterectomy), IVF and fertility treatment, high-risk obstetrics, PCOS management, and gynecosmetic procedures. She offers comprehensive care across all aspects of women\'s reproductive and gynaecological health.' },
   { q: 'How do I book a consultation?', a: 'You can book through our online Zoho appointment form, through Practo, by calling directly, or by messaging on WhatsApp. Dr. Anjani consults at Kasper Multi-Speciality Clinic, Indiranagar, Bangalore. Video consultations are available for initial evaluations and international patients.' },
+  { q: 'What are the consultation charges?', a: 'The consultation fee is ₹1000, and it stays valid for a full seven days from your visit. This means that if you return within the week — to discuss test results, clarify a prescription, or ask anything that came up after your appointment — no additional fee is charged. The idea is straightforward: once you have consulted, the cost should never be a barrier to coming back with questions.' },
   { q: 'Do you treat international or NRI patients?', a: 'Yes. Dr. Anjani regularly consults with patients from outside India, including NRIs and international patients seeking advanced laparoscopic surgery or IVF treatment in Bangalore. Video consultations for initial assessment can be arranged easily.' },
-  { q: 'What is the recovery like after laparoscopic surgery?', a: 'Laparoscopic (keyhole) surgery is minimally invasive — most patients return home the same day or the next, with a recovery period of 1–2 weeks for most procedures. Dr. Anjani has performed over 1000 such procedures and provides detailed post-operative guidance and monitoring.' },
+  { q: 'What is the recovery like after laparoscopic surgery?', a: 'Laparoscopic (keyhole) surgery is minimally invasive — most patients return home the same day or the next, with a recovery period of 1–2 weeks for most procedures. Dr. Anjani has performed over 300 such procedures and provides detailed post-operative guidance and monitoring.' },
   { q: 'What are the success rates for IVF?', a: 'IVF success depends on individual factors including age, diagnosis, ovarian reserve, and overall health. Dr. Anjani provides a thorough personal evaluation and honest, evidence-based guidance on your prognosis and the best treatment pathway for your specific situation.' },
   { q: 'Do you manage high-risk pregnancies?', a: 'Yes. Dr. Anjani has extensive experience managing high-risk pregnancies including those complicated by PCOS, thyroid disorders, fibroids, prior surgical history, advanced maternal age, and other conditions. She provides close, personalised antenatal monitoring.' },
   { q: 'What makes Dr. Anjani\'s approach different?', a: 'Dr. Anjani combines advanced surgical precision with deep emotional attentiveness. She takes time to truly understand your situation — medical, emotional, and personal. Patients consistently describe feeling seen, heard, and genuinely cared for, not processed through a system. She approaches women\'s health holistically, including emotional and psychological wellbeing.' },
 ]
+
+const GALLERY = [1,2,3,4,5,6,7,8,10,11,12,13,14].map(i => ({
+  src: `/Gallery/About us ${i}.jpg`,
+  alt: `Dr. Anjani Dixit with patient — moment of joy ${i}`,
+}))
 
 // SVG Icons
 const IconScalpel = () => (
@@ -103,6 +112,16 @@ const IconYouTube = () => (
     <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
   </svg>
 )
+const IconGoogle = () => (
+  <svg className="w-4 h-4" viewBox="0 0 488 512" fill="currentColor">
+    <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
+  </svg>
+)
+const IconPracto = () => (
+  <svg className="w-4 h-4" viewBox="0 0 384 512" fill="currentColor">
+    <path d="M0 32h160c79.5 0 144 64.5 144 144s-64.5 144-144 144H64v160H0V32zm64 232h96c44.2 0 80-35.8 80-80s-35.8-80-80-80H64v160z" />
+  </svg>
+)
 const IconStar = () => (
   <svg className="w-4 h-4" fill="#F59E0B" viewBox="0 0 20 20">
     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -110,8 +129,8 @@ const IconStar = () => (
 )
 
 const MARQUEE_ITEMS = [
-  '12+ Years Experience', 'FOGSI Life Member', 'AMASI Life Member', 'AOGD Member',
-  'ASI Member', '5.0 Google Rating', '1000+ Procedures', 'Fellowship in MAS',
+  '14+ Years Experience', 'FOGSI Life Member', 'AMASI Life Member', 'AOGD Member',
+  'ASI Member', '5.0 Google Rating', '1500+ Procedures', 'Fellowship in MAS',
   'DNB — Obstetrics & Gynaecology', 'IVF & Fertility Expert', 'Laparoscopic Surgeon', 'Indiranagar, Bangalore',
 ]
 
@@ -119,6 +138,13 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
+  const [isBookingOpen, setIsBookingOpen] = useState(false)
+  const [lightbox, setLightbox] = useState(null)
+
+  const openBooking = (eventName = 'ads_conversion_Contact_Us_1') => {
+    track(eventName)
+    setIsBookingOpen(true)
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -130,8 +156,18 @@ export default function Home() {
     const onScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', onScroll, { passive: true })
 
-    return () => { observer.disconnect(); window.removeEventListener('scroll', onScroll) }
+    const onKey = (e) => { if (e.key === 'Escape') { setIsBookingOpen(false); setLightbox(null); setMenuOpen(false) } }
+    window.addEventListener('keydown', onKey)
+
+    return () => { observer.disconnect(); window.removeEventListener('scroll', onScroll); window.removeEventListener('keydown', onKey) }
   }, [])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onClickOutside = (e) => { if (!e.target.closest('header')) setMenuOpen(false) }
+    document.addEventListener('click', onClickOutside)
+    return () => document.removeEventListener('click', onClickOutside)
+  }, [menuOpen])
 
   return (
     <div style={{ backgroundColor: '#FAFAF8', color: '#1A2E28' }}>
@@ -165,14 +201,13 @@ export default function Home() {
             >
               <IconWhatsApp size="w-4 h-4" /> WhatsApp
             </a>
-            <a
-              href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')}
-              target="_blank" rel="noopener noreferrer"
+            <button
+              onClick={() => openBooking()}
               className="px-5 py-2 rounded-full text-sm font-semibold text-white transition-all hover:opacity-90 hover:shadow-lg"
               style={{ backgroundColor: '#2C5249' }}
             >
               Book Consultation
-            </a>
+            </button>
           </div>
 
           <button
@@ -193,18 +228,18 @@ export default function Home() {
             {[['About', '#about'], ['Services', '#services'], ['Testimonials', '#testimonials'], ['FAQ', '#faq'], ['Contact', '#contact']].map(([label, href]) => (
               <a key={label} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
             ))}
-            <a href={CFG.booking} onClick={() => { track('ads_conversion_Contact_Us_1'); setMenuOpen(false); }} target="_blank" rel="noopener noreferrer"
+            <button onClick={() => { openBooking(); setMenuOpen(false); }}
               className="block w-full text-center text-white py-3 rounded-full text-sm font-semibold"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
-            </a>
+            </button>
           </div>
         )}
       </header>
 
       {/* ── HERO ── */}
       <section id="home" style={{ background: 'linear-gradient(135deg, #f5f0e8 0%, #fafaf8 55%, #eef4f1 100%)' }}>
-        <div className="max-w-7xl mx-auto px-5 lg:px-8 py-20 lg:py-28">
+        <div className="max-w-7xl mx-auto px-5 lg:px-8 pt-5 pb-20 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div>
               <div
@@ -224,18 +259,17 @@ export default function Home() {
                 Precision laparoscopic surgery and transformative fertility care — delivered by a doctor who truly sees you.
               </p>
               <p className="text-sm font-medium mb-8" style={{ color: '#7A9C90' }}>
-                Dr. Anjani Dixit · MBBS · DNB (OBG) · FMAS · 12+ Years Experience
+                Dr. Anjani Dixit · MBBS · DNB (OBG) · FMAS · 14+ Years Experience
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 mb-10">
-                <a
-                  href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')}
-                  target="_blank" rel="noopener noreferrer"
+              <div className="hidden lg:flex gap-3 mb-10">
+                <button
+                  onClick={() => openBooking()}
                   className="px-8 py-4 rounded-full font-semibold text-white text-center transition-all hover:shadow-xl hover:-translate-y-0.5 duration-200"
                   style={{ backgroundColor: '#2C5249' }}
                 >
                   Book a Consultation
-                </a>
+                </button>
                 <a
                   onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
                   target="_blank" rel="noopener noreferrer"
@@ -246,10 +280,13 @@ export default function Home() {
                 </a>
               </div>
 
-              <div className="flex items-center gap-3 pt-5" style={{ borderTop: '1px solid #D5E5DF' }}>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-5" style={{ borderTop: '1px solid #D5E5DF' }}>
                 <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
-                <span className="text-sm font-semibold" style={{ color: '#1A2E28' }}>5.0 on Google</span>
-                <span className="text-sm" style={{ color: '#7A9C90' }}>· 347 verified reviews</span>
+                <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
+                <span className="text-sm" style={{ color: '#7A9C90' }}>· 354 reviews</span>
+                <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
+                <a href={CFG.practo} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#5B2D8E' }}>99% on Practo</a>
+                <span className="text-sm" style={{ color: '#7A9C90' }}>(278 patients)</span>
               </div>
             </div>
 
@@ -263,14 +300,14 @@ export default function Home() {
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,46,40,0.18) 0%, transparent 50%)' }} />
               </div>
               <div
-                className="absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-xl p-4"
+                className="absolute -bottom-3 -left-3 lg:-bottom-5 lg:-left-5 bg-white rounded-2xl shadow-xl p-3 lg:p-4"
                 style={{ border: '1px solid #E3EDE9' }}
               >
-                <div className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#2C5249' }}>1000+</div>
-                <div className="text-xs font-medium mt-0.5" style={{ color: '#5A7870' }}>Successful procedures</div>
+                <div className="text-xl lg:text-2xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#2C5249' }}>1500+</div>
+                <div className="text-[10px] lg:text-xs font-medium mt-0.5" style={{ color: '#5A7870' }}>Successful procedures</div>
               </div>
               <div
-                className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-xl p-4 text-right"
+                className="absolute -top-2 -right-2 lg:-top-4 lg:-right-4 bg-white rounded-2xl shadow-xl p-3 lg:p-4 text-right"
                 style={{ border: '1px solid #E3EDE9' }}
               >
                 <div className="text-xs font-semibold mb-1" style={{ color: '#7A9C90' }}>Member</div>
@@ -301,13 +338,17 @@ export default function Home() {
       <section className="py-16 px-5 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           {[
-            { value: '12+', label: 'Years of Experience' },
-            { value: '1000+', label: 'Procedures Performed' },
-            { value: '5.0 ★', label: 'Google Rating' },
-            { value: '347', label: 'Verified Reviews' },
+            { value: '14+', label: 'Years of Experience' },
+            { value: '1500+', label: 'Procedures Performed' },
+            { value: '5.0 ★', label: 'Google Rating', href: CFG.maps },
+            { value: '99%', label: 'Practo Rating · 278 patients', href: CFG.practo },
           ].map((s, i) => (
             <div key={i} className="reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
-              <div className="text-3xl lg:text-4xl font-bold mb-1.5" style={{ fontFamily: 'Playfair Display, serif', color: '#2C5249' }}>{s.value}</div>
+              {s.href ? (
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="text-3xl lg:text-4xl font-bold mb-1.5 hover:underline block" style={{ fontFamily: 'Playfair Display, serif', color: '#2C5249' }}>{s.value}</a>
+              ) : (
+                <div className="text-3xl lg:text-4xl font-bold mb-1.5" style={{ fontFamily: 'Playfair Display, serif', color: '#2C5249' }}>{s.value}</div>
+              )}
               <div className="text-sm" style={{ color: '#7A9C90' }}>{s.label}</div>
             </div>
           ))}
@@ -332,7 +373,7 @@ export default function Home() {
               {
                 icon: <IconScalpel />,
                 title: 'Surgical Excellence',
-                body: 'Fellowship-trained in Minimal Access Surgery, Dr. Anjani performs complex laparoscopic procedures with precision and care — from hysterectomies to advanced endometriosis excision. Over 1000 successful procedures across 12+ years.',
+                body: 'Fellowship-trained in Minimal Access Surgery, Dr. Anjani performs complex laparoscopic procedures with precision and care — from hysterectomies to advanced endometriosis excision. Over 1500 successful procedures across 14+ years.',
               },
               {
                 icon: <IconHeart />,
@@ -365,7 +406,7 @@ export default function Home() {
               <img src={IMG.about} alt="Dr. Anjani Dixit in consultation" className="w-full h-full object-cover" />
             </div>
             <blockquote
-              className="absolute bottom-6 left-6 right-6 rounded-2xl p-5"
+              className="lg:absolute lg:bottom-6 lg:left-6 lg:right-6 mt-4 lg:mt-0 rounded-2xl p-5"
               style={{ backgroundColor: 'rgba(250,250,248,0.96)', backdropFilter: 'blur(10px)', boxShadow: '0 8px 32px rgba(44,82,73,0.12)' }}
             >
               <p className="text-sm font-medium italic leading-relaxed" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
@@ -382,7 +423,7 @@ export default function Home() {
               <em className="font-normal not-italic" style={{ color: '#2C5249' }}>A Doctor Who Cares.</em>
             </h2>
             <p className="text-base leading-relaxed mb-4" style={{ color: '#4A6860' }}>
-              Dr. Anjani Dixit brings over 12 years of expertise as a laparoscopic gynecologic surgeon, IVF specialist, and obstetrician. Trained at IPGME&amp;R and SSKM Hospital, Kolkata, and Holy Family Hospital, New Delhi, she has dedicated her career to advancing women's reproductive health with both technical excellence and genuine compassion.
+              Dr. Anjani Dixit brings over 14 years of expertise as a laparoscopic gynecologic surgeon, IVF specialist, and obstetrician. Trained at IPGME&amp;R and SSKM Hospital, Kolkata, and Holy Family Hospital, New Delhi, she has dedicated her career to advancing women's reproductive health with both technical excellence and genuine compassion.
             </p>
             <p className="text-base leading-relaxed mb-8" style={{ color: '#4A6860' }}>
               A Fellowship in Minimal Access Surgery and a Reproductive Medicine certification from the Indian College of Obstetrics and Gynaecology underpin her surgical expertise. As a mother of two daughters who practises meditation and values emotional healing, she brings a profoundly personal understanding to every consultation.
@@ -390,27 +431,75 @@ export default function Home() {
 
             <div className="grid grid-cols-2 gap-3 mb-8">
               {[
-                { label: 'Qualification', value: 'MBBS · DNB · FMAS' },
-                { label: 'Languages', value: 'English · Hindi · Kannada · Bengali' },
-                { label: 'Memberships', value: 'FOGSI · AMASI · AOGD · ASI' },
-                { label: 'Registration', value: CFG.license },
+                { label: 'Medical Degree', value: 'MBBS', detail: 'IPGME&R and SSKM Hospital, Kolkata' },
+                { label: 'Postgraduate', value: 'DNB — Obstetrics & Gynaecology', detail: 'Holy Family Hospital, New Delhi' },
+                { label: 'Fellowship', value: 'FMAS — Minimal Access Surgery', detail: 'Laparoscopic surgery training' },
+                { label: 'Fertility Cert.', value: 'Reproductive Medicine', detail: 'ICOG Certified' },
+                { label: 'Memberships', value: 'FOGSI · AMASI · AOGD · ASI', detail: 'Life member, all active' },
+                { label: 'Registration', value: CFG.license, detail: 'Karnataka Medical Council' },
               ].map((item, i) => (
                 <div key={i} className="p-4 rounded-2xl" style={{ backgroundColor: '#F5F0E8' }}>
-                  <div className="text-xs font-semibold mb-1" style={{ color: '#7A9C90' }}>{item.label}</div>
-                  <div className="text-sm font-medium" style={{ color: '#1A2E28' }}>{item.value}</div>
+                  <div className="text-xs font-semibold mb-0.5" style={{ color: '#7A9C90' }}>{item.label}</div>
+                  <div className="text-sm font-medium leading-snug" style={{ color: '#1A2E28' }}>{item.value}</div>
+                  <div className="text-xs mt-0.5" style={{ color: '#7A9C90' }}>{item.detail}</div>
                 </div>
               ))}
             </div>
 
-            <a
-              href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')}
-              target="_blank" rel="noopener noreferrer"
+            <button
+              onClick={() => openBooking()}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-white transition-all hover:shadow-lg hover:-translate-y-0.5 duration-200"
               style={{ backgroundColor: '#2C5249' }}
             >
               Book a Consultation <IconArrow />
-            </a>
+            </button>
           </div>
+        </div>
+      </section>
+
+      {/* ── GALLERY ── */}
+      <section className="py-24 px-5 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 reveal">
+            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Moments of Joy</p>
+            <h2 className="text-3xl lg:text-5xl font-bold mb-3" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
+              With Our Patients
+            </h2>
+            <p className="text-sm max-w-md mx-auto" style={{ color: '#7A9C90' }}>
+              Every new life is a miracle. These are some of the precious moments Dr. Anjani has been privileged to be part of.
+            </p>
+          </div>
+          <div style={{ columnCount: 'var(--cols)', columnGap: '1rem', '--cols': 2 }} className="gallery-grid">
+            {GALLERY.map((photo, i) => (
+              <div
+                key={i}
+                className="mb-4 rounded-2xl overflow-hidden cursor-pointer group"
+                style={{ breakInside: 'avoid' }}
+                onClick={() => setLightbox(i)}
+              >
+                <div className="relative overflow-hidden">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ backgroundColor: 'rgba(44,82,73,0.35)' }}
+                  >
+                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <style>{`
+            @media (min-width: 640px) { .gallery-grid { --cols: 3 !important; } }
+            @media (min-width: 1024px) { .gallery-grid { --cols: 4 !important; } }
+          `}</style>
         </div>
       </section>
 
@@ -429,7 +518,7 @@ export default function Home() {
               {
                 title: 'Advanced Laparoscopic Surgery',
                 tag: 'Laparoscopic Surgeon · Bangalore',
-                desc: 'Minimally invasive surgical expertise for fibroids, endometriosis, ovarian cysts, hysterectomy, and complex pelvic pathology. Faster recovery, smaller incisions, and precision results from over 1000 procedures.',
+                desc: 'Minimally invasive surgical expertise for fibroids, endometriosis, ovarian cysts, hysterectomy, and complex pelvic pathology. Faster recovery, smaller incisions, and precision results from over 1500 procedures.',
                 points: ['Laparoscopic Hysterectomy', 'Endometriosis Excision', 'Fibroid Removal (Myomectomy)', 'Ovarian Cyst Surgery', 'Diagnostic Laparoscopy'],
               },
               {
@@ -487,7 +576,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {[
               { title: 'Endometriosis', tag: 'Surgery · Medical', desc: 'Advanced excision and pain management including deeply infiltrating endometriosis — with fertility preservation wherever possible.' },
               { title: 'Uterine Fibroids', tag: 'Surgery · Fertility', desc: 'Laparoscopic myomectomy and hysterectomy for symptomatic fibroids, tailored to your fertility and lifestyle goals.' },
@@ -538,7 +627,7 @@ export default function Home() {
             ].map((s, i) => (
               <div
                 key={i}
-                className={`flex gap-8 items-start py-8 reveal reveal-delay-${(i % 3) + 1}`}
+                className={`flex gap-5 lg:gap-8 items-start py-8 reveal reveal-delay-${(i % 3) + 1}`}
                 style={{ borderBottom: i < 4 ? '1px solid #3D6A5C' : 'none' }}
               >
                 <div className="text-3xl font-bold w-12 flex-shrink-0 text-right" style={{ fontFamily: 'Playfair Display, serif', color: '#4A7A6A' }}>{s.step}</div>
@@ -577,7 +666,7 @@ export default function Home() {
             <h2 className="text-3xl lg:text-5xl font-bold mb-3" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               In Their Own Words
             </h2>
-            <p className="text-sm" style={{ color: '#7A9C90' }}>Verified Google reviews · Last updated May 2026</p>
+            <p className="text-sm" style={{ color: '#7A9C90' }}>Verified Google & Practo reviews · Last updated May 2026</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
@@ -588,27 +677,42 @@ export default function Home() {
                 style={{ backgroundColor: '#FAFAF8', border: '1px solid #E3EDE9' }}
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <img
-                    src={t.img}
-                    alt={t.name}
-                    referrerPolicy="no-referrer"
-                    className="w-11 h-11 rounded-full object-cover flex-shrink-0"
-                    onError={e => {
-                      e.currentTarget.style.display = 'none'
-                      e.currentTarget.nextElementSibling.style.display = 'flex'
-                    }}
-                  />
-                  <div
-                    className="w-11 h-11 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
-                    style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}
-                  >
-                    {t.name.charAt(0)}
-                  </div>
+                  {t.img ? (
+                    <>
+                      <img
+                        src={t.img}
+                        alt={t.name}
+                        referrerPolicy="no-referrer"
+                        className="w-11 h-11 rounded-full object-cover flex-shrink-0"
+                        onError={e => {
+                          e.currentTarget.style.display = 'none'
+                          e.currentTarget.nextElementSibling.style.display = 'flex'
+                        }}
+                      />
+                      <div
+                        className="w-11 h-11 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
+                        style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}
+                      >
+                        {t.name.charAt(0)}
+                      </div>
+                    </>
+                  ) : (
+                    <div
+                      className="w-11 h-11 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-semibold"
+                      style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}
+                    >
+                      {t.name.charAt(0)}
+                    </div>
+                  )}
                   <div className="flex-1 min-w-0">
                     <div className="font-semibold text-sm truncate" style={{ color: '#1A2E28' }}>{t.name}</div>
                     <div className="text-xs truncate" style={{ color: '#7A9C90' }}>{t.condition}</div>
                   </div>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-4 h-4 flex-shrink-0" />
+                  {t.source === 'practo' ? (
+                    <span className="flex-shrink-0 text-xs font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: '#5B2D8E', color: 'white', fontSize: '10px', letterSpacing: '0.02em' }}>Practo</span>
+                  ) : (
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-4 h-4 flex-shrink-0" />
+                  )}
                 </div>
                 <div className="flex items-center gap-2 mb-3">
                   <div className="flex gap-0.5">{[...Array(5)].map((_, j) => <IconStar key={j} />)}</div>
@@ -619,14 +723,22 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="text-center reveal">
+          <div className="text-center reveal flex flex-wrap items-center justify-center gap-3">
             <a
               href={CFG.maps}
               target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm border transition-all hover:shadow-md duration-200"
               style={{ borderColor: '#2C5249', color: '#2C5249' }}
             >
-              View All 347 Google Reviews <IconArrow />
+              View All 354 Google Reviews <IconArrow />
+            </a>
+            <a
+              href={CFG.practo}
+              target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm border transition-all hover:shadow-md duration-200"
+              style={{ borderColor: '#5B2D8E', color: '#5B2D8E' }}
+            >
+              View All 280 Practo Stories <IconArrow />
             </a>
           </div>
         </div>
@@ -687,12 +799,12 @@ export default function Home() {
             <div className="reveal">
               <div className="space-y-5 mb-8">
                 {[
-                  { icon: <IconPin />, label: 'Clinic', content: <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-medium hover:underline" style={{ color: '#1A2E28' }}>{CFG.clinic}<br />{CFG.address}</a> },
-                  { icon: <IconPhone />, label: 'Phone', content: <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.phoneDisplay}</a> },
-                  { icon: <IconMail />, label: 'Email', content: <a href={`mailto:${CFG.email}`} className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.email}</a> },
-                ].map(({ icon, label, content }, i) => (
+                  { icon: <IconPin />, label: 'Clinic', href: CFG.maps, target: '_blank', content: <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-medium hover:underline" style={{ color: '#1A2E28' }}>{CFG.clinic}<br />{CFG.address}</a> },
+                  { icon: <IconPhone />, label: 'Phone', href: `tel:${CFG.phone}`, target: null, content: <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.phoneDisplay}</a> },
+                  { icon: <IconMail />, label: 'Email', href: `mailto:${CFG.email}`, target: null, content: <a href={`mailto:${CFG.email}`} className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.email}</a> },
+                ].map(({ icon, label, href, target, content }, i) => (
                   <div key={i} className="flex gap-4 items-start">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>{icon}</div>
+                    <a href={href} {...(target ? { target, rel: 'noopener noreferrer' } : {})} className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all hover:-translate-y-0.5 hover:shadow-md duration-200" style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>{icon}</a>
                     <div>
                       <div className="text-xs font-semibold mb-1" style={{ color: '#7A9C90' }}>{label}</div>
                       {content}
@@ -704,8 +816,9 @@ export default function Home() {
               <div className="flex gap-3">
                 {[
                   { href: CFG.linkedin, label: 'LinkedIn', icon: <IconLinkedIn /> },
-                  { href: CFG.facebook, label: 'Facebook', icon: <IconFacebook /> },
                   { href: CFG.youtube, label: 'YouTube', icon: <IconYouTube /> },
+                  { href: CFG.maps, label: 'Google', icon: <IconGoogle /> },
+                  { href: CFG.practo, label: 'Practo', icon: <IconPracto /> },
                 ].map(({ href, label, icon }) => (
                   <a
                     key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
@@ -722,13 +835,13 @@ export default function Home() {
               <h3 className="text-xl font-semibold mb-1" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>Book a Consultation</h3>
               <p className="text-sm mb-6" style={{ color: '#7A9C90' }}>In-person and video consultations available · Mon–Sat, 9 AM – 7 PM</p>
 
-              <a
-                href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+              <button
+                onClick={() => openBooking()}
                 className="flex items-center justify-center w-full py-4 rounded-2xl text-sm font-semibold text-white mb-3 transition-all hover:shadow-lg hover:opacity-95 duration-200"
                 style={{ backgroundColor: '#2C5249' }}
               >
                 Book via Appointment Form
-              </a>
+              </button>
               <a
                 href={CFG.practo} target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center w-full py-4 rounded-2xl text-sm font-medium mb-3 border transition-all hover:shadow-sm duration-200"
@@ -762,15 +875,24 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-sm leading-relaxed" style={{ color: '#5A8070' }}>
-                Advanced laparoscopic surgery and compassionate fertility care in Indiranagar, Bangalore. Twelve years of excellence in women's health.
+                Advanced laparoscopic surgery and compassionate fertility care in Indiranagar, Bangalore. Fourteen years of excellence in women's health.
               </p>
             </div>
 
             <div>
               <h4 className="text-white font-semibold text-sm mb-4">Specialities</h4>
               <ul className="space-y-2 text-sm" style={{ color: '#5A8070' }}>
-                {['Laparoscopic Surgery', 'IVF & Fertility Treatment', 'Obstetrics & Pregnancy Care', 'PCOS Management', 'Endometriosis Treatment', 'Gynecosmetic Procedures'].map(s => (
-                  <li key={s}>{s}</li>
+                {[
+                  ['Laparoscopic Surgery', '/laparoscopic-surgery'],
+                  ['IVF & Fertility Treatment', '/ivf-infertility'],
+                  ['Obstetrics & Pregnancy Care', '/pregnancy'],
+                  ['PCOS Management', '/pcos'],
+                  ['Endometriosis Treatment', '/laparoscopic-surgery'],
+                  ['Gynecosmetic Procedures', '/cosmetic-gynecology'],
+                ].map(([s, href]) => (
+                  <li key={s}>
+                    <a href={href} className="hover:text-white transition-colors duration-200">{s}</a>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -789,7 +911,7 @@ export default function Home() {
           <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs" style={{ borderTop: '1px solid #243D35', color: '#3D6A5C' }}>
             <p>© 2026 Dr. Anjani Dixit · All rights reserved · Reg. {CFG.license}</p>
             <div className="flex gap-5">
-              {[['LinkedIn', CFG.linkedin], ['Facebook', CFG.facebook], ['YouTube', CFG.youtube], ['Practo', CFG.practo]].map(([label, href]) => (
+              {[['LinkedIn', CFG.linkedin], ['YouTube', CFG.youtube], ['Google', CFG.maps], ['Practo', CFG.practo]].map(([label, href]) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">{label}</a>
               ))}
             </div>
@@ -813,14 +935,94 @@ export default function Home() {
         className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3"
         style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}
       >
-        <a
-          href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+        <button
+          onClick={() => openBooking()}
           className="flex items-center justify-center w-full py-3.5 rounded-full text-sm font-semibold text-white"
           style={{ backgroundColor: '#2C5249' }}
         >
           Book a Consultation
-        </a>
+        </button>
       </div>
+
+      {/* ── LIGHTBOX ── */}
+      {lightbox !== null && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+          style={{ backgroundColor: 'rgba(0,0,0,0.9)' }}
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            onClick={() => setLightbox(null)}
+            className="absolute top-5 right-5 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+            aria-label="Close"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <button
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+            onClick={e => { e.stopPropagation(); setLightbox((lightbox + GALLERY.length - 1) % GALLERY.length) }}
+            aria-label="Previous"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <img
+            src={GALLERY[lightbox].src}
+            alt={GALLERY[lightbox].alt}
+            className="max-h-[90vh] max-w-full rounded-2xl object-contain"
+            onClick={e => e.stopPropagation()}
+          />
+          <button
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+            onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % GALLERY.length) }}
+            aria-label="Next"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white text-sm" style={{ opacity: 0.6 }}>
+            {lightbox + 1} / {GALLERY.length}
+          </div>
+        </div>
+      )}
+
+      {/* ── BOOKING MODAL ── */}
+      {isBookingOpen && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+          style={{ backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
+          onClick={() => setIsBookingOpen(false)}
+        >
+          <div
+            className="relative bg-white rounded-2xl overflow-hidden shadow-2xl w-full max-w-2xl flex flex-col"
+            style={{ height: '85vh', maxHeight: '700px' }}
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-5 py-3 flex-shrink-0" style={{ borderBottom: '1px solid #E3EDE9' }}>
+              <span className="font-semibold text-sm" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>Book a Consultation</span>
+              <button
+                onClick={() => setIsBookingOpen(false)}
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors hover:bg-gray-100"
+                style={{ color: '#7A9C90' }}
+                aria-label="Close"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <iframe
+              src={CFG.booking}
+              className="w-full flex-1 border-0"
+              title="Book a Consultation with Dr. Anjani Dixit"
+            />
+          </div>
+        </div>
+      )}
 
     </div>
   )

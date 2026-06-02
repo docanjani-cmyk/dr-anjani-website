@@ -3,13 +3,13 @@ import Script from 'next/script'
 
 export const metadata = {
   title: 'Dr. Anjani Dixit | Laparoscopic Surgeon & IVF Specialist, Bangalore',
-  description: 'Dr. Anjani Dixit is a leading laparoscopic gynecologic surgeon and IVF fertility specialist in Indiranagar, Bangalore. Expert in endometriosis, fibroids, PCOS, and advanced fertility treatment. 12+ years experience. 5.0 Google rating.',
+  description: 'Dr. Anjani Dixit is a leading laparoscopic gynaecologic surgeon and IVF fertility specialist in Indiranagar, Bangalore. Expert in endometriosis, fibroids, PCOS, and advanced fertility treatment. 14+ years experience. 5.0 Google rating.',
   keywords: 'best gynecologist bangalore, IVF specialist bangalore, laparoscopic surgeon bangalore, fertility specialist bangalore, endometriosis treatment bangalore, fibroid surgery bangalore, PCOS treatment bangalore, Dr Anjani Dixit, gynecologist indiranagar',
   metadataBase: new URL('https://www.anjanidixit.com'),
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Dr. Anjani Dixit | Laparoscopic Surgeon & IVF Specialist',
-    description: 'Advanced laparoscopic surgery and compassionate fertility care in Bangalore. 12+ years experience. 5.0 Google rating. 347 verified reviews.',
+    description: 'Advanced laparoscopic surgery and compassionate fertility care in Bangalore. 14+ years experience. 5.0 Google rating. 354 verified reviews.',
     url: 'https://www.anjanidixit.com',
     siteName: 'Dr. Anjani Dixit',
     images: [{ url: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - Laparoscopic Surgeon & IVF Specialist, Bangalore' }],
@@ -47,7 +47,7 @@ const schemaMarkup = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '5.0',
-    reviewCount: '347',
+    reviewCount: '354',
     bestRating: '5',
   },
   openingHours: 'Mo-Sa 09:00-19:00',
@@ -63,6 +63,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/uterus-favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/uterus-favicon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />

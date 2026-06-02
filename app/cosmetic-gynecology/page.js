@@ -1,19 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const CFG = {
   phone: '7411722580',
   phoneDisplay: '+91 74117 22580',
   whatsapp: '917411722580',
   booking: 'https://meet-my-doctor.firebaseapp.com/#/?uid=47150&eid=38605',
+  maps: 'https://maps.app.goo.gl/8MKPqCCGujp34cXe7',
+  practo: 'https://www.practo.com/bangalore/doctor/anjani-dixit-gynecologist-obstetrician',
 }
 
 const track = (e) => window.gtag?.('event', e)
 
 const IMG = {
-  logo: 'https://www.anjanidixit.com/image.webp',
-  hero: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg',
+  logo: '/Photos/Anjani%20website/Anjani%20Prityn%20DP.png',
+  hero: '/Photos/Anjani%20website/Informal%20photos/About%20me.jpg',
 }
 
 const IconStar = () => (
@@ -41,7 +43,7 @@ const IconLock = () => (
 )
 
 const FAQS = [
-  { q: 'Are these procedures safe?', a: 'Yes. All gynecosmetic procedures performed by Dr. Anjani meet the highest standards of surgical safety. As a fellowship-trained gynaecological surgeon with 12+ years of experience, she brings the same precision and care to cosmetic procedures as she does to complex laparoscopic surgery.' },
+  { q: 'Are these procedures safe?', a: 'Yes. All gynecosmetic procedures performed by Dr. Anjani meet the highest standards of surgical safety. As a fellowship-trained gynaecological surgeon with 14+ years of experience, she brings the same precision and care to cosmetic procedures as she does to complex laparoscopic surgery.' },
   { q: 'Is my privacy completely protected?', a: 'Absolutely. All consultations and procedures are completely confidential. Dr. Anjani creates a safe, non-judgmental space where you can speak openly. Your records are never shared without your explicit consent.' },
   { q: 'What is the recovery like after cosmetic gynaecological procedures?', a: 'Recovery varies by procedure. Most patients resume normal activities within a few days to two weeks. Dr. Anjani provides detailed post-procedure care instructions and remains available for follow-up questions throughout your recovery.' },
   { q: 'Will I be judged for seeking these procedures?', a: 'Never. Dr. Anjani believes strongly in every woman\'s right to feel comfortable and confident in her body. These consultations are free of judgement — your reasons are your own, and they are always respected.' },
@@ -49,8 +51,26 @@ const FAQS = [
   { q: 'Can these procedures be combined with other gynaecological treatments?', a: 'In many cases, yes. Perineal repair, for example, can be combined with prolapse correction. PRP therapy can be paired with hormonal management. Dr. Anjani discusses the full picture of your gynaecological health and identifies whether a combined approach is appropriate and beneficial.' },
 ]
 
+const NAV_LINKS = [
+  ['Home', '/'],
+  ['Laparoscopic Surgery', '/laparoscopic-surgery'],
+  ['IVF & Fertility', '/ivf-infertility'],
+  ['Pregnancy Care', '/pregnancy'],
+  ['PCOS Treatment', '/pcos'],
+]
+
 export default function CosmeticGynecologyPage() {
   const [openFaq, setOpenFaq] = useState(null)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onClick = (e) => { if (!e.target.closest('header')) setMenuOpen(false) }
+    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false) }
+    document.addEventListener('click', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => { document.removeEventListener('click', onClick); document.removeEventListener('keydown', onKey) }
+  }, [menuOpen])
 
   return (
     <div style={{ backgroundColor: '#FAFAF8', color: '#1A2E28' }}>
@@ -70,18 +90,44 @@ export default function CosmeticGynecologyPage() {
               <IconPhone /> {CFG.phoneDisplay}
             </a>
             <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
-              className="px-5 py-2 rounded-full text-sm font-semibold text-white"
+              className="hidden lg:inline-block px-5 py-2 rounded-full text-sm font-semibold text-white"
+              style={{ backgroundColor: '#2C5249' }}>
+              Book Consultation
+            </a>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden p-2"
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+            >
+              <div className="w-5 flex flex-col gap-1.5">
+                <span className="block h-px w-full transition-all origin-center" style={{ backgroundColor: '#1A2E28', transform: menuOpen ? 'rotate(45deg) translateY(5px)' : 'none' }} />
+                <span className="block h-px transition-all" style={{ backgroundColor: '#1A2E28', width: menuOpen ? 0 : '100%' }} />
+                <span className="block h-px w-full transition-all origin-center" style={{ backgroundColor: '#1A2E28', transform: menuOpen ? 'rotate(-45deg) translateY(-5px)' : 'none' }} />
+              </div>
+            </button>
+          </div>
+        </nav>
+
+        {menuOpen && (
+          <div className="lg:hidden px-5 pb-5 space-y-3" style={{ borderTop: '1px solid #E3EDE9', paddingTop: '1rem' }}>
+            {NAV_LINKS.map(([label, href]) => (
+              <a key={href} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
+            ))}
+            <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
+              onClick={() => { track('ads_conversion_Contact_Us_1'); setMenuOpen(false) }}
+              className="block w-full text-center text-white py-3 rounded-full text-sm font-semibold mt-3"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
             </a>
           </div>
-        </nav>
+        )}
       </header>
 
       {/* HERO */}
       <section style={{ background: 'linear-gradient(135deg, #f5f0e8 0%, #fafaf8 55%, #eef4f1 100%)' }}>
-        <div className="max-w-6xl mx-auto px-5 py-16 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+        <div className="max-w-6xl mx-auto px-5 py-12 lg:py-24 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="order-2 lg:order-1">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-6"
               style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>
               Cosmetic Gynaecologist · Indiranagar · Bangalore
@@ -98,7 +144,7 @@ export default function CosmeticGynecologyPage() {
               <IconLock />
               <span className="text-sm font-medium" style={{ color: '#2C5249' }}>All consultations are completely private and confidential</span>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <div className="hidden lg:flex gap-3 mb-8">
               <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
                 className="px-8 py-4 rounded-full font-semibold text-white text-center hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: '#2C5249' }}>
@@ -111,17 +157,16 @@ export default function CosmeticGynecologyPage() {
                 <IconWhatsApp /> Private WhatsApp
               </a>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex gap-0.5">            {[
-              { name: 'Akanksha Sachdeva', condition: 'Gynaecological Care', img: '/reviewers/akanksha-sachdeva.jpg', review: 'I am beyond grateful for the exceptional care I received from Dr. Anjani. From the moment I walked in, I felt welcomed and truly cared for. Her professionalism is matched only by her genuine compassion. What sets Dr. Anjani apart is her holistic approach — she not only addressed my medical needs but also made sure I felt comfortable and supported throughout. I always felt like I was in the best possible hands.' },
-              { name: 'AB Way', condition: 'Gynaecological Care', img: '/reviewers/ab-way.jpg', review: 'Dr. Anjani Dixit is truly an outstanding gynaecologist, with a warm and caring demeanour that immediately puts you at ease. Her bedside manner is exemplary — she is gentle, empathetic, and takes the time to explain everything in a way that is easy to understand. Her dedication to her patients\' well-being is genuinely inspiring. I feel grateful to have had the opportunity to be under her care.' },
-              { name: 'Jaydeep H. Padariya', condition: 'Gynaecological Care', img: '/reviewers/jaydeep-padariya.jpg', review: 'Dr. Anjani Dixit\'s calm and composed demeanour instantly puts you at ease, especially during moments that can feel overwhelming. She takes the time to listen to your concerns, provides thoughtful responses, and never rushes through appointments. Her ability to make complex medical information accessible and understandable is something I deeply appreciate. I always leave her office feeling confident and reassured.' },
-            ].map((_, i) => <IconStar key={i} />)}</div>
-              <span className="text-sm font-semibold" style={{ color: '#1A2E28' }}>5.0 on Google</span>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>· 347 reviews</span>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
+              <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>· 354 reviews</span>
+              <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
+              <a href={CFG.practo} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#5B2D8E' }}>99% on Practo</a>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>(278 patients)</span>
             </div>
           </div>
-          <div className="rounded-3xl overflow-hidden shadow-2xl" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
+          <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
             <img src={IMG.hero} alt="Dr. Anjani Dixit – Cosmetic Gynaecologist Bangalore"
               className="w-full h-full object-cover object-top" />
           </div>
@@ -179,6 +224,51 @@ export default function CosmeticGynecologyPage() {
               <p className="text-sm leading-relaxed" style={{ color: '#5A7870' }}>{t.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="py-20 px-5 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
+            <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>What Patients Say</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              { name: 'Akanksha Sachdeva', condition: 'Gynaecological Care', img: '/reviewers/akanksha-sachdeva.jpg', review: 'I am beyond grateful for the exceptional care I received from Dr. Anjani. From the moment I walked in, I felt welcomed and truly cared for. What sets Dr. Anjani apart is her holistic approach — she not only addressed my medical needs but also made sure I felt comfortable and supported throughout. I always felt like I was in the best possible hands.' },
+              { name: 'Ruchi Dubey', condition: 'Gynaecological Care', img: null, source: 'practo', review: 'She is empathetic, spends time explaining and ensures your well-being. She is warm, understanding, and very knowledgeable. Every visit felt personal and never rushed. I felt completely at ease discussing sensitive concerns — she creates a genuinely safe and supportive space. I would highly recommend her.' },
+              { name: 'Jaydeep H. Padariya', condition: 'Gynaecological Care', img: '/reviewers/jaydeep-padariya.jpg', review: 'Dr. Anjani Dixit\'s calm and composed demeanour instantly puts you at ease, especially during moments that can feel overwhelming. She takes the time to listen to your concerns, provides thoughtful responses, and never rushes through appointments. I always leave her office feeling confident and reassured.' },
+            ].map((t, i) => (
+              <div key={i} className="bg-white rounded-2xl p-6" style={{ border: '1px solid #E3EDE9' }}>
+                <div className="flex items-center gap-3 mb-4">
+                  {t.img ? (
+                    <>
+                      <img src={t.img} alt={t.name} referrerPolicy="no-referrer"
+                        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                        onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'flex' }} />
+                      <div className="w-10 h-10 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
+                        style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
+                    </>
+                  ) : (
+                    <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-semibold"
+                      style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="font-semibold text-sm truncate" style={{ color: '#1A2E28' }}>{t.name}</div>
+                    <div className="text-xs truncate" style={{ color: '#7A9C90' }}>{t.condition}</div>
+                  </div>
+                  {t.source === 'practo' ? (
+                    <span className="flex-shrink-0 font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: '#5B2D8E', color: 'white', fontSize: '10px' }}>Practo</span>
+                  ) : (
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-4 h-4 flex-shrink-0" />
+                  )}
+                </div>
+                <div className="flex gap-0.5 mb-3">{[...Array(5)].map((_, j) => <IconStar key={j} />)}</div>
+                <p className="text-sm leading-relaxed" style={{ color: '#4A6860' }}>"{t.review}"</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
