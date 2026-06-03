@@ -35,6 +35,15 @@ const faqSchema = {
   ],
 }
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.anjanidixit.com' },
+    { '@type': 'ListItem', position: 2, name: 'Laparoscopic Surgery', item: 'https://www.anjanidixit.com/laparoscopic-surgery' },
+  ],
+}
+
 export const metadata = {
   title: 'Laparoscopic Surgery in Bangalore | Dr. Anjani Dixit – FMAS Surgeon',
   description: 'Expert laparoscopic (keyhole) surgery for fibroids, endometriosis, ovarian cysts & hysterectomy in Bangalore. Dr. Anjani Dixit, Fellowship in Minimal Access Surgery, 300+ laparoscopic procedures, 5.0 Google rating. Book today.',
@@ -44,6 +53,13 @@ export const metadata = {
     title: 'Laparoscopic Surgery in Bangalore | Dr. Anjani Dixit',
     description: 'Minimally invasive gynaecological surgery — fibroids, endometriosis, hysterectomy. 300+ laparoscopic procedures. Fellowship in Minimal Access Surgery.',
     url: 'https://www.anjanidixit.com/laparoscopic-surgery',
+    images: [{ url: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - Laparoscopic Surgeon, Bangalore' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Laparoscopic Surgery in Bangalore | Dr. Anjani Dixit',
+    description: 'Minimally invasive gynaecological surgery — fibroids, endometriosis, hysterectomy. 300+ laparoscopic procedures. Fellowship in Minimal Access Surgery.',
+    images: ['https://www.anjanidixit.com/IMG-20251024-WA0023.jpg'],
   },
 }
 
@@ -53,6 +69,10 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       {children}
     </>
