@@ -240,8 +240,8 @@ export default function Home() {
       {/* ── HERO ── */}
       <section id="home" style={{ background: 'linear-gradient(135deg, #f5f0e8 0%, #fafaf8 55%, #eef4f1 100%)' }}>
         <div className="max-w-7xl mx-auto px-5 lg:px-8 pt-5 pb-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div>
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-20 items-center">
+            <div className="order-2 lg:order-1">
               <div
                 className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-7"
                 style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}
@@ -258,7 +258,7 @@ export default function Home() {
               <p className="text-lg leading-relaxed mb-3" style={{ color: '#4A6860', maxWidth: '440px' }}>
                 Precision laparoscopic surgery and transformative fertility care — delivered by a doctor who truly sees you.
               </p>
-              <p className="text-sm font-medium mb-8" style={{ color: '#7A9C90' }}>
+              <p className="text-sm font-medium mb-3 lg:mb-8" style={{ color: '#7A9C90' }}>
                 Dr. Anjani Dixit · MBBS · DNB (OBG) · FMAS · 14+ Years Experience
               </p>
 
@@ -280,7 +280,7 @@ export default function Home() {
                 </a>
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-5" style={{ borderTop: '1px solid #D5E5DF' }}>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-3 lg:pt-5" style={{ borderTop: '1px solid #D5E5DF' }}>
                 <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
                 <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
                 <span className="text-sm" style={{ color: '#7A9C90' }}>· 354 reviews</span>
@@ -290,12 +290,13 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative">
-              <div className="rounded-3xl overflow-hidden shadow-2xl" style={{ aspectRatio: '4/5', maxHeight: '580px' }}>
+            <div className="relative order-1 lg:order-2">
+              <div className="rounded-3xl overflow-hidden shadow-2xl aspect-[16/9] lg:aspect-[4/5] lg:max-h-[580px]">
                 <img
                   src={IMG.hero}
                   alt="Dr. Anjani Dixit — Laparoscopic Surgeon and IVF Specialist, Bangalore"
                   className="w-full h-full object-cover object-top"
+                  fetchPriority="high"
                 />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,46,40,0.18) 0%, transparent 50%)' }} />
               </div>
