@@ -139,10 +139,12 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
   const [isBookingOpen, setIsBookingOpen] = useState(false)
+  const [bookingLoaded, setBookingLoaded] = useState(false)
   const [lightbox, setLightbox] = useState(null)
 
   const openBooking = (eventName = 'ads_conversion_Contact_Us_1') => {
     track(eventName)
+    setBookingLoaded(false)
     setIsBookingOpen(true)
   }
 
@@ -993,20 +995,27 @@ export default function Home() {
       {/* ── BOOKING MODAL ── */}
       {isBookingOpen && (
         <div
-          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center sm:p-4"
           style={{ backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
           onClick={() => setIsBookingOpen(false)}
         >
           <div
-            className="relative bg-white rounded-2xl overflow-hidden shadow-2xl w-full max-w-2xl flex flex-col"
-            style={{ height: '85vh', maxHeight: '700px' }}
+            className="relative bg-white rounded-t-2xl sm:rounded-2xl overflow-hidden shadow-2xl w-full max-w-2xl flex flex-col"
+            style={{ height: '95vh', maxHeight: '760px' }}
             onClick={e => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between px-5 py-3 flex-shrink-0" style={{ borderBottom: '1px solid #E3EDE9' }}>
-              <span className="font-semibold text-sm" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>Book a Consultation</span>
+            <div className="flex items-start justify-between px-5 py-4 flex-shrink-0" style={{ borderBottom: '1px solid #E3EDE9' }}>
+              <div>
+                <h3 className="font-semibold text-base" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
+                  Book a Consultation
+                </h3>
+                <p className="text-xs mt-0.5" style={{ color: '#7A9C90' }}>
+                  Takes about a minute · Instant confirmation
+                </p>
+              </div>
               <button
                 onClick={() => setIsBookingOpen(false)}
-                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors hover:bg-gray-100"
+                className="w-8 h-8 -mr-1 rounded-full flex items-center justify-center transition-colors hover:bg-gray-100 flex-shrink-0"
                 style={{ color: '#7A9C90' }}
                 aria-label="Close"
               >
@@ -1015,11 +1024,49 @@ export default function Home() {
                 </svg>
               </button>
             </div>
-            <iframe
-              src={CFG.booking}
-              className="w-full flex-1 border-0"
-              title="Book a Consultation with Dr. Anjani Dixit"
-            />
+
+            <div className="flex-1 relative">
+              {!bookingLoaded && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none" style={{ backgroundColor: '#FAFAF8' }}>
+                  <div className="w-8 h-8 rounded-full border-2 animate-spin" style={{ borderColor: '#E3EDE9', borderTopColor: '#2C5249' }} />
+                  <p className="text-xs" style={{ color: '#7A9C90' }}>Loading secure booking form…</p>
+                </div>
+              )}
+              <iframe
+                src={CFG.booking}
+                onLoad={() => setBookingLoaded(true)}
+                className="w-full h-full border-0"
+                style={{ opacity: bookingLoaded ? 1 : 0, transition: 'opacity 250ms ease' }}
+                title="Book a Consultation with Dr. Anjani Dixit"
+              />
+            </div>
+
+            <div className="flex-shrink-0 px-5 py-3 flex items-center justify-between gap-3 flex-wrap" style={{ borderTop: '1px solid #E3EDE9', backgroundColor: '#FAFAF8' }}>
+              <p className="text-xs font-medium" style={{ color: '#7A9C90' }}>Trouble? We're here:</p>
+              <div className="flex items-center gap-2">
+                <a
+                  href={`tel:${CFG.phone}`}
+                  onClick={() => track('booking_fallback_call')}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors hover:opacity-90"
+                  style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}
+                >
+                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
+                  </svg>
+                  Call
+                </a>
+                <a
+                  href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
+                  target="_blank" rel="noopener noreferrer"
+                  onClick={() => track('booking_fallback_whatsapp')}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-white transition-colors hover:opacity-90"
+                  style={{ backgroundColor: '#25D366' }}
+                >
+                  <IconWhatsApp size="w-3 h-3" />
+                  WhatsApp
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       )}
