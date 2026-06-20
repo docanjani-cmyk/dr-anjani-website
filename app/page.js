@@ -240,8 +240,8 @@ export default function Home() {
       {/* ── HERO ── */}
       <section id="home" style={{ background: 'linear-gradient(135deg, #f5f0e8 0%, #fafaf8 55%, #eef4f1 100%)' }}>
         <div className="max-w-7xl mx-auto px-5 lg:px-8 pt-5 pb-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-6 lg:gap-20 items-center">
-            <div className="order-2 lg:order-1">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div>
               <div
                 className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-7"
                 style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}
@@ -290,13 +290,12 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative order-1 lg:order-2">
-              <div className="rounded-3xl overflow-hidden shadow-2xl aspect-[16/9] lg:aspect-[4/5] lg:max-h-[580px]">
+            <div className="relative">
+              <div className="rounded-3xl overflow-hidden shadow-2xl" style={{ aspectRatio: '4/5', maxHeight: '580px' }}>
                 <img
                   src={IMG.hero}
                   alt="Dr. Anjani Dixit — Laparoscopic Surgeon and IVF Specialist, Bangalore"
                   className="w-full h-full object-cover object-top"
-                  fetchPriority="high"
                 />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,46,40,0.18) 0%, transparent 50%)' }} />
               </div>
