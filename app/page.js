@@ -239,7 +239,7 @@ export default function Home() {
 
       {/* ── HERO ── */}
       <section id="home" style={{ background: 'linear-gradient(135deg, #f5f0e8 0%, #fafaf8 55%, #eef4f1 100%)' }}>
-        <div className="max-w-7xl mx-auto px-5 lg:px-8 pt-5 pb-20 lg:py-28">
+        <div className="max-w-7xl mx-auto px-5 lg:px-8 pt-5 pb-8 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div>
               <div
@@ -335,7 +335,7 @@ export default function Home() {
       </div>
 
       {/* ── STATS ── */}
-      <section className="py-16 px-5 lg:px-8 bg-white">
+      <section className="py-10 lg:py-16 px-5 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           {[
             { value: '14+', label: 'Years of Experience' },
@@ -356,7 +356,7 @@ export default function Home() {
       </section>
 
       {/* ── WHY DR. ANJANI ── */}
-      <section id="services" className="py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
+      <section id="services" className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>The Difference</p>
@@ -399,7 +399,7 @@ export default function Home() {
       </section>
 
       {/* ── ABOUT ── */}
-      <section id="about" className="py-24 px-5 lg:px-8 bg-white">
+      <section id="about" className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative reveal">
             <div className="rounded-3xl overflow-hidden shadow-xl" style={{ aspectRatio: '3/4', maxHeight: '580px' }}>
@@ -458,7 +458,7 @@ export default function Home() {
       </section>
 
       {/* ── GALLERY ── */}
-      <section className="py-24 px-5 lg:px-8 bg-white">
+      <section className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Moments of Joy</p>
@@ -504,7 +504,7 @@ export default function Home() {
       </section>
 
       {/* ── SPECIALTIES ── */}
-      <section className="py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
+      <section className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Expertise</p>
@@ -564,7 +564,7 @@ export default function Home() {
       </section>
 
       {/* ── CONDITIONS ── */}
-      <section className="py-24 px-5 lg:px-8 bg-white">
+      <section className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Conditions Treated</p>
@@ -607,7 +607,7 @@ export default function Home() {
       </section>
 
       {/* ── PATIENT JOURNEY ── */}
-      <section className="py-24 px-5 lg:px-8" style={{ backgroundColor: '#2C5249' }}>
+      <section className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#2C5249' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7AB8A8' }}>Your Journey</p>
@@ -642,7 +642,7 @@ export default function Home() {
       </section>
 
       {/* ── PHILOSOPHY ── */}
-      <section className="py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
+      <section className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-4xl mx-auto text-center reveal">
           <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#7A9C90' }}>Philosophy</p>
           <h2 className="text-3xl lg:text-5xl font-bold mb-8" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
@@ -659,7 +659,7 @@ export default function Home() {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section id="testimonials" className="py-24 px-5 lg:px-8 bg-white">
+      <section id="testimonials" className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
@@ -745,7 +745,7 @@ export default function Home() {
       </section>
 
       {/* ── FAQ ── */}
-      <section id="faq" className="py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
+      <section id="faq" className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Common Questions</p>
@@ -786,7 +786,7 @@ export default function Home() {
       </section>
 
       {/* ── CONTACT ── */}
-      <section id="contact" className="py-24 px-5 lg:px-8 bg-white">
+      <section id="contact" className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Connect</p>
