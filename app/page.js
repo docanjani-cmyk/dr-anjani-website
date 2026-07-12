@@ -145,11 +145,11 @@ const MARQUEE_ITEMS = [
   'DNB — Obstetrics & Gynaecology', 'IVF & Fertility Expert', 'Laparoscopic Surgeon', 'Indiranagar, Bangalore',
 ]
 
-export default function Home() {
+export default function Home({ initialBookingOpen = false }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
-  const [isBookingOpen, setIsBookingOpen] = useState(false)
+  const [isBookingOpen, setIsBookingOpen] = useState(initialBookingOpen)
   const [bookingLoaded, setBookingLoaded] = useState(false)
   const [lightbox, setLightbox] = useState(null)
 
@@ -158,6 +158,10 @@ export default function Home() {
     setBookingLoaded(false)
     setIsBookingOpen(true)
   }
+
+  useEffect(() => {
+    if (initialBookingOpen) track('gbp_book_appointment_visit')
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
