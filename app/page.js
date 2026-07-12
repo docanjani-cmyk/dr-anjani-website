@@ -63,7 +63,7 @@ const HOSPITALS = [
   { name: 'Ayaansh Hospital', area: 'Indiranagar' },
 ].map(h => ({ ...h, maps: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${h.name}, ${h.area}, Bengaluru`)}` }))
 
-const GALLERY = [1,2,3,4,5,6,7,8,10,11,12,13,14].map(i => ({
+const GALLERY = [1,2,3,4,5,6,7,10,11,12,13,14,15].map(i => ({
   src: `/Gallery/About us ${i}.jpg`,
   alt: `Dr. Anjani Dixit with patient — moment of joy ${i}`,
 }))
