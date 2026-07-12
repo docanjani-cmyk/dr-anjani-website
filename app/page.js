@@ -296,10 +296,10 @@ export default function Home() {
               <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-3 lg:pt-5" style={{ borderTop: '1px solid #D5E5DF' }}>
                 <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
                 <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
-                <span className="text-sm" style={{ color: '#7A9C90' }}>· 354 reviews</span>
+                <span className="text-sm" style={{ color: '#7A9C90' }}>· 405 reviews</span>
                 <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
                 <a href={CFG.practo} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#5B2D8E' }}>99% on Practo</a>
-                <span className="text-sm" style={{ color: '#7A9C90' }}>(278 patients)</span>
+                <span className="text-sm" style={{ color: '#7A9C90' }}>(318 patients)</span>
               </div>
             </div>
 
@@ -354,7 +354,7 @@ export default function Home() {
             { value: '14+', label: 'Years of Experience' },
             { value: '1500+', label: 'Procedures Performed' },
             { value: '5.0 ★', label: 'Google Rating', href: CFG.maps },
-            { value: '99%', label: 'Practo Rating · 278 patients', href: CFG.practo },
+            { value: '99%', label: 'Practo Rating · 318 patients', href: CFG.practo },
           ].map((s, i) => (
             <div key={i} className="reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
               {s.href ? (
@@ -748,7 +748,7 @@ export default function Home() {
             <h2 className="text-3xl lg:text-5xl font-bold mb-3" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               In Their Own Words
             </h2>
-            <p className="text-sm" style={{ color: '#7A9C90' }}>Verified Google & Practo reviews · Last updated May 2026</p>
+            <p className="text-sm" style={{ color: '#7A9C90' }}>Verified Google & Practo reviews · Last updated July 2026</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
@@ -812,7 +812,7 @@ export default function Home() {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm border transition-all hover:shadow-md duration-200"
               style={{ borderColor: '#2C5249', color: '#2C5249' }}
             >
-              View All 354 Google Reviews <IconArrow />
+              View All 405 Google Reviews <IconArrow />
             </a>
             <a
               href={CFG.practo}

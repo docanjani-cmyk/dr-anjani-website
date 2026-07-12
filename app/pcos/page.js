@@ -153,10 +153,10 @@ export default function PCOSPage() {
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
               <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>· 354 reviews</span>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>· 405 reviews</span>
               <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
               <a href={CFG.practo} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#5B2D8E' }}>99% on Practo</a>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>(278 patients)</span>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>(318 patients)</span>
             </div>
           </div>
           <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>

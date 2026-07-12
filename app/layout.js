@@ -9,7 +9,7 @@ export const metadata = {
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Dr. Anjani Dixit | Laparoscopic Surgeon & IVF Specialist',
-    description: 'Advanced laparoscopic surgery and compassionate fertility care in Bangalore. 14+ years experience. 5.0 Google rating. 354 verified reviews.',
+    description: 'Advanced laparoscopic surgery and compassionate fertility care in Bangalore. 14+ years experience. 5.0 Google rating. 405 verified reviews.',
     url: 'https://www.anjanidixit.com',
     siteName: 'Dr. Anjani Dixit',
     images: [{ url: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - Laparoscopic Surgeon & IVF Specialist, Bangalore' }],
@@ -56,7 +56,7 @@ const physicianSchema = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '5.0',
-    reviewCount: '354',
+    reviewCount: '405',
     bestRating: '5',
   },
   openingHours: 'Mo-Sa 09:00-19:00',
@@ -94,7 +94,7 @@ const localBusinessSchema = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '5.0',
-    reviewCount: '354',
+    reviewCount: '405',
     bestRating: '5',
   },
   priceRange: '₹₹',
