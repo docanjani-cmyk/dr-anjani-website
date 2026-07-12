@@ -261,8 +261,11 @@ export default function LaparoscopicSurgeryPage() {
             <p className="text-sm leading-relaxed mb-4" style={{ color: '#4A6860' }}>
               Dr. Anjani Dixit holds a Fellowship in Minimal Access Surgery (FMAS) and has performed over 300 laparoscopic gynaecological procedures across 14+ years. She trained at leading institutions including IPGME&R Kolkata and Holy Family Hospital, New Delhi.
             </p>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: '#4A6860' }}>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: '#4A6860' }}>
               She is a life member of FOGSI, AMASI, and ASI — and approaches every procedure with both technical precision and deep care for the person on the table.
+            </p>
+            <p className="text-sm leading-relaxed mb-6" style={{ color: '#4A6860' }}>
+              Surgeries are performed as a visiting consultant at <a href="/#hospitals" className="font-medium underline" style={{ color: '#2C5249' }}>seven partner hospitals across Bangalore</a> — including Manipal, Cloudnine, and Motherhood — chosen with you based on location, insurance, and budget.
             </p>
             <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
               className="inline-block w-full text-center py-3 rounded-xl text-sm font-semibold text-white"

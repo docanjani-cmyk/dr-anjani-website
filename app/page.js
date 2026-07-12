@@ -42,6 +42,7 @@ const TESTIMONIALS = [
 const FAQS = [
   { q: 'What conditions do you specialise in?', a: 'Dr. Anjani specialises in advanced laparoscopic surgery (fibroids, endometriosis, ovarian cysts, hysterectomy), IVF and fertility treatment, high-risk obstetrics, PCOS management, and gynecosmetic procedures. She offers comprehensive care across all aspects of women\'s reproductive and gynaecological health.' },
   { q: 'How do I book a consultation?', a: 'You can book through our online Zoho appointment form, through Practo, by calling directly, or by messaging on WhatsApp. Dr. Anjani consults at Kasper Multi-Speciality Clinic, Indiranagar, Bangalore. Video consultations are available for initial evaluations and international patients.' },
+  { q: 'Where are surgeries and deliveries performed?', a: 'OPD consultations happen at Kasper Multi-Speciality Clinic, Indiranagar. Surgeries, deliveries, and hospital admissions (IPD) are performed at partner hospitals where Dr. Anjani is a visiting consultant: Motherhood Hospital (Indiranagar), Cloudnine Hospital (Old Airport Road), Manipal Hospital (Old Airport Road), NR Clinic (Cambridge Layout), Revive Hospital (Indiranagar), Ayaansh Hospital (Indiranagar), and Nelivigi Multispeciality Hospital (Bellandur). The hospital is chosen together with you based on your location, insurance coverage, budget, and the facilities your procedure needs.' },
   { q: 'What are the consultation charges?', a: 'The consultation fee is ₹1000, and it stays valid for a full seven days from your visit. This means that if you return within the week — to discuss test results, clarify a prescription, or ask anything that came up after your appointment — no additional fee is charged. The idea is straightforward: once you have consulted, the cost should never be a barrier to coming back with questions.' },
   { q: 'Do you treat international or NRI patients?', a: 'Yes. Dr. Anjani regularly consults with patients from outside India, including NRIs and international patients seeking advanced laparoscopic surgery or IVF treatment in Bangalore. Video consultations for initial assessment can be arranged easily.' },
   { q: 'What is the recovery like after laparoscopic surgery?', a: 'Laparoscopic (keyhole) surgery is minimally invasive — most patients return home the same day or the next, with a recovery period of 1–2 weeks for most procedures. Dr. Anjani has performed over 300 such procedures and provides detailed post-operative guidance and monitoring.' },
@@ -49,6 +50,16 @@ const FAQS = [
   { q: 'Do you manage high-risk pregnancies?', a: 'Yes. Dr. Anjani has extensive experience managing high-risk pregnancies including those complicated by PCOS, thyroid disorders, fibroids, prior surgical history, advanced maternal age, and other conditions. She provides close, personalised antenatal monitoring.' },
   { q: 'What makes Dr. Anjani\'s approach different?', a: 'Dr. Anjani combines advanced surgical precision with deep emotional attentiveness. She takes time to truly understand your situation — medical, emotional, and personal. Patients consistently describe feeling seen, heard, and genuinely cared for, not processed through a system. She approaches women\'s health holistically, including emotional and psychological wellbeing.' },
 ]
+
+const HOSPITALS = [
+  { name: 'Motherhood Hospital', area: 'Indiranagar' },
+  { name: 'Cloudnine Hospital', area: 'Old Airport Road' },
+  { name: 'Manipal Hospital', area: 'Old Airport Road' },
+  { name: 'NR Clinic', area: 'Cambridge Layout' },
+  { name: 'Revive Hospital', area: 'Indiranagar' },
+  { name: 'Ayaansh Hospital', area: 'Indiranagar' },
+  { name: 'Nelivigi Multispeciality Hospital', area: 'Bellandur' },
+].map(h => ({ ...h, maps: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${h.name}, ${h.area}, Bengaluru`)}` }))
 
 const GALLERY = [1,2,3,4,5,6,7,8,10,11,12,13,14].map(i => ({
   src: `/Gallery/About us ${i}.jpg`,
@@ -189,7 +200,7 @@ export default function Home() {
           </a>
 
           <div className="hidden lg:flex items-center gap-7 text-sm font-medium" style={{ color: '#3D6358' }}>
-            {[['About', '#about'], ['Services', '#services'], ['Testimonials', '#testimonials'], ['FAQ', '#faq'], ['Contact', '#contact']].map(([label, href]) => (
+            {[['About', '#about'], ['Services', '#services'], ['Hospitals', '#hospitals'], ['Testimonials', '#testimonials'], ['FAQ', '#faq'], ['Contact', '#contact']].map(([label, href]) => (
               <a key={label} href={href} className="hover:opacity-60 transition-opacity">{label}</a>
             ))}
           </div>
@@ -227,7 +238,7 @@ export default function Home() {
 
         {menuOpen && (
           <div className="lg:hidden px-5 pb-5 space-y-4" style={{ borderTop: '1px solid #E3EDE9', paddingTop: '1rem' }}>
-            {[['About', '#about'], ['Services', '#services'], ['Testimonials', '#testimonials'], ['FAQ', '#faq'], ['Contact', '#contact']].map(([label, href]) => (
+            {[['About', '#about'], ['Services', '#services'], ['Hospitals', '#hospitals'], ['Testimonials', '#testimonials'], ['FAQ', '#faq'], ['Contact', '#contact']].map(([label, href]) => (
               <a key={label} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
             ))}
             <button onClick={() => { openBooking(); setMenuOpen(false); }}
@@ -608,6 +619,75 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── HOSPITALS & LOCATIONS ── */}
+      <section id="hospitals" className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 reveal">
+            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Locations</p>
+            <h2 className="text-3xl lg:text-5xl font-bold mb-4" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
+              Where Dr. Anjani Practises
+            </h2>
+            <p className="text-base max-w-2xl mx-auto" style={{ color: '#5A7870' }}>
+              Consultations take place at her clinic in Indiranagar. Surgeries, deliveries, and hospital admissions are performed at leading partner hospitals across Bangalore, where Dr. Anjani is a visiting consultant.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-6 items-start">
+            {/* OPD clinic */}
+            <div className="rounded-3xl p-7 text-white reveal" style={{ backgroundColor: '#2C5249' }}>
+              <div className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#7AB8A8' }}>OPD · Consultations</div>
+              <h3 className="text-xl font-semibold mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>{CFG.clinic}</h3>
+              <p className="text-sm leading-relaxed mb-1" style={{ color: '#9ECEC0' }}>{CFG.address}</p>
+              <p className="text-sm mb-6" style={{ color: '#9ECEC0' }}>Mon–Sat · 9 AM – 7 PM</p>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: '#9ECEC0' }}>
+                All outpatient consultations, follow-ups, and pre-surgical evaluations happen here. Video consultations are also available.
+              </p>
+              <div className="flex flex-col gap-3">
+                <a
+                  href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')}
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:opacity-80 transition-opacity"
+                >
+                  <IconPhone /> {CFG.phoneDisplay}
+                </a>
+                <a
+                  href={CFG.maps} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:opacity-80 transition-opacity"
+                >
+                  <IconPin /> Get Directions
+                </a>
+              </div>
+            </div>
+
+            {/* Surgical hospitals */}
+            <div className="lg:col-span-2 reveal reveal-delay-1">
+              <div className="rounded-3xl p-7 bg-white" style={{ border: '1px solid #E3EDE9' }}>
+                <div className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#7A9C90' }}>IPD · Surgeries, Deliveries & Admissions</div>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {HOSPITALS.map((h) => (
+                    <a
+                      key={h.name} href={h.maps} target="_blank" rel="noopener noreferrer"
+                      className="flex items-start gap-3 p-4 rounded-2xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                      style={{ backgroundColor: '#FAFAF8', border: '1px solid #E3EDE9' }}
+                    >
+                      <span className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>
+                        <IconPin />
+                      </span>
+                      <span>
+                        <span className="block text-sm font-semibold leading-snug" style={{ color: '#1A2E28' }}>{h.name}</span>
+                        <span className="block text-xs mt-0.5" style={{ color: '#7A9C90' }}>{h.area}, Bangalore</span>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+                <p className="text-xs leading-relaxed mt-5" style={{ color: '#7A9C90' }}>
+                  The hospital for your surgery or delivery is chosen together with you — based on your location, insurance coverage, budget, and the facilities your procedure needs. Dr. Anjani personally performs and supervises your care at every one of these hospitals.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── PATIENT JOURNEY ── */}
       <section className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#2C5249' }}>
         <div className="max-w-4xl mx-auto">
@@ -902,8 +982,9 @@ export default function Home() {
             <div>
               <h4 className="text-white font-semibold text-sm mb-4">Contact</h4>
               <address className="not-italic space-y-2 text-sm" style={{ color: '#5A8070' }}>
-                <p>{CFG.clinic}</p>
+                <p>OPD: {CFG.clinic}</p>
                 <p>{CFG.address}</p>
+                <a href="/#hospitals" className="block transition-colors hover:text-white">Surgeries &amp; IPD at 7 partner hospitals →</a>
                 <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="block transition-colors hover:text-white">{CFG.phoneDisplay}</a>
                 <a href={`mailto:${CFG.email}`} className="block transition-colors hover:text-white">{CFG.email}</a>
               </address>

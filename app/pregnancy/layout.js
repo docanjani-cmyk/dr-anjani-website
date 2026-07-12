@@ -24,6 +24,11 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
+      name: 'Where will my delivery take place?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Antenatal consultations happen at Kasper Multi-Speciality Clinic, Indiranagar. Deliveries are conducted at partner hospitals where Dr. Anjani is a visiting consultant — including Motherhood Hospital (Indiranagar), Cloudnine (Old Airport Road), Manipal Hospital (Old Airport Road), Ayaansh Hospital (Indiranagar), and others across Bangalore. The hospital is chosen together with you during your antenatal care, based on your location, insurance coverage, budget, and any special care your pregnancy needs (such as NICU facilities).' },
+    },
+    {
+      '@type': 'Question',
       name: 'I have PCOS — does that affect my pregnancy?',
       acceptedAnswer: { '@type': 'Answer', text: 'Women with PCOS have a slightly higher risk of gestational diabetes, pregnancy-induced hypertension, and preterm birth. Dr. Anjani has extensive experience managing pregnancies in women with PCOS, with enhanced monitoring and early intervention to ensure the best possible outcome.' },
     },
