@@ -164,7 +164,7 @@ export default function LaparoscopicSurgeryPage() {
               <span className="text-sm" style={{ color: '#7A9C90' }}>· 405 reviews</span>
               <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
               <a href={CFG.practo} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#5B2D8E' }}>99% on Practo</a>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>(318 patients)</span>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>(326 stories)</span>
             </div>
           </div>
           <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
@@ -182,7 +182,7 @@ export default function LaparoscopicSurgeryPage() {
             { value: '14+', label: 'Years Experience' },
             { value: '1–2 wks', label: 'Average Recovery' },
             { value: '5.0 ★', label: 'Google Rating', href: CFG.maps },
-            { value: '99%', label: 'Practo Rating · 318 patients', href: CFG.practo },
+            { value: '99%', label: 'Practo Rating · 326 stories', href: CFG.practo },
           ].map((s, i) => (
             <div key={i}>
               {s.href ? (
@@ -265,7 +265,7 @@ export default function LaparoscopicSurgeryPage() {
               She is a life member of FOGSI, AMASI, and ASI — and approaches every procedure with both technical precision and deep care for the person on the table.
             </p>
             <p className="text-sm leading-relaxed mb-6" style={{ color: '#4A6860' }}>
-              Surgeries are performed as a visiting consultant at <a href="/#hospitals" className="font-medium underline" style={{ color: '#2C5249' }}>seven partner hospitals across Bangalore</a> — including Manipal, Cloudnine, and Motherhood — chosen with you based on location, insurance, and budget.
+              Surgeries are performed as a visiting consultant at <a href="/#hospitals" className="font-medium underline" style={{ color: '#2C5249' }}>six partner hospitals across Bangalore</a> — including Manipal, Cloudnine, and Motherhood — chosen with you based on location, insurance, and budget.
             </p>
             <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
               className="inline-block w-full text-center py-3 rounded-xl text-sm font-semibold text-white"

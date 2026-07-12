@@ -28,6 +28,9 @@ const IMG = {
 }
 
 const TESTIMONIALS = [
+  { name: 'Venkat', condition: 'Laparoscopic Surgery', date: 'June 2026', img: null, review: 'We consulted Dr. Anjani Dixit for a second opinion regarding a laparoscopic surgery for my wife, and our experience was truly excellent. She took ample time to understand the situation and explained everything in detail.' },
+  { name: 'Roopa S', condition: 'Laparoscopic Hysterectomy', date: 'June 2026', img: null, review: 'The Doctor Anjani Dixit was very friendly, compassionate and approachable. She explained the hysterectomy surgery clearly, including the procedure, risks, and recovery process, which helped us feel informed and confident.' },
+  { name: 'Monisha V', condition: 'Consultation', date: 'June 2026', img: null, review: 'I had a really wonderful experience consulting Dr. Anjani Dixit. She was extremely patient, kind, and explained everything in detail instead of rushing through the appointment.' },
   { name: 'Harshit Kakkar', condition: 'Laparoscopic Hysterectomy', date: 'May 2026', img: '/reviewers/harshit-kakkar.jpg', review: 'We consulted Dr. Anjani for my mother\'s laparoscopic hysterectomy and had a great experience. She is very knowledgeable, explains everything clearly, and makes you feel comfortable and confident throughout. The surgery and recovery both went smoothly. What stands out is her calm, reassuring approach and genuine care.' },
   { name: 'Baidyanath Sinha', condition: 'Pregnancy Care', date: 'April 2026', img: 'https://lh3.googleusercontent.com/a-/ALV-UjUUdzLFKPeVX2_bJ2jHhewapprBgjvVebSSDec=s120-c-rp-mo-br100', review: 'Dr. Anjani Dixit is truly exceptional. Her expertise, warmth, and genuine care made my wife\'s pregnancy journey smooth, safe, and beautiful. She listens patiently, explains everything clearly. What sets her apart is how she treats you as a person, not just a patient.' },
   { name: 'Sneha John', condition: 'Consultation', date: 'April 2026', img: 'https://lh3.googleusercontent.com/a/ACg8ocKeei3HsSNWqUGdj9xG3vjotrzVJgqfPeRUF0Hl=s120-c-rp-mo-br100', review: 'I had a really good experience with Dr. Anjani. She was very patient, listened to all my concerns, and explained everything clearly without rushing. She made me feel comfortable and reassured throughout the consultation. I felt I was in safe and capable hands.' },
@@ -42,7 +45,7 @@ const TESTIMONIALS = [
 const FAQS = [
   { q: 'What conditions do you specialise in?', a: 'Dr. Anjani specialises in advanced laparoscopic surgery (fibroids, endometriosis, ovarian cysts, hysterectomy), IVF and fertility treatment, high-risk obstetrics, PCOS management, and gynecosmetic procedures. She offers comprehensive care across all aspects of women\'s reproductive and gynaecological health.' },
   { q: 'How do I book a consultation?', a: 'You can book through our online Zoho appointment form, through Practo, by calling directly, or by messaging on WhatsApp. Dr. Anjani consults at Kasper Multi-Speciality Clinic, Indiranagar, Bangalore. Video consultations are available for initial evaluations and international patients.' },
-  { q: 'Where are surgeries and deliveries performed?', a: 'OPD consultations happen at Kasper Multi-Speciality Clinic, Indiranagar. Surgeries, deliveries, and hospital admissions (IPD) are performed at partner hospitals where Dr. Anjani is a visiting consultant: Motherhood Hospital (Indiranagar), Cloudnine Hospital (Old Airport Road), Manipal Hospital (Old Airport Road), NR Clinic (Cambridge Layout), Revive Hospital (Indiranagar), Ayaansh Hospital (Indiranagar), and Nelivigi Multispeciality Hospital (Bellandur). The hospital is chosen together with you based on your location, insurance coverage, budget, and the facilities your procedure needs.' },
+  { q: 'Where are surgeries and deliveries performed?', a: 'OPD consultations happen at Kasper Multi-Speciality Clinic, Indiranagar. Surgeries, deliveries, and hospital admissions (IPD) are performed at partner hospitals where Dr. Anjani is a visiting consultant: Motherhood Hospital (Indiranagar), Cloudnine Hospital (Old Airport Road), Manipal Hospital (Old Airport Road), Milann Fertility Center (Indiranagar), Revive Hospital (Indiranagar), and Ayaansh Hospital (Indiranagar). The hospital is chosen together with you based on your location, insurance coverage, budget, and the facilities your procedure needs.' },
   { q: 'What are the consultation charges?', a: 'The consultation fee is ₹1000, and it stays valid for a full seven days from your visit. This means that if you return within the week — to discuss test results, clarify a prescription, or ask anything that came up after your appointment — no additional fee is charged. The idea is straightforward: once you have consulted, the cost should never be a barrier to coming back with questions.' },
   { q: 'Do you treat international or NRI patients?', a: 'Yes. Dr. Anjani regularly consults with patients from outside India, including NRIs and international patients seeking advanced laparoscopic surgery or IVF treatment in Bangalore. Video consultations for initial assessment can be arranged easily.' },
   { q: 'What is the recovery like after laparoscopic surgery?', a: 'Laparoscopic (keyhole) surgery is minimally invasive — most patients return home the same day or the next, with a recovery period of 1–2 weeks for most procedures. Dr. Anjani has performed over 300 such procedures and provides detailed post-operative guidance and monitoring.' },
@@ -55,10 +58,9 @@ const HOSPITALS = [
   { name: 'Motherhood Hospital', area: 'Indiranagar' },
   { name: 'Cloudnine Hospital', area: 'Old Airport Road' },
   { name: 'Manipal Hospital', area: 'Old Airport Road' },
-  { name: 'NR Clinic', area: 'Cambridge Layout' },
+  { name: 'Milann Fertility Center', area: 'Indiranagar' },
   { name: 'Revive Hospital', area: 'Indiranagar' },
   { name: 'Ayaansh Hospital', area: 'Indiranagar' },
-  { name: 'Nelivigi Multispeciality Hospital', area: 'Bellandur' },
 ].map(h => ({ ...h, maps: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${h.name}, ${h.area}, Bengaluru`)}` }))
 
 const GALLERY = [1,2,3,4,5,6,7,8,10,11,12,13,14].map(i => ({
@@ -303,7 +305,7 @@ export default function Home({ initialBookingOpen = false }) {
                 <span className="text-sm" style={{ color: '#7A9C90' }}>· 405 reviews</span>
                 <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
                 <a href={CFG.practo} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#5B2D8E' }}>99% on Practo</a>
-                <span className="text-sm" style={{ color: '#7A9C90' }}>(318 patients)</span>
+                <span className="text-sm" style={{ color: '#7A9C90' }}>(326 stories)</span>
               </div>
             </div>
 
@@ -358,7 +360,7 @@ export default function Home({ initialBookingOpen = false }) {
             { value: '14+', label: 'Years of Experience' },
             { value: '1500+', label: 'Procedures Performed' },
             { value: '5.0 ★', label: 'Google Rating', href: CFG.maps },
-            { value: '99%', label: 'Practo Rating · 318 patients', href: CFG.practo },
+            { value: '99%', label: 'Practo Rating · 326 stories', href: CFG.practo },
           ].map((s, i) => (
             <div key={i} className="reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
               {s.href ? (
@@ -988,7 +990,7 @@ export default function Home({ initialBookingOpen = false }) {
               <address className="not-italic space-y-2 text-sm" style={{ color: '#5A8070' }}>
                 <p>OPD: {CFG.clinic}</p>
                 <p>{CFG.address}</p>
-                <a href="/#hospitals" className="block transition-colors hover:text-white">Surgeries &amp; IPD at 7 partner hospitals →</a>
+                <a href="/#hospitals" className="block transition-colors hover:text-white">Surgeries &amp; IPD at 6 partner hospitals →</a>
                 <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="block transition-colors hover:text-white">{CFG.phoneDisplay}</a>
                 <a href={`mailto:${CFG.email}`} className="block transition-colors hover:text-white">{CFG.email}</a>
               </address>

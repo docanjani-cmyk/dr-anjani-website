@@ -48,10 +48,9 @@ const physicianSchema = {
     { '@type': 'Hospital', name: 'Motherhood Hospital, Indiranagar', address: { '@type': 'PostalAddress', addressLocality: 'Bangalore', addressRegion: 'Karnataka', addressCountry: 'IN' } },
     { '@type': 'Hospital', name: 'Cloudnine Hospital, Old Airport Road', address: { '@type': 'PostalAddress', addressLocality: 'Bangalore', addressRegion: 'Karnataka', addressCountry: 'IN' } },
     { '@type': 'Hospital', name: 'Manipal Hospital, Old Airport Road', address: { '@type': 'PostalAddress', addressLocality: 'Bangalore', addressRegion: 'Karnataka', addressCountry: 'IN' } },
-    { '@type': 'Hospital', name: 'NR Clinic, Cambridge Layout', address: { '@type': 'PostalAddress', addressLocality: 'Bangalore', addressRegion: 'Karnataka', addressCountry: 'IN' } },
+    { '@type': 'Hospital', name: 'Milann Fertility Center, Indiranagar', address: { '@type': 'PostalAddress', addressLocality: 'Bangalore', addressRegion: 'Karnataka', addressCountry: 'IN' } },
     { '@type': 'Hospital', name: 'Revive Hospital, Indiranagar', address: { '@type': 'PostalAddress', addressLocality: 'Bangalore', addressRegion: 'Karnataka', addressCountry: 'IN' } },
     { '@type': 'Hospital', name: 'Ayaansh Hospital, Indiranagar', address: { '@type': 'PostalAddress', addressLocality: 'Bangalore', addressRegion: 'Karnataka', addressCountry: 'IN' } },
-    { '@type': 'Hospital', name: 'Nelivigi Multispeciality Hospital, Bellandur', address: { '@type': 'PostalAddress', addressLocality: 'Bangalore', addressRegion: 'Karnataka', addressCountry: 'IN' } },
   ],
   aggregateRating: {
     '@type': 'AggregateRating',
@@ -122,7 +121,7 @@ const homeFaqSchema = {
     {
       '@type': 'Question',
       name: 'Where are surgeries and deliveries performed?',
-      acceptedAnswer: { '@type': 'Answer', text: 'OPD consultations happen at Kasper Multi-Speciality Clinic, Indiranagar. Surgeries, deliveries, and hospital admissions (IPD) are performed at partner hospitals where Dr. Anjani is a visiting consultant: Motherhood Hospital (Indiranagar), Cloudnine Hospital (Old Airport Road), Manipal Hospital (Old Airport Road), NR Clinic (Cambridge Layout), Revive Hospital (Indiranagar), Ayaansh Hospital (Indiranagar), and Nelivigi Multispeciality Hospital (Bellandur). The hospital is chosen together with you based on your location, insurance coverage, budget, and the facilities your procedure needs.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'OPD consultations happen at Kasper Multi-Speciality Clinic, Indiranagar. Surgeries, deliveries, and hospital admissions (IPD) are performed at partner hospitals where Dr. Anjani is a visiting consultant: Motherhood Hospital (Indiranagar), Cloudnine Hospital (Old Airport Road), Manipal Hospital (Old Airport Road), Milann Fertility Center (Indiranagar), Revive Hospital (Indiranagar), and Ayaansh Hospital (Indiranagar). The hospital is chosen together with you based on your location, insurance coverage, budget, and the facilities your procedure needs.' },
     },
     {
       '@type': 'Question',
