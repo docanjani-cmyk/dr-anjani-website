@@ -8,7 +8,7 @@ const CFG = {
   whatsapp: '917411722580',
   booking: 'https://meet-my-doctor.firebaseapp.com/#/?uid=47150&eid=38605',
   maps: 'https://maps.app.goo.gl/8MKPqCCGujp34cXe7',
-  practo: 'https://www.practo.com/bangalore/doctor/anjani-dixit-gynecologist-obstetrician',
+
 }
 
 const track = (e) => window.gtag?.('event', e)
@@ -171,8 +171,6 @@ export default function IVFInfertilityPage() {
               <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
               <span className="text-sm" style={{ color: '#7A9C90' }}>· 405 reviews</span>
               <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
-              <a href={CFG.practo} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#5B2D8E' }}>99% on Practo</a>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>(326 stories)</span>
             </div>
           </div>
           <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>

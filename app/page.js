@@ -13,7 +13,6 @@ const CFG = {
   linkedin: 'https://www.linkedin.com/in/dr-anjani/',
   facebook: 'https://www.facebook.com/anjani.dixit.5/',
   youtube: 'https://www.youtube.com/@dr.anjanidixitsengar7299',
-  practo: 'https://www.practo.com/Bangalore/doctor/anjani-dixit-gynecologist-obstetrician',
   booking: 'https://meet-my-doctor.firebaseapp.com/#/?uid=47150&eid=38605',
   maps: 'https://maps.app.goo.gl/8MKPqCCGujp34cXe7',
   clinic: 'Kasper Multi-Speciality Clinic',
@@ -46,7 +45,7 @@ const TESTIMONIALS = [
 
 const FAQS = [
   { q: 'What conditions do you specialise in?', a: 'Dr. Anjani specialises in advanced laparoscopic surgery (fibroids, endometriosis, ovarian cysts, hysterectomy), IVF and fertility treatment, high-risk obstetrics, PCOS management, and gynecosmetic procedures. She offers comprehensive care across all aspects of women\'s reproductive and gynaecological health.' },
-  { q: 'How do I book a consultation?', a: 'You can book through our online Zoho appointment form, through Practo, by calling directly, or by messaging on WhatsApp. Dr. Anjani consults at Kasper Multi-Speciality Clinic, Indiranagar, Bangalore. Video consultations are available for initial evaluations and international patients.' },
+  { q: 'How do I book a consultation?', a: 'You can book through our online appointment form, by calling directly, or by messaging on WhatsApp. Dr. Anjani consults at Kasper Multi-Speciality Clinic, Indiranagar, Bangalore. Video consultations are available for initial evaluations and international patients.' },
   { q: 'Where are surgeries and deliveries performed?', a: 'OPD consultations happen at Kasper Multi-Speciality Clinic, Indiranagar. Surgeries, deliveries, and hospital admissions (IPD) are performed at partner hospitals where Dr. Anjani is a visiting consultant: Motherhood Hospital (Indiranagar), Cloudnine Hospital (Old Airport Road), Manipal Hospital (Old Airport Road), Milann Fertility Center (Indiranagar), Revive Hospital (Indiranagar), and Ayaansh Hospital (Indiranagar). The hospital is chosen together with you based on your location, insurance coverage, budget, and the facilities your procedure needs.' },
   { q: 'What are the consultation charges?', a: 'The consultation fee is ₹1000, and it stays valid for a full seven days from your visit. This means that if you return within the week — to discuss test results, clarify a prescription, or ask anything that came up after your appointment — no additional fee is charged. The idea is straightforward: once you have consulted, the cost should never be a barrier to coming back with questions.' },
   { q: 'Do you treat international or NRI patients?', a: 'Yes. Dr. Anjani regularly consults with patients from outside India, including NRIs and international patients seeking advanced laparoscopic surgery or IVF treatment in Bangalore. Video consultations for initial assessment can be arranged easily.' },
@@ -306,8 +305,8 @@ export default function Home({ initialBookingOpen = false }) {
                 <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
                 <span className="text-sm" style={{ color: '#7A9C90' }}>· 405 reviews</span>
                 <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
-                <a href={CFG.practo} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#5B2D8E' }}>99% on Practo</a>
-                <span className="text-sm" style={{ color: '#7A9C90' }}>(326 stories)</span>
+                <span className="text-sm font-semibold" style={{ color: '#2C5249' }}>Trusted by hundreds</span>
+                <span className="text-sm" style={{ color: '#7A9C90' }}>of grateful patients</span>
               </div>
             </div>
 
@@ -362,7 +361,7 @@ export default function Home({ initialBookingOpen = false }) {
             { value: '14+', label: 'Years of Experience' },
             { value: '1500+', label: 'Procedures Performed' },
             { value: '5.0 ★', label: 'Google Rating', href: CFG.maps },
-            { value: '99%', label: 'Practo Rating · 326 stories', href: CFG.practo },
+            { value: '100%', label: 'Patient Satisfaction' },
           ].map((s, i) => (
             <div key={i} className="reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
               {s.href ? (
@@ -813,7 +812,7 @@ export default function Home({ initialBookingOpen = false }) {
             ))}
           </div>
 
-          <div className="text-center reveal flex flex-wrap items-center justify-center gap-3">
+          <div className="text-center reveal">
             <a
               href={CFG.maps}
               target="_blank" rel="noopener noreferrer"
@@ -821,14 +820,6 @@ export default function Home({ initialBookingOpen = false }) {
               style={{ borderColor: '#2C5249', color: '#2C5249' }}
             >
               View All 405 Google Reviews <IconArrow />
-            </a>
-            <a
-              href={CFG.practo}
-              target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm border transition-all hover:shadow-md duration-200"
-              style={{ borderColor: '#5B2D8E', color: '#5B2D8E' }}
-            >
-              View All 280 Practo Stories <IconArrow />
             </a>
           </div>
         </div>
@@ -908,7 +899,6 @@ export default function Home({ initialBookingOpen = false }) {
                   { href: CFG.linkedin, label: 'LinkedIn', icon: <IconLinkedIn /> },
                   { href: CFG.youtube, label: 'YouTube', icon: <IconYouTube /> },
                   { href: CFG.maps, label: 'Google', icon: <IconGoogle /> },
-                  { href: CFG.practo, label: 'Practo', icon: <IconPracto /> },
                 ].map(({ href, label, icon }) => (
                   <a
                     key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
@@ -932,13 +922,6 @@ export default function Home({ initialBookingOpen = false }) {
               >
                 Book via Appointment Form
               </button>
-              <a
-                href={CFG.practo} target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center w-full py-4 rounded-2xl text-sm font-medium mb-3 border transition-all hover:shadow-sm duration-200"
-                style={{ borderColor: '#C4D9D1', color: '#2C5249' }}
-              >
-                Book on Practo
-              </a>
               <a
                 onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
                 target="_blank" rel="noopener noreferrer"
@@ -1002,7 +985,7 @@ export default function Home({ initialBookingOpen = false }) {
           <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs" style={{ borderTop: '1px solid #243D35', color: '#3D6A5C' }}>
             <p>© 2026 Dr. Anjani Dixit · All rights reserved · Reg. {CFG.license}</p>
             <div className="flex gap-5">
-              {[['LinkedIn', CFG.linkedin], ['YouTube', CFG.youtube], ['Google', CFG.maps], ['Practo', CFG.practo]].map(([label, href]) => (
+              {[['LinkedIn', CFG.linkedin], ['YouTube', CFG.youtube], ['Google', CFG.maps]].map(([label, href]) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">{label}</a>
               ))}
             </div>

@@ -62,7 +62,6 @@ const physicianSchema = {
   sameAs: [
     'https://www.linkedin.com/in/dr-anjani/',
     'https://www.facebook.com/anjani.dixit.5/',
-    'https://www.practo.com/Bangalore/doctor/anjani-dixit-gynecologist-obstetrician',
   ],
 }
 
@@ -100,7 +99,6 @@ const localBusinessSchema = {
   sameAs: [
     'https://www.linkedin.com/in/dr-anjani/',
     'https://www.facebook.com/anjani.dixit.5/',
-    'https://www.practo.com/Bangalore/doctor/anjani-dixit-gynecologist-obstetrician',
   ],
 }
 
@@ -116,7 +114,7 @@ const homeFaqSchema = {
     {
       '@type': 'Question',
       name: 'How do I book a consultation?',
-      acceptedAnswer: { '@type': 'Answer', text: 'You can book through our online Zoho appointment form, through Practo, by calling directly, or by messaging on WhatsApp. Dr. Anjani consults at Kasper Multi-Speciality Clinic, Indiranagar, Bangalore. Video consultations are available for initial evaluations and international patients.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'You can book through our online appointment form, by calling directly, or by messaging on WhatsApp. Dr. Anjani consults at Kasper Multi-Speciality Clinic, Indiranagar, Bangalore. Video consultations are available for initial evaluations and international patients.' },
     },
     {
       '@type': 'Question',
