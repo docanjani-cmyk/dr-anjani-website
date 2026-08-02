@@ -6,32 +6,9 @@ const track = (e, data = {}) => {
   window.gtag?.('event', e, data)
 }
 
-const SERVICES = [
-  { id: 'laparoscopic', name: 'Laparoscopic Surgery' },
-  { id: 'ivf', name: 'IVF & Fertility Treatment' },
-  { id: 'pregnancy', name: 'Pregnancy Care' },
-  { id: 'pcos', name: 'PCOS Management' },
-  { id: 'cosmetic', name: 'Cosmetic Gynecology' },
-  { id: 'consultation', name: 'General Consultation' },
-]
-
 export default function BookAppointmentPage() {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    age: '',
-    service: '',
-    preferredDate: '',
-    preferredTime: '',
-    notes: '',
-    consent: false,
-  })
-
-  const [loading, setLoading] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState('')
   const [scrolled, setScrolled] = useState(false)
+  const [formInteracted, setFormInteracted] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -39,89 +16,82 @@ export default function BookAppointmentPage() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const validateForm = () => {
-    if (!formData.fullName.trim()) return 'Please enter your name'
-    if (!formData.email.trim()) return 'Please enter your email'
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) return 'Please enter a valid email'
-    if (!formData.phone.trim()) return 'Please enter your phone number'
-    if (!/^[0-9]{10}$/.test(formData.phone.replace(/\D/g, ''))) return 'Please enter a valid 10-digit phone number'
-    if (!formData.service) return 'Please select a service'
-    if (!formData.preferredDate) return 'Please select a preferred date'
-    if (!formData.preferredTime) return 'Please select a preferred time'
-    if (!formData.consent) return 'Please accept the terms and conditions'
-    return ''
-  }
+  useEffect(() => {
+    // Track page view
+    track('page_view', {
+      page_title: 'Book Appointment',
+      page_path: '/book-appointment'
+    })
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }))
-    if (error) setError('')
-  }
+    // Set up mutation observer to detect form submissions
+    const setupFormTracking = () => {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          // Look for success messages or form completion indicators
+          const successElements = document.querySelectorAll('[class*="success"], [class*="confirm"], [class*="thank"]')
+          if (successElements.length > 0) {
+            track('appointment_form_submitted', {
+              source: 'firebase_form',
+              event_category: 'appointment',
+            })
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+            // Fire Google Ads conversion
+            window.gtag?.('event', 'conversion', {
+              send_to: 'AW-1796712782/6962668268',
+              value: 1000,
+              currency: 'INR',
+              transaction_id: `apt_${Date.now()}`,
+            })
 
-    const validationError = validateForm()
-    if (validationError) {
-      setError(validationError)
-      track('appointment_form_error', { error: validationError })
-      return
+            // Log to backend
+            fetch('/api/track-appointment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                timestamp: new Date().toISOString(),
+                booked_channel: 'Firebase Form (Website)',
+                source: 'firebase_form_website',
+              })
+            }).catch(err => console.log('Form submission logged'))
+          }
+        })
+      })
+
+      // Start observing the iframe content
+      const iframes = document.querySelectorAll('iframe')
+      iframes.forEach(iframe => {
+        try {
+          observer.observe(iframe.contentDocument.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+          })
+        } catch (e) {
+          // Cross-origin iframe - can't observe, will use alternative method
+          console.log('Cross-origin iframe detected')
+        }
+      })
+
+      return observer
     }
 
-    setLoading(true)
-    setError('')
+    // Wait for iframe to load, then set up tracking
+    const timer = setTimeout(() => {
+      setupFormTracking()
+    }, 1000)
 
-    try {
-      // Track form submission in Google Analytics
-      track('appointment_form_submitted', {
-        service: formData.service,
-        source: 'website_form',
-        event_category: 'appointment',
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Track when user interacts with the form
+  const handleIframeInteraction = () => {
+    if (!formInteracted) {
+      setFormInteracted(true)
+      track('appointment_form_engaged', {
+        source: 'firebase_form',
       })
-
-      // Track conversion in Google Ads
-      window.gtag?.('event', 'conversion', {
-        send_to: 'AW-1796712782/6962668268',
-        value: 1000,
-        currency: 'INR',
-        transaction_id: `apt_${Date.now()}`,
-      })
-
-      // Submit to backend
-      const response = await fetch('/api/book-appointment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          submitted_at: new Date().toISOString(),
-          source: 'website_form',
-        }),
-      })
-
-      if (!response.ok) throw new Error('Failed to submit form')
-
-      setSubmitted(true)
-      setFormData({
-        fullName: '', email: '', phone: '', age: '', service: '',
-        preferredDate: '', preferredTime: '', notes: '', consent: false,
-      })
-
-      track('appointment_form_success', { service: formData.service })
-
-      setTimeout(() => setSubmitted(false), 5000)
-    } catch (err) {
-      setError('Failed to submit form. Please try again or call us.')
-      track('appointment_form_submit_error', { error: err.message })
-    } finally {
-      setLoading(false)
     }
   }
-
-  const today = new Date().toISOString().split('T')[0]
-  const maxDate = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
   return (
     <div style={{ backgroundColor: '#FAFAF8', color: '#1A2E28', minHeight: '100vh' }}>
@@ -132,6 +102,7 @@ export default function BookAppointmentPage() {
           backgroundColor: scrolled ? 'rgba(250,250,248,0.96)' : 'rgba(250,250,248,0.92)',
           backdropFilter: 'blur(12px)',
           borderBottom: scrolled ? '1px solid #E3EDE9' : '1px solid transparent',
+          boxShadow: scrolled ? '0 1px 20px rgba(44,82,73,0.06)' : 'none',
         }}
       >
         <nav className="max-w-6xl mx-auto px-5 lg:px-8 py-4 flex items-center justify-between">
@@ -142,7 +113,7 @@ export default function BookAppointmentPage() {
           </a>
           <a
             href="/"
-            className="text-sm font-medium"
+            className="text-sm font-medium hover:opacity-70 transition-opacity"
             style={{ color: '#2C5249' }}
           >
             ← Back to Home
@@ -152,223 +123,152 @@ export default function BookAppointmentPage() {
 
       {/* HERO */}
       <section style={{ background: 'linear-gradient(135deg, #f5f0e8 0%, #fafaf8 55%, #eef4f1 100%)' }} className="py-12 lg:py-20">
-        <div className="max-w-2xl mx-auto px-5 lg:px-8 text-center">
+        <div className="max-w-6xl mx-auto px-5 lg:px-8 text-center">
           <h1
-            style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28', fontSize: '2.5rem', lineHeight: 1.2, marginBottom: '1rem' }}
-            className="font-bold"
+            style={{
+              fontFamily: 'Playfair Display, serif',
+              color: '#1A2E28',
+              fontSize: '2.5rem',
+              lineHeight: 1.2,
+              marginBottom: '1rem',
+              fontWeight: 700,
+            }}
           >
             Book Your Consultation
           </h1>
-          <p style={{ color: '#5A7870', fontSize: '1.1rem' }}>
-            Schedule an appointment with Dr. Anjani Dixit. We'll confirm your booking within 24 hours.
+          <p style={{ color: '#5A7870', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
+            Schedule an appointment with Dr. Anjani Dixit. See real-time availability and book instantly.
           </p>
         </div>
       </section>
 
-      {/* FORM SECTION */}
+      {/* BOOKING FORM SECTION */}
       <section className="py-12 lg:py-20 px-5 lg:px-8">
-        <div className="max-w-2xl mx-auto bg-white rounded-3xl p-8 lg:p-12" style={{ border: '1px solid #E3EDE9' }}>
-          {submitted && (
-            <div className="mb-6 p-4 rounded-2xl text-center" style={{ backgroundColor: '#D1FAE5', color: '#065F46' }}>
-              ✓ Thank you! We'll contact you within 24 hours to confirm your appointment.
-            </div>
-          )}
-
-          {error && (
-            <div className="mb-6 p-4 rounded-2xl text-center" style={{ backgroundColor: '#FEE2E2', color: '#991B1B' }}>
-              {error}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name */}
-            <div>
-              <label className="block text-sm font-semibold mb-2" style={{ color: '#1A2E28' }}>
-                Full Name *
-              </label>
-              <input
-                type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                placeholder="Your full name"
-                className="w-full px-4 py-3 rounded-xl border"
-                style={{ borderColor: '#E3EDE9', backgroundColor: '#FAFAF8' }}
-              />
-            </div>
-
-            {/* Email & Phone */}
-            <div className="grid lg:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-semibold mb-2" style={{ color: '#1A2E28' }}>
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="your@email.com"
-                  className="w-full px-4 py-3 rounded-xl border"
-                  style={{ borderColor: '#E3EDE9', backgroundColor: '#FAFAF8' }}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-2" style={{ color: '#1A2E28' }}>
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="10-digit mobile number"
-                  className="w-full px-4 py-3 rounded-xl border"
-                  style={{ borderColor: '#E3EDE9', backgroundColor: '#FAFAF8' }}
-                />
-              </div>
-            </div>
-
-            {/* Age & Service */}
-            <div className="grid lg:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-semibold mb-2" style={{ color: '#1A2E28' }}>
-                  Age (Optional)
-                </label>
-                <input
-                  type="number"
-                  name="age"
-                  value={formData.age}
-                  onChange={handleChange}
-                  placeholder="Your age"
-                  className="w-full px-4 py-3 rounded-xl border"
-                  style={{ borderColor: '#E3EDE9', backgroundColor: '#FAFAF8' }}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-2" style={{ color: '#1A2E28' }}>
-                  Service Required *
-                </label>
-                <select
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl border"
-                  style={{ borderColor: '#E3EDE9', backgroundColor: '#FAFAF8' }}
-                >
-                  <option value="">Select a service</option>
-                  {SERVICES.map(s => (
-                    <option key={s.id} value={s.id}>{s.name}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Date & Time */}
-            <div className="grid lg:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-semibold mb-2" style={{ color: '#1A2E28' }}>
-                  Preferred Date *
-                </label>
-                <input
-                  type="date"
-                  name="preferredDate"
-                  value={formData.preferredDate}
-                  onChange={handleChange}
-                  min={today}
-                  max={maxDate}
-                  className="w-full px-4 py-3 rounded-xl border"
-                  style={{ borderColor: '#E3EDE9', backgroundColor: '#FAFAF8' }}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-2" style={{ color: '#1A2E28' }}>
-                  Preferred Time *
-                </label>
-                <select
-                  name="preferredTime"
-                  value={formData.preferredTime}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl border"
-                  style={{ borderColor: '#E3EDE9', backgroundColor: '#FAFAF8' }}
-                >
-                  <option value="">Select a time slot</option>
-                  <option value="09:00-10:00">9:00 AM - 10:00 AM</option>
-                  <option value="10:00-11:00">10:00 AM - 11:00 AM</option>
-                  <option value="11:00-12:00">11:00 AM - 12:00 PM</option>
-                  <option value="12:00-13:00">12:00 PM - 1:00 PM</option>
-                  <option value="14:00-15:00">2:00 PM - 3:00 PM</option>
-                  <option value="15:00-16:00">3:00 PM - 4:00 PM</option>
-                  <option value="16:00-17:00">4:00 PM - 5:00 PM</option>
-                  <option value="17:00-18:00">5:00 PM - 6:00 PM</option>
-                  <option value="18:00-19:00">6:00 PM - 7:00 PM</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Notes */}
-            <div>
-              <label className="block text-sm font-semibold mb-2" style={{ color: '#1A2E28' }}>
-                Additional Notes (Optional)
-              </label>
-              <textarea
-                name="notes"
-                value={formData.notes}
-                onChange={handleChange}
-                placeholder="Tell us about your concerns or medical history..."
-                rows="4"
-                className="w-full px-4 py-3 rounded-xl border"
-                style={{ borderColor: '#E3EDE9', backgroundColor: '#FAFAF8', resize: 'none' }}
-              />
-            </div>
-
-            {/* Consent */}
-            <div className="flex items-start gap-3">
-              <input
-                type="checkbox"
-                name="consent"
-                checked={formData.consent}
-                onChange={handleChange}
-                className="mt-1"
-                style={{ accentColor: '#2C5249' }}
-              />
-              <label className="text-sm" style={{ color: '#5A7870' }}>
-                I agree to be contacted via email or phone regarding my appointment. By submitting this form, you consent to Dr. Anjani Dixit contacting you.
-              </label>
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-4 rounded-2xl font-semibold text-white text-center transition-all duration-200"
-              style={{
-                backgroundColor: loading ? '#9ECEC0' : '#2C5249',
-                opacity: loading ? 0.7 : 1,
-                cursor: loading ? 'not-allowed' : 'pointer',
-              }}
-            >
-              {loading ? 'Submitting...' : 'Book Appointment'}
-            </button>
-
-            <p className="text-xs text-center" style={{ color: '#7A9C90' }}>
-              ₹1,000 consultation fee. Payment can be made at the clinic.
+        <div className="max-w-4xl mx-auto">
+          {/* Info Box */}
+          <div
+            className="mb-8 p-6 rounded-2xl text-center"
+            style={{ backgroundColor: '#F5F0E8', borderLeft: '4px solid #2C5249' }}
+          >
+            <p style={{ color: '#1A2E28', fontWeight: 500, marginBottom: '0.5rem' }}>
+              ✓ Real-time availability • ✓ Instant confirmation • ✓ Video consultations available
             </p>
-          </form>
+            <p style={{ color: '#7A9C90', fontSize: '0.9rem' }}>
+              Consultation fee: ₹1,000 (payable at clinic or online)
+            </p>
+          </div>
 
-          {/* Contact Info */}
-          <div className="mt-12 pt-8" style={{ borderTop: '1px solid #E3EDE9' }}>
-            <p className="text-sm font-semibold mb-4" style={{ color: '#1A2E28' }}>
-              Or reach out directly:
+          {/* Firebase Form Iframe */}
+          <div
+            className="bg-white rounded-3xl overflow-hidden"
+            style={{
+              border: '1px solid #E3EDE9',
+              boxShadow: '0 10px 40px rgba(44,82,73,0.08)',
+              minHeight: '600px',
+            }}
+            onClick={handleIframeInteraction}
+            onFocus={handleIframeInteraction}
+          >
+            <iframe
+              src="https://meet-my-doctor.firebaseapp.com/#/?uid=47150&eid=38605"
+              style={{
+                width: '100%',
+                height: '700px',
+                border: 'none',
+                borderRadius: '1.5rem',
+              }}
+              title="Book Appointment with Dr. Anjani Dixit"
+              allow="camera; microphone; payment"
+            />
+          </div>
+
+          {/* Fallback Info */}
+          <div
+            className="mt-12 p-8 rounded-2xl text-center"
+            style={{ backgroundColor: '#F5F0E8' }}
+          >
+            <p style={{ color: '#1A2E28', fontWeight: 500, marginBottom: '1rem' }}>
+              Having trouble with the booking form?
             </p>
             <div className="space-y-2 text-sm" style={{ color: '#5A7870' }}>
-              <p>📞 <a href="tel:7411722580" style={{ color: '#2C5249', textDecoration: 'none' }}>+91 74117 22580</a></p>
-              <p>📧 <a href="mailto:doc.anjani@gmail.com" style={{ color: '#2C5249', textDecoration: 'none' }}>doc.anjani@gmail.com</a></p>
+              <p>
+                📞 <a href="tel:7411722580" style={{ color: '#2C5249', textDecoration: 'none', fontWeight: 500 }}>
+                  +91 74117 22580
+                </a>
+              </p>
+              <p>
+                📧 <a href="mailto:doc.anjani@gmail.com" style={{ color: '#2C5249', textDecoration: 'none', fontWeight: 500 }}>
+                  doc.anjani@gmail.com
+                </a>
+              </p>
               <p>📍 Kasper Multi-Speciality Clinic, Indiranagar, Bangalore</p>
             </div>
           </div>
+
+          {/* Benefits Section */}
+          <div className="mt-12 grid md:grid-cols-3 gap-6">
+            {[
+              { icon: '⏱️', title: 'Easy Booking', desc: 'Real-time availability and instant confirmation' },
+              { icon: '🎥', title: 'Video Available', desc: 'Video consultations for initial evaluations' },
+              { icon: '✨', title: '14+ Years Experience', desc: '1500+ successful procedures performed' },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="p-6 rounded-2xl text-center"
+                style={{ backgroundColor: '#FAFAF8', border: '1px solid #E3EDE9' }}
+              >
+                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{item.icon}</div>
+                <h3 style={{ color: '#1A2E28', fontWeight: 600, marginBottom: '0.5rem' }}>
+                  {item.title}
+                </h3>
+                <p style={{ color: '#7A9C90', fontSize: '0.9rem' }}>
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* Analytics Tracking Script */}
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          // Monitor for form submission success
+          window.addEventListener('message', function(event) {
+            if (event.origin !== 'https://meet-my-doctor.firebaseapp.com') return;
+
+            // Listen for Firebase success messages
+            if (event.data && event.data.type === 'booking_success') {
+              // Track in Google Analytics
+              if (window.gtag) {
+                gtag('event', 'appointment_form_submitted', {
+                  source: 'firebase_form',
+                  event_category: 'appointment'
+                });
+
+                // Track in Google Ads
+                gtag('event', 'conversion', {
+                  send_to: 'AW-1796712782/6962668268',
+                  value: 1000,
+                  currency: 'INR',
+                  transaction_id: 'apt_' + Date.now()
+                });
+              }
+
+              // Log to backend
+              fetch('/api/track-appointment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  timestamp: new Date().toISOString(),
+                  booked_channel: 'Firebase Form (Website)',
+                  source: 'firebase_form_website'
+                })
+              }).catch(err => console.log('Form logged'));
+            }
+          });
+        `
+      }} />
     </div>
   )
 }
