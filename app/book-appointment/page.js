@@ -15,16 +15,16 @@ const SERVICES = [
   { id: 'consultation', name: 'General Consultation' },
 ]
 
-const TIME_SLOTS = [
-  '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
-  '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM', '06:00 PM'
-]
-
 export default function BookAppointmentPage() {
   const [scrolled, setScrolled] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [availableSlots, setAvailableSlots] = useState([
+    '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+    '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM', '06:00 PM'
+  ])
+  const [slotsLoading, setSlotsLoading] = useState(true)
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -49,7 +49,28 @@ export default function BookAppointmentPage() {
       page_title: 'Book Appointment',
       page_path: '/book-appointment'
     })
+
+    // Fetch available time slots from Firebase
+    fetchAvailableSlots()
   }, [])
+
+  const fetchAvailableSlots = async () => {
+    try {
+      setSlotsLoading(true)
+      const response = await fetch('/api/availability')
+      const data = await response.json()
+
+      if (data.success && data.availableSlots) {
+        setAvailableSlots(data.availableSlots)
+        console.log('[AVAILABILITY] Loaded from', data.source)
+      }
+    } catch (error) {
+      console.error('[AVAILABILITY_ERROR]', error)
+      // Keep default slots on error
+    } finally {
+      setSlotsLoading(false)
+    }
+  }
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -464,12 +485,17 @@ export default function BookAppointmentPage() {
                   <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.75rem', color: '#1A2E28' }}>
                     Preferred Time *
                   </label>
+                  {slotsLoading && (
+                    <p style={{ fontSize: '0.85rem', color: '#7A9C90', marginBottom: '0.5rem' }}>
+                      Loading available times...
+                    </p>
+                  )}
                   <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
                     gap: '0.5rem',
                   }}>
-                    {TIME_SLOTS.map(time => (
+                    {availableSlots.map(time => (
                       <button
                         key={time}
                         type="button"
