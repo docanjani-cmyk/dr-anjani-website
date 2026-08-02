@@ -2,7 +2,33 @@
 
 import { useState, useEffect } from 'react'
 
-const track = (e) => window.gtag?.('event', e)
+const track = (e) => {
+  window.gtag?.('event', e)
+}
+
+const trackFormSubmission = async (data) => {
+  try {
+    // Track in Google Analytics
+    window.gtag?.('event', 'appointment_form_submitted', {
+      timestamp: new Date().toISOString(),
+      source: 'website'
+    })
+
+    // Log to backend for DocPulse integration
+    await fetch('/api/track-appointment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        timestamp: new Date().toISOString(),
+        booked_channel: 'Website Form',
+        source: 'appointment_website',
+        ...data
+      })
+    }).catch(err => console.log('Form submission logged'))
+  } catch (e) {
+    console.error('Tracking error:', e)
+  }
+}
 
 const CFG = {
   name: 'Dr. Anjani Dixit',
