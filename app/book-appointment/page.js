@@ -126,25 +126,31 @@ export default function BookAppointmentPage() {
         transaction_id: `apt_${Date.now()}`,
       })
 
-      // Submit to backend
-      const response = await fetch('/api/book-appointment', {
+      // Log submission to our backend
+      await fetch('/api/track-appointment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...formData,
-          submitted_at: new Date().toISOString(),
-          source: 'website_form'
+          timestamp: new Date().toISOString(),
+          booked_channel: 'Website Form (Redirecting to Firebase)',
+          source: 'website_form_hybrid',
+          patient_name: formData.fullName,
+          patient_email: formData.email,
+          patient_phone: formData.phone,
+          service: formData.service,
+          preferred_date: formData.preferredDate,
         })
-      })
+      }).catch(err => console.log('Tracking logged'))
 
-      if (response.ok) {
-        setSubmitted(true)
-      } else {
-        alert('Failed to submit. Please try again.')
-      }
+      // Redirect to Firebase booking with patient info
+      // Firebase will show real available slots
+      const firebaseUrl = `https://meet-my-doctor.firebaseapp.com/#/?uid=47150&eid=38605&name=${encodeURIComponent(formData.fullName)}&email=${encodeURIComponent(formData.email)}&phone=${encodeURIComponent(formData.phone)}`
+
+      console.log('[REDIRECT] Sending to Firebase:', firebaseUrl)
+      window.location.href = firebaseUrl
     } catch (error) {
       console.error('Submission error:', error)
-      alert('Error submitting form. Please try again.')
+      alert('Error proceeding to booking. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -545,12 +551,24 @@ export default function BookAppointmentPage() {
             {currentStep === 3 && (
               <div className="space-y-6">
                 <div style={{
+                  backgroundColor: '#E8F5F0',
+                  borderRadius: '1.5rem',
+                  padding: '1rem',
+                  border: '1px solid #2C5249',
+                  marginBottom: '1rem'
+                }}>
+                  <p style={{ color: '#1A2E28', fontSize: '0.9rem', margin: 0 }}>
+                    ℹ️ Next, you'll be taken to our appointment system to view <strong>real-time available slots</strong> and complete your booking.
+                  </p>
+                </div>
+
+                <div style={{
                   backgroundColor: '#F5F0E8',
                   borderRadius: '1.5rem',
                   padding: '1.5rem',
                   borderLeft: '4px solid #2C5249'
                 }}>
-                  <h3 style={{ color: '#1A2E28', fontWeight: 600, marginBottom: '1rem' }}>Review Your Booking</h3>
+                  <h3 style={{ color: '#1A2E28', fontWeight: 600, marginBottom: '1rem' }}>Review Your Information</h3>
                   <div style={{ color: '#5A7870', lineHeight: 1.8 }}>
                     <p><strong>Name:</strong> {formData.fullName}</p>
                     <p><strong>Email:</strong> {formData.email}</p>
@@ -642,7 +660,7 @@ export default function BookAppointmentPage() {
                     border: 'none',
                   }}
                 >
-                  {loading ? 'Submitting...' : 'Confirm Booking'}
+                  {loading ? 'Redirecting...' : 'Proceed to Booking'}
                 </button>
               )}
             </div>

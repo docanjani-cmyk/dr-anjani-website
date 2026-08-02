@@ -103,6 +103,8 @@ async function fetchFromFirebaseApp(date) {
       date ? `&date=${date}` : ''
     }`
 
+    console.log('[FIREBASE_APP] URL:', url)
+
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -119,9 +121,12 @@ async function fetchFromFirebaseApp(date) {
     }
 
     const html = await response.text()
+    console.log('[FIREBASE_APP] HTML length:', html.length, 'bytes')
 
     // Try to parse available slots from the HTML response
     const slots = parseAvailableSlotsFromHtml(html)
+    console.log('[FIREBASE_APP] Parsed slots:', slots.length > 0 ? slots : 'none found')
+
     return slots.length > 0 ? slots : null
   } catch (error) {
     console.log('[FIREBASE_APP] Error:', error.message)
