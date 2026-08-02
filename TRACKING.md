@@ -1,6 +1,6 @@
 # Appointment Form Submission Tracking
 
-This document explains how form submissions are tracked and integrated with DocPulse.
+This document explains how form submissions are tracked and integrated with DocPulse and Google Ads.
 
 ## Architecture
 
@@ -72,9 +72,47 @@ To fully integrate with DocPulse appointment records:
 - ✅ Patient type (new vs. repeat)
 - ✅ Booking completion rate (submitted → appointment completed)
 
+## Google Ads Integration (🔴 ACTION REQUIRED)
+
+### Current Setup
+- **Google Ads Account ID**: `AW-1796712782`
+- **Tracking Method**: Direct conversion tracking via `gtag`
+- **Conversion Value**: ₹1000 (default consultation fee)
+- **Currency**: INR
+
+### ⚠️ Required Configuration
+
+**Step 1**: Get your Conversion ID from Google Ads
+1. Go to Google Ads → Tools → Conversions
+2. Find "Website - Appointment Form Submission" or create new conversion
+3. Copy the **Conversion ID** (looks like: `1234567890`)
+
+**Step 2**: Update the code in `app/page.js`
+```javascript
+// Replace this:
+send_to: 'AW-1796712782/YOUR_CONVERSION_ID'
+
+// With your actual ID:
+send_to: 'AW-1796712782/1234567890'  // ← Your ID here
+```
+
+**Step 3**: Verify in Google Ads
+- Go to Tools → Tag Assistant
+- Navigate to your website
+- Should see "Conversion tracking is working"
+
+### Events Being Tracked
+
+| Event | Platform | Data Sent |
+|-------|----------|-----------|
+| `appointment_form_submitted` | Google Analytics 4 | timestamp, source, service type |
+| `conversion` | Google Ads | conversion value (₹1000), currency, transaction ID |
+| Form submission log | Backend API | All form data + timestamp |
+
 ## Next Steps
 
-1. Connect to actual database/storage backend
-2. Implement CSV export for DocPulse
-3. Set up monitoring dashboard
-4. Configure automated daily/weekly syncs
+1. **✅ Google Ads Setup** - Update conversion ID (see above)
+2. **DocPulse Database** - Choose storage backend & sync strategy
+3. **Extend API** - Store data instead of just logging
+4. **Add daily sync** - Merge website submissions into DocPulse CSVs
+5. **Monitoring dashboard** - Track conversion rates

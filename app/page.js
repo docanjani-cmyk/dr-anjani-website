@@ -8,10 +8,23 @@ const track = (e) => {
 
 const trackFormSubmission = async (data) => {
   try {
+    const timestamp = new Date().toISOString()
+
     // Track in Google Analytics
     window.gtag?.('event', 'appointment_form_submitted', {
-      timestamp: new Date().toISOString(),
-      source: 'website'
+      timestamp,
+      source: 'website',
+      event_category: 'appointment',
+      event_label: data?.service_type || 'booking'
+    })
+
+    // Track in Google Ads (direct conversion tracking)
+    // AW-1796712782 = Google Ads account, replace CONVERSION_ID with actual ID from Google Ads
+    window.gtag?.('event', 'conversion', {
+      send_to: 'AW-1796712782/YOUR_CONVERSION_ID', // ⚠️ Update with your conversion ID
+      value: data?.conversion_value || 1000, // ₹1000 default (consultation fee)
+      currency: 'INR',
+      transaction_id: `apt_${Date.now()}`
     })
 
     // Log to backend for DocPulse integration
@@ -19,7 +32,7 @@ const trackFormSubmission = async (data) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        timestamp: new Date().toISOString(),
+        timestamp,
         booked_channel: 'Website Form',
         source: 'appointment_website',
         ...data
