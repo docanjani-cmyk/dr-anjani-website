@@ -103,7 +103,7 @@ export default function BookAppointmentPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (!formData.fullName || !formData.email || !formData.phone || !formData.preferredDate || !formData.preferredTime || !formData.consent) {
+    if (!formData.fullName || !formData.email || !formData.phone || !formData.service || !formData.consent) {
       alert('Please fill in all required fields')
       return
     }
@@ -322,8 +322,8 @@ export default function BookAppointmentPage() {
           {/* Step Labels */}
           <div className="mb-12 flex justify-between text-sm">
             <span style={{ color: currentStep >= 1 ? '#2C5249' : '#7A9C90', fontWeight: currentStep >= 1 ? 600 : 400 }}>Your Info</span>
-            <span style={{ color: currentStep >= 2 ? '#2C5249' : '#7A9C90', fontWeight: currentStep >= 2 ? 600 : 400 }}>Service & Date</span>
-            <span style={{ color: currentStep >= 3 ? '#2C5249' : '#7A9C90', fontWeight: currentStep >= 3 ? 600 : 400 }}>Review & Submit</span>
+            <span style={{ color: currentStep >= 2 ? '#2C5249' : '#7A9C90', fontWeight: currentStep >= 2 ? 600 : 400 }}>Service</span>
+            <span style={{ color: currentStep >= 3 ? '#2C5249' : '#7A9C90', fontWeight: currentStep >= 3 ? 600 : 400 }}>Review & Proceed</span>
           </div>
 
           {/* Info Box */}
@@ -436,9 +436,21 @@ export default function BookAppointmentPage() {
               </div>
             )}
 
-            {/* Step 2: Service & Date */}
+            {/* Step 2: Select Service */}
             {currentStep === 2 && (
               <div className="space-y-6">
+                <div style={{
+                  backgroundColor: '#E8F5F0',
+                  borderRadius: '1.5rem',
+                  padding: '1rem',
+                  border: '1px solid #2C5249',
+                  marginBottom: '1rem'
+                }}>
+                  <p style={{ color: '#1A2E28', fontSize: '0.9rem', margin: 0 }}>
+                    ℹ️ Date and time selection will be available on the next step based on <strong>real-time availability</strong>.
+                  </p>
+                </div>
+
                 <div>
                   <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem', color: '#1A2E28' }}>
                     Select Service *
@@ -460,67 +472,6 @@ export default function BookAppointmentPage() {
                       <option key={s.id} value={s.id}>{s.name}</option>
                     ))}
                   </select>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem', color: '#1A2E28' }}>
-                    Preferred Date *
-                  </label>
-                  <input
-                    type="date"
-                    name="preferredDate"
-                    value={formData.preferredDate}
-                    onChange={handleDateChange}
-                    min={getMinDate()}
-                    max={getMaxDate()}
-                    style={{
-                      width: '100%',
-                      padding: '0.75rem 1rem',
-                      borderRadius: '0.75rem',
-                      border: '1px solid #E3EDE9',
-                      fontSize: '1rem',
-                      boxSizing: 'border-box',
-                    }}
-                  />
-                  <p style={{ fontSize: '0.85rem', color: '#7A9C90', marginTop: '0.5rem' }}>
-                    Available for appointments up to 90 days from today
-                  </p>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.75rem', color: '#1A2E28' }}>
-                    Preferred Time *
-                  </label>
-                  {slotsLoading && (
-                    <p style={{ fontSize: '0.85rem', color: '#7A9C90', marginBottom: '0.5rem' }}>
-                      Loading available times...
-                    </p>
-                  )}
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
-                    gap: '0.5rem',
-                  }}>
-                    {availableSlots.map(time => (
-                      <button
-                        key={time}
-                        type="button"
-                        onClick={() => setFormData(prev => ({ ...prev, preferredTime: time }))}
-                        style={{
-                          padding: '0.75rem',
-                          borderRadius: '0.75rem',
-                          border: formData.preferredTime === time ? 'none' : '1px solid #E3EDE9',
-                          backgroundColor: formData.preferredTime === time ? '#2C5249' : 'white',
-                          color: formData.preferredTime === time ? 'white' : '#1A2E28',
-                          fontWeight: 500,
-                          cursor: 'pointer',
-                          transition: 'all 0.2s',
-                        }}
-                      >
-                        {time}
-                      </button>
-                    ))}
-                  </div>
                 </div>
 
                 <div>
@@ -575,8 +526,6 @@ export default function BookAppointmentPage() {
                     <p><strong>Phone:</strong> {formData.phone}</p>
                     {formData.age && <p><strong>Age:</strong> {formData.age}</p>}
                     <p><strong>Service:</strong> {SERVICES.find(s => s.id === formData.service)?.name}</p>
-                    <p><strong>Date:</strong> {new Date(formData.preferredDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                    <p><strong>Time:</strong> {formData.preferredTime}</p>
                     {formData.notes && <p><strong>Notes:</strong> {formData.notes}</p>}
                   </div>
                 </div>
