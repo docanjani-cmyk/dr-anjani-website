@@ -19,9 +19,9 @@ const trackFormSubmission = async (data) => {
     })
 
     // Track in Google Ads (direct conversion tracking)
-    // AW-1796712782 = Google Ads account, replace CONVERSION_ID with actual ID from Google Ads
+    // Business profile - Form submit conversion (created 12/16/2024)
     window.gtag?.('event', 'conversion', {
-      send_to: 'AW-1796712782/YOUR_CONVERSION_ID', // ⚠️ Update with your conversion ID
+      send_to: 'AW-1796712782/6962668268',
       value: data?.conversion_value || 1000, // ₹1000 default (consultation fee)
       currency: 'INR',
       transaction_id: `apt_${Date.now()}`
