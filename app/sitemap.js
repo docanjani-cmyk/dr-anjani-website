@@ -3,6 +3,7 @@ export default function sitemap() {
   const lastModified = new Date()
   return [
     { url: base, lastModified, changeFrequency: 'monthly', priority: 1 },
+    { url: `${base}/about-us`, lastModified, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/laparoscopic-surgery`, lastModified, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/ivf-infertility`, lastModified, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/pcos`, lastModified, changeFrequency: 'monthly', priority: 0.8 },
