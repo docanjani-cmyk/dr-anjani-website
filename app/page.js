@@ -420,7 +420,7 @@ export default function Home({ initialBookingOpen = false }) {
       {/* ── WHY DR. ANJANI ── */}
       <section id="services" className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>The Difference</p>
             <h2 className="text-3xl lg:text-5xl font-bold mb-4" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               Why Patients Trust<br />Dr. Anjani
@@ -522,7 +522,7 @@ export default function Home({ initialBookingOpen = false }) {
       {/* ── GALLERY ── */}
       <section className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Moments of Joy</p>
             <h2 className="text-3xl lg:text-5xl font-bold mb-3" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               With Our Patients
@@ -568,7 +568,7 @@ export default function Home({ initialBookingOpen = false }) {
       {/* ── SPECIALTIES ── */}
       <section className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Expertise</p>
             <h2 className="text-3xl lg:text-5xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               Areas of Specialisation
@@ -628,7 +628,7 @@ export default function Home({ initialBookingOpen = false }) {
       {/* ── CONDITIONS ── */}
       <section className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Conditions Treated</p>
             <h2 className="text-3xl lg:text-5xl font-bold mb-4" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               Comprehensive Women's Health
@@ -740,7 +740,7 @@ export default function Home({ initialBookingOpen = false }) {
       {/* ── PATIENT JOURNEY ── */}
       <section className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#2C5249' }}>
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7AB8A8' }}>Your Journey</p>
             <h2 className="text-3xl lg:text-5xl font-bold text-white" style={{ fontFamily: 'Playfair Display, serif' }}>
               From First Consultation<br />
@@ -792,7 +792,7 @@ export default function Home({ initialBookingOpen = false }) {
       {/* ── TESTIMONIALS ── */}
       <section id="testimonials" className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
             <h2 className="text-3xl lg:text-5xl font-bold mb-3" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               In Their Own Words
@@ -870,7 +870,7 @@ export default function Home({ initialBookingOpen = false }) {
       {/* ── FAQ ── */}
       <section id="faq" className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Common Questions</p>
             <h2 className="text-3xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               Frequently Asked Questions
@@ -911,7 +911,7 @@ export default function Home({ initialBookingOpen = false }) {
       {/* ── CONTACT ── */}
       <section id="contact" className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Connect</p>
             <h2 className="text-3xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               Begin Your Journey to Wellbeing
@@ -978,9 +978,9 @@ export default function Home({ initialBookingOpen = false }) {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="py-16 px-5 lg:px-8" style={{ backgroundColor: '#1A2E28' }}>
+      <footer className="py-10 lg:py-16 px-5 lg:px-8" style={{ backgroundColor: '#1A2E28' }}>
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-10 mb-12">
+          <div className="grid md:grid-cols-3 gap-10 mb-8 lg:mb-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <img src={IMG.logo} alt="Dr. Anjani Dixit" className="w-10 h-10 rounded-full object-cover" />
