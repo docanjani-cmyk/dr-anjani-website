@@ -54,7 +54,7 @@ const NAV_LINKS = [
   ['Cosmetic Gynaecology', '/cosmetic-gynecology'],
 ]
 
-const GALLERY = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 17, 18, 24].map(i => ({
+const GALLERY = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 17, 18, 23].map(i => ({
   src: `/Gallery/About us ${i}.jpg`,
   alt: `Dr. Anjani Dixit with newborn — delivery moment ${i}`,
 }))

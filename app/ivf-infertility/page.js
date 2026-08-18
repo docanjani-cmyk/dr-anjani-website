@@ -59,10 +59,16 @@ const NAV_LINKS = [
   ['Cosmetic Gynaecology', '/cosmetic-gynecology'],
 ]
 
+const GALLERY = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 17, 18, 23].map(i => ({
+  src: `/Gallery/About us ${i}.jpg`,
+  alt: `Dr. Anjani Dixit with newborn — delivery moment ${i}`,
+}))
+
 export default function IVFInfertilityPage() {
   const [openFaq, setOpenFaq] = useState(null)
   const [isBookingOpen, setIsBookingOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [lightbox, setLightbox] = useState(null)
 
   const openBooking = (eventName = 'ads_conversion_Contact_Us_1') => {
     track(eventName)
@@ -326,6 +332,95 @@ export default function IVFInfertilityPage() {
           </div>
         </div>
       </section>
+
+      {/* GALLERY */}
+      <section className="py-20 px-5 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Moments of Joy</p>
+            <h2 className="text-3xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
+              Deliveries With Dr. Anjani
+            </h2>
+          </div>
+          <div style={{ columnCount: 'var(--cols)', columnGap: '1rem', '--cols': 2 }} className="gallery-grid">
+            {GALLERY.map((photo, i) => (
+              <div
+                key={i}
+                className="mb-4 rounded-2xl overflow-hidden cursor-pointer group"
+                style={{ breakInside: 'avoid' }}
+                onClick={() => setLightbox(i)}
+              >
+                <div className="relative overflow-hidden">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ backgroundColor: 'rgba(44,82,73,0.35)' }}
+                  >
+                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <style>{`
+            @media (min-width: 640px) { .gallery-grid { --cols: 3 !important; } }
+            @media (min-width: 1024px) { .gallery-grid { --cols: 4 !important; } }
+          `}</style>
+        </div>
+      </section>
+
+      {/* LIGHTBOX */}
+      {lightbox !== null && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+          style={{ backgroundColor: 'rgba(0,0,0,0.9)' }}
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            onClick={() => setLightbox(null)}
+            className="absolute top-5 right-5 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+            aria-label="Close"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <button
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+            onClick={e => { e.stopPropagation(); setLightbox((lightbox + GALLERY.length - 1) % GALLERY.length) }}
+            aria-label="Previous"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <img
+            src={GALLERY[lightbox].src}
+            alt={GALLERY[lightbox].alt}
+            className="max-h-[90vh] max-w-full rounded-2xl object-contain"
+            onClick={e => e.stopPropagation()}
+          />
+          <button
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+            onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % GALLERY.length) }}
+            aria-label="Next"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white text-sm" style={{ opacity: 0.6 }}>
+            {lightbox + 1} / {GALLERY.length}
+          </div>
+        </div>
+      )}
 
       {/* FINAL CTA */}
       <section className="py-20 px-5" style={{ backgroundColor: '#2C5249' }}>
