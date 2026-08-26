@@ -5,7 +5,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'Who is Dr. Anjani Dixit?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Dr. Anjani Dixit is a laparoscopic gynaecologic surgeon, IVF and fertility specialist, and obstetrician based in Indiranagar, Bangalore. She has over 14 years of experience and has performed 1500+ successful procedures, with a 5.0 Google rating across 405 reviews.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Dr. Anjani Dixit is a laparoscopic gynaecologic surgeon, IVF and fertility specialist, and obstetrician based in Indiranagar, Bangalore. She has over 14 years of experience and has performed 1500+ successful procedures, with a 5.0 Google rating across 420 reviews.' },
     },
     {
       '@type': 'Question',

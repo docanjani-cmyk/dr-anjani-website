@@ -1,6 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { trackBooking } from '../lib/attribution'
+import { ReviewGrid } from '../components/ReviewCard'
+import { PCOS_REVIEWS, REVIEW_STATS } from '../lib/reviews'
 
 const CFG = {
   phone: '7411722580',
@@ -83,7 +86,7 @@ export default function PCOSPage() {
             <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="hidden sm:flex items-center gap-1.5 text-sm font-medium" style={{ color: '#2C5249' }}>
               <IconPhone /> {CFG.phoneDisplay}
             </a>
-            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+            <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
               className="hidden lg:inline-block px-5 py-2 rounded-full text-sm font-semibold text-white"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
@@ -109,7 +112,7 @@ export default function PCOSPage() {
               <a key={href} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
             ))}
             <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
-              onClick={() => { track('ads_conversion_Contact_Us_1'); setMenuOpen(false) }}
+              onClick={() => { trackBooking('ads_conversion_Contact_Us_1'); setMenuOpen(false) }}
               className="block w-full text-center text-white py-3 rounded-full text-sm font-semibold mt-3"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
@@ -138,7 +141,7 @@ export default function PCOSPage() {
               14+ years experience · IVF & Fertility Certified · FOGSI Life Member
             </p>
             <div className="hidden lg:flex gap-3 mb-8">
-              <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+              <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
                 className="px-8 py-4 rounded-full font-semibold text-white text-center hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: '#2C5249' }}>
                 Book a Consultation
@@ -153,7 +156,7 @@ export default function PCOSPage() {
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
               <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>· 405 reviews</span>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>· {REVIEW_STATS.total} reviews</span>
               <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
             </div>
           </div>
@@ -228,41 +231,12 @@ export default function PCOSPage() {
           <div className="text-center mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>What Patients Say</h2>
+            <p className="text-sm mt-3" style={{ color: '#7A9C90' }}>
+              Unedited patient reviews · Google cards link to the original review
+            </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-5">
-            {[
-              { name: 'Sandra Gerard', condition: 'PCOD Treatment', img: 'https://lh3.googleusercontent.com/a-/ALV-UjWPvR1UHnpPQDFkcQ9EQcHv0n3rPBE_P4kILflUfE2F4cP85vvd=s120-c-rp-mo-br100', review: 'Visited Dr. Anjani regarding PCOD and the doctor was very helpful in explaining every minute detail and helped me regulating my periods. I felt completely understood and supported throughout — would absolutely recommend to anyone dealing with hormonal issues.' },
-              { name: 'Verified Patient', condition: 'PCOD/PCOS Treatment', img: null, source: 'practo', review: 'Consulted Dr. Anjani — very gentle and soft spoken, cleared all my doubts. The staff were equally helpful. What I really appreciated was that she advised only the necessary blood tests and scans — no unnecessary investigations. I had a really good experience. Highly recommended.' },
-              { name: 'AB Way', condition: 'Gynaecological Care', img: '/reviewers/ab-way.jpg', review: 'Dr. Anjani Dixit is truly an outstanding gynaecologist, with a warm and caring demeanour that immediately puts you at ease. Her expertise is evident in the way she listens attentively to your concerns, answers questions clearly, and provides personalised care. Her dedication to her patients\' well-being is genuinely inspiring.' },
-            ].map((t, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6" style={{ border: '1px solid #E3EDE9' }}>
-                <div className="flex items-center gap-3 mb-4">
-                  {t.img ? (
-                    <>
-                      <img src={t.img} alt={t.name} referrerPolicy="no-referrer"
-                        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-                        onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'flex' }} />
-                      <div className="w-10 h-10 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
-                        style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
-                    </>
-                  ) : (
-                    <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-semibold"
-                      style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <div className="font-semibold text-sm truncate" style={{ color: '#1A2E28' }}>{t.name}</div>
-                    <div className="text-xs truncate" style={{ color: '#7A9C90' }}>{t.condition}</div>
-                  </div>
-                  {t.source === 'practo' ? (
-                    <span className="flex-shrink-0 font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: '#5B2D8E', color: 'white', fontSize: '10px' }}>Practo</span>
-                  ) : (
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-4 h-4 flex-shrink-0" />
-                  )}
-                </div>
-                <div className="flex gap-0.5 mb-3">{[...Array(5)].map((_, j) => <IconStar key={j} />)}</div>
-                <p className="text-sm leading-relaxed" style={{ color: '#4A6860' }}>"{t.review}"</p>
-              </div>
-            ))}
+          <div>
+            <ReviewGrid reviews={PCOS_REVIEWS} columns="md:grid-cols-2 lg:grid-cols-3" />
           </div>
         </div>
       </section>
@@ -308,7 +282,7 @@ export default function PCOSPage() {
             A single consultation is all it takes to get clear answers about your PCOS and a plan tailored to you.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+            <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
               className="px-8 py-4 rounded-full font-semibold text-center bg-white hover:bg-gray-50 transition-colors"
               style={{ color: '#2C5249' }}>
               Book a Consultation
@@ -336,7 +310,7 @@ export default function PCOSPage() {
 
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3"
         style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}>
-        <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+        <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
           className="flex items-center justify-center w-full py-3.5 rounded-full text-sm font-semibold text-white"
           style={{ backgroundColor: '#2C5249' }}>
           Book a Consultation

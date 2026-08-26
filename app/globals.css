@@ -69,3 +69,23 @@ a {
 .marquee-track:hover {
   animation-play-state: paused;
 }
+
+/* Review cards — verbatim Google text is kept in full in the DOM and clamped
+   visually so cards in a row stay the same height. */
+.review-body {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 12;
+  line-clamp: 12;
+  overflow: hidden;
+}
+
+/* Landing-page hero: phones get a short crop focused on the faces (each page
+   sets --hero-pos), desktop returns to the full portrait framing. */
+.hero-crop {
+  object-position: var(--hero-pos, center);
+}
+
+@media (min-width: 1024px) {
+  .hero-crop { object-position: top; }
+}

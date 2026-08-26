@@ -1,6 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { trackBooking } from '../lib/attribution'
+import { ReviewGrid } from '../components/ReviewCard'
+import { PREGNANCY_REVIEWS, REVIEW_STATS } from '../lib/reviews'
 
 const CFG = {
   phone: '7411722580',
@@ -90,7 +93,7 @@ export default function PregnancyPage() {
             <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="hidden sm:flex items-center gap-1.5 text-sm font-medium" style={{ color: '#2C5249' }}>
               <IconPhone /> {CFG.phoneDisplay}
             </a>
-            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+            <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
               className="hidden lg:inline-block px-5 py-2 rounded-full text-sm font-semibold text-white"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
@@ -116,7 +119,7 @@ export default function PregnancyPage() {
               <a key={href} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
             ))}
             <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
-              onClick={() => { track('ads_conversion_Contact_Us_1'); setMenuOpen(false) }}
+              onClick={() => { trackBooking('ads_conversion_Contact_Us_1'); setMenuOpen(false) }}
               className="block w-full text-center text-white py-3 rounded-full text-sm font-semibold mt-3"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
@@ -145,7 +148,7 @@ export default function PregnancyPage() {
               DNB Obstetrics & Gynaecology · 14+ years · FOGSI Life Member
             </p>
             <div className="hidden lg:flex gap-3 mb-8">
-              <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+              <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
                 className="px-8 py-4 rounded-full font-semibold text-white text-center hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: '#2C5249' }}>
                 Book a Consultation
@@ -160,7 +163,7 @@ export default function PregnancyPage() {
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
               <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>· 405 reviews</span>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>· {REVIEW_STATS.total} reviews</span>
               <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
             </div>
           </div>
@@ -206,72 +209,12 @@ export default function PregnancyPage() {
           <div className="text-center mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>What Patients Say</h2>
+            <p className="text-sm mt-3" style={{ color: '#7A9C90' }}>
+              Unedited patient reviews · Google cards link to the original review
+            </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-5">
-            {[
-              { name: 'Baidyanath Sinha', condition: 'Pregnancy Care', img: 'https://lh3.googleusercontent.com/a-/ALV-UjUUdzLFKPeVX2_bJ2jHhewapprBgjvVebSSDec=s120-c-rp-mo-br100', review: 'Dr. Anjani Dixit is truly exceptional. Her expertise, warmth, and genuine care made my wife\'s pregnancy journey smooth, safe, and beautiful. She listens patiently, explains everything clearly. What sets her apart is how she treats you as a person, not just a patient. Every visit left us feeling confident and reassured.' },
-              { name: 'Rishu Kumari', condition: 'Pregnancy Care', img: null, source: 'practo', review: 'Finding Dr. Anjani was the best decision I made during my pregnancy! She is not just a brilliant gynecologist but a doctor with a golden heart. Her calm demeanor and ability to explain even complex things simply is remarkable. She made every appointment feel reassuring and never once made me feel rushed. I always left her clinic smiling and stress-free.' },
-              { name: 'Akanksha', condition: 'Pregnancy Check Up', img: null, source: 'practo', review: 'I am beyond grateful for the exceptional care I received from Dr. Anjani. From the moment I walked in, I felt welcomed and truly cared for. What sets Dr. Anjani apart is her holistic approach — she not only addressed my medical needs but also made sure I felt comfortable and supported throughout. I always felt like I was in the best possible hands.' },
-            ].map((t, i) => (
-              <div key={i} className="rounded-2xl p-6" style={{ backgroundColor: '#FAFAF8', border: '1px solid #E3EDE9' }}>
-                <div className="flex items-center gap-3 mb-4">
-                  {t.img ? (
-                    <>
-                      <img src={t.img} alt={t.name} referrerPolicy="no-referrer"
-                        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-                        onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'flex' }} />
-                      <div className="w-10 h-10 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
-                        style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
-                    </>
-                  ) : (
-                    <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-semibold"
-                      style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <div className="font-semibold text-sm truncate" style={{ color: '#1A2E28' }}>{t.name}</div>
-                    <div className="text-xs truncate" style={{ color: '#7A9C90' }}>{t.condition}</div>
-                  </div>
-                  {t.source === 'practo' ? (
-                    <span className="flex-shrink-0 font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: '#5B2D8E', color: 'white', fontSize: '10px' }}>Practo</span>
-                  ) : (
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-4 h-4 flex-shrink-0" />
-                  )}
-                </div>
-                <div className="flex gap-0.5 mb-3">{[...Array(5)].map((_, j) => <IconStar key={j} />)}</div>
-                <p className="text-sm leading-relaxed" style={{ color: '#4A6860' }}>"{t.review}"</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Questions</p>
-            <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
-              Pregnancy — Frequently Asked Questions
-            </h2>
-          </div>
-          <div className="space-y-2">
-            {FAQS.map((faq, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden" style={{ border: '1px solid #E3EDE9' }}>
-                <button className="w-full flex items-center justify-between p-5 text-left"
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}>
-                  <span className="font-medium text-sm pr-4" style={{ color: '#1A2E28' }}>{faq.q}</span>
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-transform duration-300"
-                    style={{ backgroundColor: '#E3EDE9', color: '#2C5249', transform: openFaq === i ? 'rotate(45deg)' : 'none' }}>
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
-                    </svg>
-                  </span>
-                </button>
-                {openFaq === i && (
-                  <p className="px-5 pb-5 text-sm leading-relaxed" style={{ color: '#5A7870' }}>{faq.a}</p>
-                )}
-              </div>
-            ))}
+          <div>
+            <ReviewGrid reviews={PREGNANCY_REVIEWS} columns="md:grid-cols-2 lg:grid-cols-3" />
           </div>
         </div>
       </section>
@@ -375,7 +318,7 @@ export default function PregnancyPage() {
             Register early for the best start to your pregnancy. In-person and video consultations available at Kasper Clinic, Indiranagar.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+            <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
               className="px-8 py-4 rounded-full font-semibold text-center bg-white hover:bg-gray-50 transition-colors"
               style={{ color: '#2C5249' }}>
               Book a Consultation
@@ -403,7 +346,7 @@ export default function PregnancyPage() {
 
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3"
         style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}>
-        <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+        <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
           className="flex items-center justify-center w-full py-3.5 rounded-full text-sm font-semibold text-white"
           style={{ backgroundColor: '#2C5249' }}>
           Book a Consultation

@@ -1,6 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { trackBooking } from '../lib/attribution'
+import { ReviewGrid } from '../components/ReviewCard'
+import { HOME_REVIEWS, REVIEW_STATS } from '../lib/reviews'
 
 const track = (e) => {
   window.gtag?.('event', e)
@@ -64,26 +67,6 @@ const IMG = {
   hero: '/IMG-20251024-WA0023.jpg',
   about: '/Photos/Anjani%20website/Anjani%20with%20baby.jpg',
 }
-
-const TESTIMONIALS = [
-  { name: 'Supriya Shinde', condition: 'Laparoscopic Myomectomy', date: 'July 2026', img: null, review: 'Dr. Anjani is the best gynecologist for me. Very good nature and did a successful laparoscopic myomectomy surgery for me. It was successful. She is based in Indiranagar. Thank you so much ma\'am. Highly recommended.' },
-  { name: 'Akash Some', condition: 'Laparoscopic Hysterectomy', date: 'July 2026', img: null, review: 'I had a laparoscopic hysterectomy surgery of my aunt. From first consultation to the last visit post surgery was very comfortable. She is very knowledgeable and makes you at ease at once. Thank you for all the care. Highly recommended.' },
-  { name: 'Achira Thakur', condition: 'Stage IV Endometriosis & Ovarian Cyst Removal', date: 'July 2026', img: null, review: 'I underwent surgery for Stage IV endometriosis and ovarian cyst removal under Dr. Anjani two weeks back. I had been suffering from this condition for six years with unbearable pain, countless doctor visits, and no clear answers but she was the first doctor to correctly diagnose the root cause. Dr. Anjani is exceptionally skilled and made this highly advanced and complicated surgery seem effortless. She is extremely approachable, takes the time to explain every step of the diagnosis, treatment, and surgical procedure with remarkable clarity and confidence. Her reassuring approach helped me feel comfortable, informed, and confident throughout the entire journey. I am truly grateful for her expertise, compassion, and dedication.' },
-  { name: 'Venkat', condition: 'Laparoscopic Surgery', date: 'June 2026', img: null, review: 'We consulted Dr. Anjani Dixit for a second opinion regarding a laparoscopic surgery for my wife, and our experience was truly excellent. She took ample time to understand the situation and explained everything in detail — including the necessity of the surgery, the procedure itself, post-operative care, and the expected recovery duration. Her clarity and patience gave us great confidence. She performed the surgery successfully, and the results have been very good. Post-surgery, she continued to guide us thoroughly on the care required, ensuring a smooth recovery. Overall, she is a fantastic doctor — highly knowledgeable, caring, and professional.' },
-  { name: 'Roopa S', condition: 'Laparoscopic Hysterectomy', date: 'June 2026', img: null, review: 'The Doctor Anjani Dixit was very friendly, compassionate and approachable. She explained the hysterectomy surgery clearly, including the procedure, risks, and recovery process, which helped us feel informed and confident. I am a specially abled girl (polio with both legs) and she treated me with great care and professionalism during the surgery. Her dedication, patience, and excellent communication made the entire experience reassuring and positive. Thank you mam.' },
-  { name: 'Monisha V', condition: 'PCOS & Fertility', date: 'June 2026', img: null, review: 'I had a really wonderful experience consulting Dr. Anjani Dixit. She was extremely patient, kind, and explained everything in detail instead of rushing through the appointment. What I appreciated the most was that she didn\'t just treat the symptoms — she tried to understand the root cause by thoroughly evaluating my reports, scan findings, hormones, insulin resistance, and overall health. She made me feel heard and guided me properly regarding PCOS, fertility, weight management, and long-term health. I walked out feeling more informed, hopeful, and motivated about improving my health.' },
-  { name: 'Ar Malika', condition: 'Pregnancy & Delivery', date: '2026', img: null, review: 'At the very beginning we consulted with Dr. Anjani and I was very confused about which gynaecologist to choose. But honestly, Dr. Anjani helped everything go very smoothly right up to the delivery. The most friendly and loving doctor I have ever come across. Thanks a lot Dr. Anjani.' },
-  { name: 'Priya Darshini', condition: 'Hysterectomy', date: '2026', img: null, review: 'Had a wonderful experience with Dr. Anjani Dixit for my mother\'s uterus removal surgery. She explained each and everything, and makes you feel very genuinely cared for.' },
-  { name: 'Harshit Kakkar', condition: 'Laparoscopic Hysterectomy', date: 'May 2026', img: '/reviewers/harshit-kakkar.jpg', review: 'We consulted Dr. Anjani for my mother\'s laparoscopic hysterectomy and had a great experience. She is very knowledgeable, explains everything clearly, and makes you feel comfortable and confident throughout. The surgery and recovery both went smoothly. What stands out is her calm, reassuring approach and genuine care.' },
-  { name: 'Baidyanath Sinha', condition: 'Pregnancy Care', date: 'April 2026', img: 'https://lh3.googleusercontent.com/a-/ALV-UjUUdzLFKPeVX2_bJ2jHhewapprBgjvVebSSDec=s120-c-rp-mo-br100', review: 'Dr. Anjani Dixit is truly exceptional. Her expertise, warmth, and genuine care made my wife\'s pregnancy journey smooth, safe, and beautiful. She listens patiently, explains everything clearly. What sets her apart is how she treats you as a person, not just a patient.' },
-  { name: 'Sneha John', condition: 'Consultation', date: 'April 2026', img: 'https://lh3.googleusercontent.com/a/ACg8ocKeei3HsSNWqUGdj9xG3vjotrzVJgqfPeRUF0Hl=s120-c-rp-mo-br100', review: 'I had a really good experience with Dr. Anjani. She was very patient, listened to all my concerns, and explained everything clearly without rushing. She made me feel comfortable and reassured throughout the consultation. I felt I was in safe and capable hands.' },
-  { name: 'Rupa Ganamaneni', condition: 'Laparoscopic Surgery', date: 'April 2026', img: 'https://lh3.googleusercontent.com/a/ACg8ocJ_p7iQhbSEjIwoDfSOYf7LDU4N2DDn_A4Y_LUl=s120-c-rp-mo-br100', review: 'One of the best gyno surgeons I have met. She addressed all my concerns and doubts. She did laparoscopy surgery for my mom — all went fine without any issues. She gave all the tips, diet plan, and suggestions for post-surgery care.' },
-  { name: 'Sai Tharun', condition: 'Laparoscopic Surgery', date: 'April 2026', img: 'https://lh3.googleusercontent.com/a/ACg8ocJQn1TlJrxRNDiHJGeklIeY6SODpfd0bNVvApAl=s120-c-rp-mo-br100', review: 'I had a laparoscopic surgery recently and I am extremely grateful for the care and expertise provided. From the very first consultation, the doctor explained everything clearly, addressed all my concerns, and made me feel comfortable and confident.' },
-  { name: 'Riya Jati', condition: 'Endometriosis & Fibroids', date: 'February 2026', img: 'https://lh3.googleusercontent.com/a/ACg8ocLTyhWPsfGLFr5GFNcONZ4lkvTb5AC5H-0aeV4z=s120-c-rp-mo-br100', review: 'Suffering from lower back pain due to endometriosis cyst and multiple fibroids, I am extremely thankful — Madam demonstrated everything very politely. She has very polished surgical hands and exceptional expertise in minimally invasive procedures.' },
-  { name: 'Rishu Kumari', condition: 'Pregnancy Care', date: 'May 2026', img: null, source: 'practo', review: 'Finding Dr. Anjani was the best decision I made during my pregnancy! She is not just a brilliant gynecologist but a doctor with a golden heart. Her calm demeanor and ability to explain even complex things simply is remarkable. She made every appointment feel reassuring and never once made me feel rushed. I always left her clinic smiling and stress-free.' },
-  { name: 'Pradeep Shrivastava', condition: 'Laparoscopic Hysterectomy', date: 'March 2026', img: null, source: 'practo', review: 'Dr. Anjani Dixit is a very professional and experienced doctor. She understands the patient very well before starting treatment. Excellent in nature, listens very carefully, and gave correct advice throughout. Available when in need and very patient with us.' },
-  { name: 'Smart Teja Brothers', condition: 'Laparoscopic Surgery', date: 'April 2026', img: null, source: 'practo', review: 'Had a great experience with the doctor. Successfully had laparoscopic removal of uterus — very kind, caring, truly listens and understands. She explained everything and cared for us well throughout the entire process. Highly recommended.' },
-]
 
 const FAQS = [
   { q: 'What conditions do you specialise in?', a: 'Dr. Anjani specialises in advanced laparoscopic surgery (fibroids, endometriosis, ovarian cysts, hysterectomy), IVF and fertility treatment, high-risk obstetrics, PCOS management, and gynecosmetic procedures. She offers comprehensive care across all aspects of women\'s reproductive and gynaecological health.' },
@@ -199,7 +182,7 @@ export default function Home({ initialBookingOpen = false }) {
   const [lightbox, setLightbox] = useState(null)
 
   const openBooking = (eventName = 'ads_conversion_Contact_Us_1') => {
-    track(eventName)
+    trackBooking(eventName)
     setBookingLoaded(false)
     setIsBookingOpen(true)
   }
@@ -345,7 +328,7 @@ export default function Home({ initialBookingOpen = false }) {
               <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-3 lg:pt-5" style={{ borderTop: '1px solid #D5E5DF' }}>
                 <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
                 <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
-                <span className="text-sm" style={{ color: '#7A9C90' }}>· 405 reviews</span>
+                <span className="text-sm" style={{ color: '#7A9C90' }}>· {REVIEW_STATS.total} reviews</span>
                 <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
                 <span className="text-sm font-semibold" style={{ color: '#2C5249' }}>Trusted by hundreds</span>
                 <span className="text-sm" style={{ color: '#7A9C90' }}>of grateful patients</span>
@@ -797,61 +780,13 @@ export default function Home({ initialBookingOpen = false }) {
             <h2 className="text-3xl lg:text-5xl font-bold mb-3" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               In Their Own Words
             </h2>
-            <p className="text-sm" style={{ color: '#7A9C90' }}>Verified Google & Practo reviews · Last updated July 2026</p>
+            <p className="text-sm" style={{ color: '#7A9C90' }}>
+              Unedited Google reviews · every card links to the original · {REVIEW_STATS.total} reviews as of August 2026
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-            {TESTIMONIALS.map((t, i) => (
-              <div
-                key={i}
-                className={`rounded-3xl p-6 flex flex-col reveal reveal-delay-${(i % 3) + 1}`}
-                style={{ backgroundColor: '#FAFAF8', border: '1px solid #E3EDE9' }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  {t.img ? (
-                    <>
-                      <img
-                        src={t.img}
-                        alt={t.name}
-                        referrerPolicy="no-referrer"
-                        className="w-11 h-11 rounded-full object-cover flex-shrink-0"
-                        onError={e => {
-                          e.currentTarget.style.display = 'none'
-                          e.currentTarget.nextElementSibling.style.display = 'flex'
-                        }}
-                      />
-                      <div
-                        className="w-11 h-11 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
-                        style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}
-                      >
-                        {t.name.charAt(0)}
-                      </div>
-                    </>
-                  ) : (
-                    <div
-                      className="w-11 h-11 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-semibold"
-                      style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}
-                    >
-                      {t.name.charAt(0)}
-                    </div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <div className="font-semibold text-sm truncate" style={{ color: '#1A2E28' }}>{t.name}</div>
-                    <div className="text-xs truncate" style={{ color: '#7A9C90' }}>{t.condition}</div>
-                  </div>
-                  {t.source === 'practo' ? (
-                    <span className="flex-shrink-0 text-xs font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: '#5B2D8E', color: 'white', fontSize: '10px', letterSpacing: '0.02em' }}>Practo</span>
-                  ) : (
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-4 h-4 flex-shrink-0" />
-                  )}
-                </div>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="flex gap-0.5">{[...Array(5)].map((_, j) => <IconStar key={j} />)}</div>
-                  <span className="text-xs" style={{ color: '#7A9C90' }}>{t.date}</span>
-                </div>
-                <p className="text-sm leading-relaxed flex-1" style={{ color: '#4A6860' }}>"{t.review}"</p>
-              </div>
-            ))}
+          <div className="mb-10">
+            <ReviewGrid reviews={HOME_REVIEWS} reveal />
           </div>
 
           <div className="text-center reveal">
@@ -861,7 +796,7 @@ export default function Home({ initialBookingOpen = false }) {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm border transition-all hover:shadow-md duration-200"
               style={{ borderColor: '#2C5249', color: '#2C5249' }}
             >
-              View All 405 Google Reviews <IconArrow />
+              View All {REVIEW_STATS.total} Google Reviews <IconArrow />
             </a>
           </div>
         </div>

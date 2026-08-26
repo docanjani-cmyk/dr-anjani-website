@@ -11,3 +11,9 @@ out/
 # Claude Code
 .claude/
 .vercel
+
+# Local env (contains DATABASE_URL — never commit)
+.env
+.env.local
+.env*.local
+.env*

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { trackBooking } from '../lib/attribution'
 
 const track = (e, data = {}) => {
   window.gtag?.('event', e, data)
@@ -22,6 +23,10 @@ export default function BookAppointmentPage() {
       page_title: 'Book Appointment',
       page_path: '/book-appointment'
     })
+
+    // Reaching this page *is* opening the booking module, so record it with
+    // the same ad attribution as a Book button click elsewhere on the site.
+    trackBooking('book_appointment_page_view')
 
     // Set up mutation observer to detect form submissions
     const setupFormTracking = () => {

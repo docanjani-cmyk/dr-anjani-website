@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { trackBooking } from '../lib/attribution'
 
 const CFG = {
   phone: '7411722580',
@@ -50,11 +51,11 @@ const TIMELINE = [
   { year: 'Surgical Fellowship', title: 'FMAS — Fellowship in Minimal Access Surgery', desc: 'Specialised training in advanced laparoscopic (keyhole) techniques for hysterectomy, myomectomy, endometriosis excision, and ovarian cyst removal.' },
   { year: 'Fertility Certification', title: 'Reproductive Medicine, ICOG', desc: 'Certified in reproductive medicine by the Indian College of Obstetrics and Gynaecology, extending her practice into IVF and fertility care.' },
   { year: 'Est. 2013', title: 'Independent Practice, Indiranagar', desc: 'Began consulting independently at Kasper Multi-Speciality Clinic, Indiranagar, Bangalore, alongside visiting-consultant roles at partner hospitals across the city.' },
-  { year: 'Today', title: '14+ Years · 1500+ Procedures', desc: 'Over 1500 successful procedures and 405 five-star Google reviews later, Dr. Anjani continues to combine surgical precision with unhurried, whole-person care.' },
+  { year: 'Today', title: '14+ Years · 1500+ Procedures', desc: 'Over 1500 successful procedures and 420 Google reviews later, Dr. Anjani continues to combine surgical precision with unhurried, whole-person care.' },
 ]
 
 const FAQS = [
-  { q: 'Who is Dr. Anjani Dixit?', a: 'Dr. Anjani Dixit is a laparoscopic gynaecologic surgeon, IVF and fertility specialist, and obstetrician based in Indiranagar, Bangalore. She has over 14 years of experience and has performed 1500+ successful procedures, with a 5.0 Google rating across 405 reviews.' },
+  { q: 'Who is Dr. Anjani Dixit?', a: 'Dr. Anjani Dixit is a laparoscopic gynaecologic surgeon, IVF and fertility specialist, and obstetrician based in Indiranagar, Bangalore. She has over 14 years of experience and has performed 1500+ successful procedures, with a 5.0 Google rating across 420 reviews.' },
   { q: 'What are Dr. Anjani Dixit\'s medical qualifications?', a: 'She holds an MBBS from IPGME&R and SSKM Hospital, Kolkata, and a DNB in Obstetrics & Gynaecology from Holy Family Hospital, New Delhi. She is a Fellow in Minimal Access Surgery (FMAS) and holds a Reproductive Medicine certification from the Indian College of Obstetrics and Gynaecology (ICOG). She is a Life Member of FOGSI, AMASI, AOGD, and ASI.' },
   { q: 'How many years of experience does Dr. Anjani have?', a: 'Dr. Anjani has 14+ years of clinical and surgical experience in obstetrics, gynaecology, laparoscopic surgery, and fertility medicine, and has been practising in Indiranagar, Bangalore since 2013.' },
   { q: 'Where does Dr. Anjani Dixit practice in Bangalore?', a: 'Outpatient consultations take place at Kasper Multi-Speciality Clinic, 31, 80 Feet Rd, Indiranagar, Bengaluru, Monday to Saturday, 9 AM to 7 PM. Video consultations are also available.' },
@@ -126,7 +127,7 @@ export default function AboutUsPage() {
             <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="hidden sm:flex items-center gap-1.5 text-sm font-medium" style={{ color: '#2C5249' }}>
               <IconPhone /> {CFG.phoneDisplay}
             </a>
-            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+            <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
               className="hidden lg:inline-block px-5 py-2 rounded-full text-sm font-semibold text-white"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
@@ -152,7 +153,7 @@ export default function AboutUsPage() {
               <a key={href} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
             ))}
             <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
-              onClick={() => { track('ads_conversion_Contact_Us_1'); setMenuOpen(false) }}
+              onClick={() => { trackBooking('ads_conversion_Contact_Us_1'); setMenuOpen(false) }}
               className="block w-full text-center text-white py-3 rounded-full text-sm font-semibold mt-3"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
@@ -181,7 +182,7 @@ export default function AboutUsPage() {
               MBBS · DNB (OBG) · FMAS · 14+ Years Experience · 1500+ Procedures
             </p>
             <div className="hidden lg:flex gap-3 mb-8">
-              <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+              <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
                 className="px-8 py-4 rounded-full font-semibold text-white text-center hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: '#2C5249' }}>
                 Book a Consultation
@@ -196,7 +197,7 @@ export default function AboutUsPage() {
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
               <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>· 405 reviews</span>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>· 420 reviews</span>
             </div>
           </div>
           <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
@@ -250,7 +251,7 @@ export default function AboutUsPage() {
               ))}
             </div>
 
-            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+            <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-white transition-all hover:shadow-lg hover:-translate-y-0.5 duration-200"
               style={{ backgroundColor: '#2C5249' }}>
               Book a Consultation
@@ -449,10 +450,10 @@ export default function AboutUsPage() {
             Meet Dr. Anjani in Person
           </h2>
           <p className="mb-8 text-base" style={{ color: '#9ECEC0' }}>
-            A single consultation is all it takes to experience the care behind 1500+ successful procedures and 405 five-star reviews.
+            A single consultation is all it takes to experience the care behind 1500+ successful procedures and 420 Google reviews.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+            <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
               className="px-8 py-4 rounded-full font-semibold text-center bg-white hover:bg-gray-50 transition-colors"
               style={{ color: '#2C5249' }}>
               Book a Consultation
@@ -480,7 +481,7 @@ export default function AboutUsPage() {
 
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3"
         style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}>
-        <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+        <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
           className="flex items-center justify-center w-full py-3.5 rounded-full text-sm font-semibold text-white"
           style={{ backgroundColor: '#2C5249' }}>
           Book a Consultation

@@ -1,6 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { trackBooking } from '../../lib/attribution'
+import { ReviewGrid } from '../../components/ReviewCard'
+import { IVF_REVIEWS, REVIEW_STATS } from '../../lib/reviews'
 
 const CFG = {
   phone: '7411722580',
@@ -8,15 +11,14 @@ const CFG = {
   whatsapp: '917411722580',
   booking: 'https://meet-my-doctor.firebaseapp.com/#/?uid=47150&eid=38605',
   maps: 'https://maps.app.goo.gl/8MKPqCCGujp34cXe7',
-  clinic: 'Kasper Multi-Speciality Clinic',
-  address: '31, 80 Feet Rd, Indiranagar, Bengaluru 560038',
+
 }
 
 const track = (e) => window.gtag?.('event', e)
 
 const IMG = {
   logo: '/Photos/Anjani%20website/Anjani%20Prityn%20DP.png',
-  hero: '/IMG-20251024-WA0023.jpg',
+  hero: '/Gallery/About%20us%2010.jpg',
 }
 
 const IconStar = () => (
@@ -44,39 +46,49 @@ const IconPhone = () => (
 )
 
 const FAQS = [
-  { q: 'What is laparoscopic surgery and how is it different from open surgery?', a: 'Laparoscopic (keyhole) surgery uses small incisions of 5–10 mm through which a camera and instruments are inserted. Unlike open surgery, there is no large abdominal cut — meaning less pain, significantly faster recovery, minimal scarring, and lower risk of infection. Most patients go home within 24 hours.' },
-  { q: 'What conditions can be treated laparoscopically?', a: 'Dr. Anjani performs laparoscopic treatment for uterine fibroids (myomectomy), endometriosis (including deeply infiltrating disease), ovarian cysts, hysterectomy (uterus removal), diagnostic laparoscopy, and adhesiolysis. Most gynaecological conditions that previously required open surgery can now be done laparoscopically.' },
-  { q: 'How long is recovery after laparoscopic surgery?', a: 'Most patients resume light activity within 3–5 days and return to normal work within 1–2 weeks. This compares to 4–6 weeks for open surgery. Dr. Anjani provides detailed post-operative instructions and remains available for follow-up throughout your recovery.' },
-  { q: 'Is laparoscopic surgery safe? What are the risks?', a: 'Laparoscopic surgery is well-established and safe. With over 300 laparoscopic procedures performed, Dr. Anjani has extensive experience managing all stages of complexity. As with any surgery, minor risks exist (anaesthetic reactions, minor bleeding) but serious complications are rare and significantly lower than with open procedures.' },
-  { q: 'Will laparoscopic surgery affect my fertility?', a: 'For most conditions — including fibroid removal and endometriosis excision — laparoscopic surgery is performed with fertility preservation as a key goal. Dr. Anjani discusses your fertility plans in detail before recommending any procedure and tailors the surgical approach accordingly.' },
-  { q: 'How do I know if I need laparoscopic surgery vs. medication?', a: 'Not all conditions require surgery. During your consultation, Dr. Anjani will review your symptoms, imaging, and history to recommend the most appropriate treatment — which may be medical management, surgery, or a combination. Surgery is only recommended when it offers a clear benefit over non-surgical options.' },
+  { q: 'When should I see a fertility specialist?', a: 'If you are under 35 and have been trying to conceive for 12 months without success, or over 35 and trying for 6 months, it is time to seek evaluation. You should see a specialist sooner if you have irregular periods, a known condition like PCOS or endometriosis, or a history of miscarriage.' },
+  { q: 'What does a fertility evaluation involve?', a: 'A thorough evaluation includes a detailed history, hormonal blood tests (AMH, FSH, LH, thyroid), an ultrasound assessment of ovarian reserve and uterine anatomy, and a semen analysis for your partner. Dr. Anjani reviews all findings with you in plain language and recommends the most appropriate next step.' },
+  { q: 'What is the difference between IUI and IVF?', a: 'IUI (intrauterine insemination) is a simpler procedure where washed sperm is placed directly into the uterus around ovulation. It is less invasive and less expensive, but has lower success rates than IVF. IVF (in vitro fertilisation) involves stimulating the ovaries, retrieving eggs, fertilising them in a lab, and transferring the resulting embryo. IVF is recommended when IUI has failed, tubes are blocked, or sperm parameters are significantly reduced.' },
+  { q: 'What are the success rates for IVF?', a: 'IVF success depends on age, ovarian reserve, cause of infertility, and embryo quality. Success rates are highest under 35 and decline with age. Dr. Anjani provides an honest, personalised assessment of your prognosis based on your specific investigations — not generic statistics.' },
+  { q: 'How many IVF cycles might I need?', a: 'Many couples conceive within 1–3 cycles. Dr. Anjani will review your response to the first cycle before recommending a plan for subsequent attempts. The decision is always collaborative, and emotional readiness is taken into account alongside medical factors.' },
+  { q: 'Can structural problems like fibroids or blocked tubes be treated before IVF?', a: 'Yes. Conditions like submucous fibroids, polyps, blocked fallopian tubes, or a uterine septum can reduce IVF success and are often best corrected surgically before proceeding. Dr. Anjani\'s expertise in both laparoscopic surgery and fertility treatment means she can manage all aspects of your care in one place.' },
 ]
 
 const NAV_LINKS = [
   ['Home', '/'],
-  ['IVF & Fertility', '/ivf-infertility'],
+  ['Laparoscopic Surgery', '/laparoscopic-surgery'],
   ['Pregnancy Care', '/pregnancy'],
   ['PCOS Treatment', '/pcos'],
   ['Cosmetic Gynaecology', '/cosmetic-gynecology'],
 ]
 
-const GALLERY = [19, 20, 21, 22, 24, 25, 26].map(i => ({
+const GALLERY = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 17, 18, 23].map(i => ({
   src: `/Gallery/About us ${i}.jpg`,
-  alt: `Dr. Anjani Dixit in the operating theatre — laparoscopic surgery ${i}`,
+  alt: `Dr. Anjani Dixit with newborn — delivery moment ${i}`,
 }))
 
-export default function LaparoscopicSurgeryPage() {
+export default function IVFInfertilityPage() {
   const [openFaq, setOpenFaq] = useState(null)
+  const [isBookingOpen, setIsBookingOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [lightbox, setLightbox] = useState(null)
+
+  const openBooking = (eventName = 'ads_conversion_Contact_Us_1') => {
+    trackBooking(eventName)
+    setIsBookingOpen(true)
+  }
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') { setIsBookingOpen(false); setMenuOpen(false) } }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
 
   useEffect(() => {
     if (!menuOpen) return
     const onClick = (e) => { if (!e.target.closest('header')) setMenuOpen(false) }
-    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false) }
     document.addEventListener('click', onClick)
-    document.addEventListener('keydown', onKey)
-    return () => { document.removeEventListener('click', onClick); document.removeEventListener('keydown', onKey) }
+    return () => document.removeEventListener('click', onClick)
   }, [menuOpen])
 
   return (
@@ -96,11 +108,11 @@ export default function LaparoscopicSurgeryPage() {
             <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="hidden sm:flex items-center gap-1.5 text-sm font-medium" style={{ color: '#2C5249' }}>
               <IconPhone /> {CFG.phoneDisplay}
             </a>
-            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+            <button onClick={() => openBooking()}
               className="hidden lg:inline-block px-5 py-2 rounded-full text-sm font-semibold text-white"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
-            </a>
+            </button>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="lg:hidden p-2"
@@ -121,12 +133,12 @@ export default function LaparoscopicSurgeryPage() {
             {NAV_LINKS.map(([label, href]) => (
               <a key={href} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
             ))}
-            <a href={CFG.booking} target="_blank" rel="noopener noreferrer"
-              onClick={() => { track('ads_conversion_Contact_Us_1'); setMenuOpen(false) }}
+            <button
+              onClick={() => { openBooking(); setMenuOpen(false) }}
               className="block w-full text-center text-white py-3 rounded-full text-sm font-semibold mt-3"
               style={{ backgroundColor: '#2C5249' }}>
               Book Consultation
-            </a>
+            </button>
           </div>
         )}
       </header>
@@ -137,26 +149,26 @@ export default function LaparoscopicSurgeryPage() {
           <div className="order-2 lg:order-1">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-6"
               style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>
-              Laparoscopic Surgeon · Indiranagar · Bangalore
+              IVF & Fertility Specialist · Indiranagar · Bangalore
             </div>
             <h1 className="text-4xl lg:text-5xl font-bold mb-5 leading-tight"
               style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28', lineHeight: 1.1 }}>
-              Advanced Laparoscopic<br />
-              <em className="font-normal not-italic" style={{ color: '#2C5249' }}>Surgery in Bangalore</em>
+              IVF & Fertility<br />
+              <em className="font-normal not-italic" style={{ color: '#2C5249' }}>Treatment in Bangalore</em>
             </h1>
             <p className="text-lg leading-relaxed mb-4" style={{ color: '#4A6860', maxWidth: '480px' }}>
-              Minimally invasive keyhole surgery for fibroids, endometriosis, ovarian cysts, and hysterectomy — with faster recovery, minimal scarring, and expert precision.
+              Compassionate, evidence-based fertility care — from thorough evaluation through IVF, IUI, and surgical treatment. Honest guidance and emotional support at every step.
             </p>
             <p className="text-sm font-medium mb-8" style={{ color: '#7A9C90' }}>
-              300+ laparoscopic procedures · Fellowship in Minimal Access Surgery · 14+ years experience
+              Reproductive Medicine Certification · ICOG · 14+ years experience
             </p>
             <div className="hidden lg:flex gap-3 mb-8">
-              <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+              <button onClick={() => openBooking()}
                 className="px-8 py-4 rounded-full font-semibold text-white text-center hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: '#2C5249' }}>
                 Book a Consultation
-              </a>
-              <a onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to know more about laparoscopic surgery.`}
+              </button>
+              <a onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to discuss fertility treatment options.`}
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold border-2 hover:shadow-md transition-shadow"
                 style={{ borderColor: '#25D366', color: '#25D366' }}>
@@ -166,55 +178,47 @@ export default function LaparoscopicSurgeryPage() {
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
               <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>· 405 reviews</span>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>· {REVIEW_STATS.total} reviews</span>
+              <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
             </div>
           </div>
           <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
-            <img src={IMG.hero} alt="Dr. Anjani Dixit – Laparoscopic Surgeon Bangalore"
+            <img src={IMG.hero} alt="Dr. Anjani Dixit – IVF Specialist Bangalore"
               className="w-full h-full object-cover object-top" />
           </div>
         </div>
       </section>
 
-      {/* STATS */}
-      <section className="py-12 bg-white">
-        <div className="max-w-5xl mx-auto px-5 grid grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6 text-center">
-          {[
-            { value: '300+', label: 'Laparoscopic Procedures' },
-            { value: '14+', label: 'Years Experience' },
-            { value: '1–2 wks', label: 'Average Recovery' },
-            { value: '5.0 ★', label: 'Google Rating', href: CFG.maps },
-            { value: '100%', label: 'Patient Satisfaction' },
-          ].map((s, i) => (
-            <div key={i}>
-              {s.href ? (
-                <a href={s.href} target="_blank" rel="noopener noreferrer" className="text-3xl font-bold mb-1 hover:underline block" style={{ fontFamily: 'Playfair Display, serif', color: '#2C5249' }}>{s.value}</a>
-              ) : (
-                <div className="text-3xl font-bold mb-1" style={{ fontFamily: 'Playfair Display, serif', color: '#2C5249' }}>{s.value}</div>
-              )}
-              <div className="text-xs" style={{ color: '#7A9C90' }}>{s.label}</div>
-            </div>
-          ))}
+      {/* PATIENT PROMISE */}
+      <section className="py-16 px-5 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <blockquote className="text-center">
+            <p className="text-xl lg:text-2xl font-medium italic leading-relaxed mb-4"
+              style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
+              "Fertility treatment is not just a medical process — it is one of the most emotionally demanding journeys a couple can undertake. I approach every patient with complete honesty, deep patience, and the understanding that your story is unique."
+            </p>
+            <footer className="text-sm font-semibold" style={{ color: '#7A9C90' }}>— Dr. Anjani Dixit</footer>
+          </blockquote>
         </div>
       </section>
 
-      {/* CONDITIONS */}
+      {/* TREATMENTS */}
       <section className="py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Procedures</p>
+            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>What We Offer</p>
             <h2 className="text-3xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
-              Conditions Treated Laparoscopically
+              Fertility Treatments & Services
             </h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { title: 'Uterine Fibroids', sub: 'Myomectomy', desc: 'Removal of fibroids while preserving the uterus — tailored to your fertility goals and fibroid size, number, and location.' },
-              { title: 'Endometriosis', sub: 'Excision Surgery', desc: 'Complete excision of endometriotic lesions including deeply infiltrating disease, with a focus on pain relief and fertility preservation.' },
-              { title: 'Ovarian Cysts', sub: 'Cystectomy', desc: 'Removal of simple, complex, and endometriotic (chocolate) cysts with ovarian conservation wherever possible.' },
-              { title: 'Hysterectomy', sub: 'TLH / LAVH', desc: 'Total laparoscopic hysterectomy — uterus removal through keyhole incisions, with a typical hospital stay of just 1–2 days.' },
-              { title: 'Diagnostic Laparoscopy', sub: 'Investigation', desc: 'Direct visualisation of the pelvic organs to investigate unexplained pelvic pain, infertility, or suspected endometriosis.' },
-              { title: 'Adhesiolysis', sub: 'Scar Tissue', desc: 'Release of pelvic adhesions (scar tissue) that can cause pain, bowel disturbance, and fertility problems.' },
+              { title: 'IVF', sub: 'In Vitro Fertilisation', desc: 'Controlled ovarian stimulation, egg retrieval, fertilisation, and embryo transfer — supported by close monitoring and transparent communication at every stage.' },
+              { title: 'IUI', sub: 'Intrauterine Insemination', desc: 'A less invasive first-line option for couples with unexplained infertility or mild male factor. Timed with your natural or stimulated cycle.' },
+              { title: 'Fertility Evaluation', sub: 'Diagnosis First', desc: 'Comprehensive workup including hormone panel, AMH, antral follicle count, uterine assessment, and semen analysis to identify the exact cause of infertility.' },
+              { title: 'Ovulation Induction', sub: 'Cycle Regulation', desc: 'Medication-based stimulation of ovulation for women with irregular cycles or anovulation, including careful monitoring to minimise risk of hyperstimulation.' },
+              { title: 'Surgical Fertility Treatment', sub: 'Structural Correction', desc: 'Laparoscopic correction of blocked tubes, fibroids, endometriosis, polyps, or uterine abnormalities before or alongside fertility treatment.' },
+              { title: 'Recurrent Pregnancy Loss', sub: 'Miscarriage Workup', desc: 'Thorough investigation and management of repeated miscarriage — including thrombophilia screening, chromosomal analysis, and uterine evaluation.' },
             ].map((c, i) => (
               <div key={i} className="bg-white rounded-2xl p-6">
                 <span className="text-xs font-semibold px-3 py-1 rounded-full mb-4 inline-block"
@@ -227,100 +231,47 @@ export default function LaparoscopicSurgeryPage() {
         </div>
       </section>
 
-      {/* WHY LAPAROSCOPIC */}
+      {/* JOURNEY STEPS */}
       <section className="py-20 px-5 bg-white">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
-          <div>
-            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>The Benefits</p>
-            <h2 className="text-3xl lg:text-4xl font-bold mb-8" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
-              Why Choose<br />
-              <em className="font-normal not-italic" style={{ color: '#2C5249' }}>Laparoscopic Surgery?</em>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Your Path Forward</p>
+            <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
+              What to Expect
             </h2>
-            <div className="space-y-4">
-              {[
-                { title: 'Faster recovery', desc: 'Return to normal life in 1–2 weeks versus 4–6 weeks with open surgery.' },
-                { title: 'Less pain', desc: 'Smaller incisions mean significantly less post-operative discomfort.' },
-                { title: 'Minimal scarring', desc: 'Tiny 5–10 mm incisions leave almost no visible scarring.' },
-                { title: 'Lower infection risk', desc: 'Reduced exposure of internal organs means a lower risk of surgical site infection.' },
-                { title: 'Same-day or next-day discharge', desc: 'Most procedures allow you to go home within 24 hours.' },
-                { title: 'Precision', desc: 'Magnified camera view allows greater surgical accuracy than open procedures.' },
-              ].map((b, i) => (
-                <div key={i} className="flex gap-3 items-start">
-                  <span className="mt-0.5" style={{ color: '#2C5249' }}><IconCheck /></span>
-                  <div>
-                    <span className="font-semibold text-sm" style={{ color: '#1A2E28' }}>{b.title} — </span>
-                    <span className="text-sm" style={{ color: '#5A7870' }}>{b.desc}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
-          <div className="rounded-3xl p-8" style={{ backgroundColor: '#F5F0E8' }}>
-            <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#7A9C90' }}>About Dr. Anjani</p>
-            <h3 className="text-xl font-semibold mb-4" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
-              Fellowship-Trained in Minimal Access Surgery
-            </h3>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: '#4A6860' }}>
-              Dr. Anjani Dixit holds a Fellowship in Minimal Access Surgery (FMAS) and has performed over 300 laparoscopic gynaecological procedures across 14+ years. She trained at leading institutions including IPGME&R Kolkata and Holy Family Hospital, New Delhi.
-            </p>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: '#4A6860' }}>
-              She is a life member of FOGSI, AMASI, and ASI — and approaches every procedure with both technical precision and deep care for the person on the table.
-            </p>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: '#4A6860' }}>
-              Surgeries are performed as a visiting consultant at <a href="/#hospitals" className="font-medium underline" style={{ color: '#2C5249' }}>six partner hospitals across Bangalore</a> — including Manipal, Cloudnine, and Motherhood — chosen with you based on location, insurance, and budget.
-            </p>
-            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
-              className="inline-block w-full text-center py-3 rounded-xl text-sm font-semibold text-white"
-              style={{ backgroundColor: '#2C5249' }}>
-              Book a Consultation
-            </a>
+          <div className="space-y-0">
+            {[
+              { step: '01', title: 'Initial Consultation', desc: 'An unhurried conversation about your history, previous investigations, lifestyle, and goals. No judgement — just listening.' },
+              { step: '02', title: 'Thorough Investigation', desc: 'A targeted workup for both partners. Dr. Anjani reviews every result with you clearly and honestly.' },
+              { step: '03', title: 'Your Treatment Plan', desc: 'A personalised recommendation — whether IUI, IVF, surgery first, or combined — with clear reasoning and realistic expectations.' },
+              { step: '04', title: 'Treatment & Monitoring', desc: 'Close monitoring throughout your cycle with timely adjustments. You are never left without answers.' },
+              { step: '05', title: 'Ongoing Support', desc: 'Whatever the outcome, Dr. Anjani remains with you — celebrating success or helping you plan next steps with compassion.' },
+            ].map((s, i, arr) => (
+              <div key={i} className="flex gap-8 py-7" style={{ borderBottom: i < arr.length - 1 ? '1px solid #E3EDE9' : 'none' }}>
+                <div className="text-2xl font-bold w-10 flex-shrink-0 text-right" style={{ fontFamily: 'Playfair Display, serif', color: '#C4D9D1' }}>{s.step}</div>
+                <div>
+                  <h3 className="font-semibold mb-1.5" style={{ color: '#1A2E28' }}>{s.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: '#5A7870' }}>{s.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
+      {/* TESTIMONIAL */}
       <section className="py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
-            <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
-              What Patients Say
-            </h2>
+            <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>What Patients Say</h2>
+            <p className="text-sm mt-3" style={{ color: '#7A9C90' }}>
+              Unedited patient reviews · Google cards link to the original review
+            </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-5">
-            {[
-              { name: 'Supriya Shinde', condition: 'Laparoscopic Myomectomy', img: null, review: 'Dr. Anjani is the best gynecologist for me. Very good nature and did a successful laparoscopic myomectomy surgery for me. It was successful. She is based in Indiranagar. Thank you so much ma\'am. Highly recommended.' },
-              { name: 'Akash Some', condition: 'Laparoscopic Hysterectomy', img: null, review: 'I had a laparoscopic hysterectomy surgery of my aunt. From first consultation to the last visit post surgery was very comfortable. She is very knowledgeable and makes you at ease at once. Thank you for all the care. Highly recommended.' },
-              { name: 'Achira Thakur', condition: 'Stage IV Endometriosis & Ovarian Cyst Removal', img: null, review: 'I underwent surgery for Stage IV endometriosis and ovarian cyst removal under Dr. Anjani two weeks back. I had been suffering from this condition for six years with unbearable pain, countless doctor visits, and no clear answers but she was the first doctor to correctly diagnose the root cause. Dr. Anjani is exceptionally skilled and made this highly advanced and complicated surgery seem effortless. She is extremely approachable, takes the time to explain every step with remarkable clarity and confidence. Her reassuring approach helped me feel comfortable, informed, and confident throughout.' },
-            ].map((t, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6" style={{ border: '1px solid #E3EDE9' }}>
-                <div className="flex items-center gap-3 mb-4">
-                  {t.img ? (
-                    <>
-                      <img src={t.img} alt={t.name} referrerPolicy="no-referrer"
-                        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-                        onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'flex' }} />
-                      <div className="w-10 h-10 rounded-full flex-shrink-0 items-center justify-center text-sm font-semibold"
-                        style={{ display: 'none', backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
-                    </>
-                  ) : (
-                    <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-sm font-semibold"
-                      style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>{t.name.charAt(0)}</div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <div className="font-semibold text-sm truncate" style={{ color: '#1A2E28' }}>{t.name}</div>
-                    <div className="text-xs truncate" style={{ color: '#7A9C90' }}>{t.condition}</div>
-                  </div>
-                  {t.source === 'practo' ? (
-                    <span className="flex-shrink-0 font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: '#5B2D8E', color: 'white', fontSize: '10px' }}>Practo</span>
-                  ) : (
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-4 h-4 flex-shrink-0" />
-                  )}
-                </div>
-                <div className="flex gap-0.5 mb-3">{[...Array(5)].map((_, j) => <IconStar key={j} />)}</div>
-                <p className="text-sm leading-relaxed" style={{ color: '#4A6860' }}>"{t.review}"</p>
-              </div>
-            ))}
+          <div>
+            <ReviewGrid reviews={IVF_REVIEWS} columns="md:grid-cols-2 lg:grid-cols-3" />
           </div>
         </div>
       </section>
@@ -357,12 +308,12 @@ export default function LaparoscopicSurgeryPage() {
       </section>
 
       {/* GALLERY */}
-      <section className="py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
+      <section className="py-20 px-5 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>In the Operating Theatre</p>
+            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Moments of Joy</p>
             <h2 className="text-3xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
-              Precision in Practice
+              Deliveries With Dr. Anjani
             </h2>
           </div>
           <div style={{ columnCount: 'var(--cols)', columnGap: '1rem', '--cols': 2 }} className="gallery-grid">
@@ -449,17 +400,17 @@ export default function LaparoscopicSurgeryPage() {
       <section className="py-20 px-5" style={{ backgroundColor: '#2C5249' }}>
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-            Ready to Discuss Your Options?
+            Begin Your Fertility Journey
           </h2>
           <p className="mb-8 text-base" style={{ color: '#9ECEC0' }}>
-            Book a consultation with Dr. Anjani Dixit at Kasper Multi-Speciality Clinic, Indiranagar. In-person and video consultations available.
+            Book a consultation with Dr. Anjani Dixit at Kasper Multi-Speciality Clinic, Indiranagar. Video consultations available for initial assessment.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+            <button onClick={() => openBooking()}
               className="px-8 py-4 rounded-full font-semibold text-center bg-white hover:bg-gray-50 transition-colors"
               style={{ color: '#2C5249' }}>
               Book a Consultation
-            </a>
+            </button>
             <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')}
               className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold border-2 text-white hover:bg-white/10 transition-colors"
               style={{ borderColor: 'rgba(255,255,255,0.4)' }}>
@@ -469,29 +420,60 @@ export default function LaparoscopicSurgeryPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="py-8 px-5 text-center text-xs" style={{ backgroundColor: '#1A2E28', color: '#3D6A5C' }}>
-        <p>© 2026 Dr. Anjani Dixit · {CFG.clinic} · {CFG.address}</p>
+        <p>© 2026 Dr. Anjani Dixit · Kasper Multi-Speciality Clinic · 31, 80 Feet Rd, Indiranagar, Bengaluru 560038</p>
         <a href="/" className="mt-2 inline-block hover:text-white transition-colors">← Back to main site</a>
       </footer>
 
-      {/* FLOATING WHATSAPP */}
-      <a onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to know more about laparoscopic surgery.`}
+      <a onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to discuss fertility treatment options.`}
         target="_blank" rel="noopener noreferrer"
         className="fixed z-50 flex items-center justify-center rounded-full shadow-xl"
         style={{ bottom: '5.5rem', right: '1.5rem', width: '56px', height: '56px', backgroundColor: '#25D366' }}>
         <IconWhatsApp />
       </a>
 
-      {/* MOBILE STICKY CTA */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3"
         style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}>
-        <a href={CFG.booking} onClick={() => track('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
+        <button onClick={() => openBooking()}
           className="flex items-center justify-center w-full py-3.5 rounded-full text-sm font-semibold text-white"
           style={{ backgroundColor: '#2C5249' }}>
           Book a Consultation
-        </a>
+        </button>
       </div>
+
+      {/* BOOKING MODAL */}
+      {isBookingOpen && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+          style={{ backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
+          onClick={() => setIsBookingOpen(false)}
+        >
+          <div
+            className="relative bg-white rounded-2xl overflow-hidden shadow-2xl w-full max-w-2xl flex flex-col"
+            style={{ height: '85vh', maxHeight: '700px' }}
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-5 py-3 flex-shrink-0" style={{ borderBottom: '1px solid #E3EDE9' }}>
+              <span className="font-semibold text-sm" style={{ color: '#1A2E28' }}>Book a Consultation</span>
+              <button
+                onClick={() => setIsBookingOpen(false)}
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors hover:bg-gray-100"
+                style={{ color: '#7A9C90' }}
+                aria-label="Close"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <iframe
+              src={CFG.booking}
+              className="w-full flex-1 border-0"
+              title="Book a Consultation with Dr. Anjani Dixit"
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
