@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { trackBooking } from '../lib/attribution'
+import { trackBooking, trackWhatsApp, trackCall, trackConversion, EVENTS } from '../lib/attribution'
 import { ReviewGrid } from './ReviewCard'
 import { REVIEW_STATS } from '../lib/reviews'
 
@@ -15,8 +15,6 @@ export const CFG = {
   address: '31, 80 Feet Rd, Indiranagar, Bengaluru 560038',
   logo: '/Photos/Anjani%20website/Anjani%20Prityn%20DP.png',
 }
-
-const track = e => window.gtag?.('event', e)
 
 const IconStar = () => (
   <svg className="w-4 h-4" fill="#F59E0B" viewBox="0 0 20 20" aria-hidden="true">
@@ -49,6 +47,8 @@ const IconCheck = () => (
  */
 export default function SecondOpinionLanding({ content: c }) {
   const [openFaq, setOpenFaq] = useState(null)
+  const [isBookingOpen, setIsBookingOpen] = useState(false)
+  const [bookingLoaded, setBookingLoaded] = useState(false)
   const waHref = `https://wa.me/${CFG.whatsapp}?text=${encodeURIComponent(c.whatsappText)}`
 
   useEffect(() => {
@@ -61,11 +61,18 @@ export default function SecondOpinionLanding({ content: c }) {
     return () => io.disconnect()
   }, [])
 
+  // Same behaviour as the homepage: the booking form opens in an overlay so an
+  // ad visitor is never pushed off the landing page mid-conversion.
+  const openBooking = () => {
+    trackBooking(EVENTS.book)
+    setBookingLoaded(false)
+    setIsBookingOpen(true)
+  }
+
   const BookBtn = ({ className, style, children }) => (
-    <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')}
-      target="_blank" rel="noopener noreferrer" className={className} style={style}>
+    <button type="button" onClick={openBooking} className={className} style={style}>
       {children}
-    </a>
+    </button>
   )
 
   return (
@@ -82,7 +89,7 @@ export default function SecondOpinionLanding({ content: c }) {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')}
+            <a href={`tel:${CFG.phone}`} onClick={() => trackCall()}
               className="hidden sm:flex items-center gap-1.5 text-sm font-medium" style={{ color: '#2C5249' }}>
               <IconPhone /> {CFG.phoneDisplay}
             </a>
@@ -111,7 +118,7 @@ export default function SecondOpinionLanding({ content: c }) {
             <p className="text-sm font-medium mb-7" style={{ color: '#7A9C90' }}>{c.credLine}</p>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-7">
-              <a onClick={() => track('whatsapp_click')} href={waHref} target="_blank" rel="noopener noreferrer"
+              <a onClick={() => trackWhatsApp()} href={waHref} target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-7 py-4 rounded-full font-semibold text-white text-center"
                 style={{ backgroundColor: '#25D366' }}>
                 <IconWhatsApp /> {c.waCta}
@@ -290,7 +297,7 @@ export default function SecondOpinionLanding({ content: c }) {
               ))}
             </ul>
             <p className="text-xs leading-relaxed mb-5" style={{ color: '#7A9C90' }}>{c.bring.note}</p>
-            <a onClick={() => track('whatsapp_click')} href={waHref} target="_blank" rel="noopener noreferrer"
+            <a onClick={() => trackWhatsApp()} href={waHref} target="_blank" rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold text-white"
               style={{ backgroundColor: '#25D366' }}>
               <IconWhatsApp /> {c.waCta}
@@ -339,7 +346,7 @@ export default function SecondOpinionLanding({ content: c }) {
             <BookBtn className="px-8 py-4 rounded-full font-semibold text-center bg-white hover:bg-gray-50 transition-colors" style={{ color: '#2C5249' }}>
               Book a Consultation
             </BookBtn>
-            <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')}
+            <a href={`tel:${CFG.phone}`} onClick={() => trackCall()}
               className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold border-2 text-white hover:bg-white/10 transition-colors"
               style={{ borderColor: 'rgba(255,255,255,0.4)' }}>
               <IconPhone /> {CFG.phoneDisplay}
@@ -362,12 +369,89 @@ export default function SecondOpinionLanding({ content: c }) {
       </footer>
 
       {/* FLOATING WHATSAPP */}
-      <a onClick={() => track('whatsapp_click')} href={waHref} target="_blank" rel="noopener noreferrer"
+      <a onClick={() => trackWhatsApp()} href={waHref} target="_blank" rel="noopener noreferrer"
         className="fixed z-50 flex items-center justify-center rounded-full shadow-xl text-white"
         style={{ bottom: '5.5rem', right: '1.5rem', width: '56px', height: '56px', backgroundColor: '#25D366' }}
         aria-label="Send your reports on WhatsApp">
         <IconWhatsApp />
       </a>
+
+
+      {/* BOOKING MODAL — mirrors the homepage overlay, including the call /
+          WhatsApp fallbacks if the embedded form gives trouble. */}
+      {isBookingOpen && (
+        <div
+          className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center sm:p-4"
+          style={{ backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
+          onClick={() => setIsBookingOpen(false)}
+        >
+          <div
+            className="relative bg-white rounded-t-2xl sm:rounded-2xl overflow-hidden shadow-2xl w-full max-w-2xl flex flex-col"
+            style={{ height: '95vh', maxHeight: '760px' }}
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between px-5 py-4 flex-shrink-0" style={{ borderBottom: '1px solid #E3EDE9' }}>
+              <div>
+                <h3 className="font-semibold text-base" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
+                  Book a Consultation
+                </h3>
+                <p className="text-xs mt-0.5" style={{ color: '#7A9C90' }}>
+                  Takes about a minute · Instant confirmation
+                </p>
+              </div>
+              <button
+                onClick={() => setIsBookingOpen(false)}
+                className="w-8 h-8 -mr-1 rounded-full flex items-center justify-center transition-colors hover:bg-gray-100 flex-shrink-0"
+                style={{ color: '#7A9C90' }}
+                aria-label="Close"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="flex-1 relative">
+              {!bookingLoaded && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none" style={{ backgroundColor: '#FAFAF8' }}>
+                  <div className="w-8 h-8 rounded-full border-2 animate-spin" style={{ borderColor: '#E3EDE9', borderTopColor: '#2C5249' }} />
+                  <p className="text-xs" style={{ color: '#7A9C90' }}>Loading secure booking form…</p>
+                </div>
+              )}
+              <iframe
+                src={CFG.booking}
+                onLoad={() => setBookingLoaded(true)}
+                className="w-full h-full border-0"
+                style={{ opacity: bookingLoaded ? 1 : 0, transition: 'opacity 250ms ease' }}
+                title="Book a Consultation with Dr. Anjani Dixit"
+              />
+            </div>
+
+            <div className="flex-shrink-0 px-5 py-3 flex items-center justify-between gap-3 flex-wrap" style={{ borderTop: '1px solid #E3EDE9', backgroundColor: '#FAFAF8' }}>
+              <p className="text-xs font-medium" style={{ color: '#7A9C90' }}>Trouble? We&apos;re here:</p>
+              <div className="flex items-center gap-2">
+                <a
+                  href={`tel:${CFG.phone}`}
+                  onClick={() => trackConversion('booking_fallback_call')}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors hover:opacity-90"
+                  style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}
+                >
+                  <IconPhone /> Call
+                </a>
+                <a
+                  href={waHref}
+                  target="_blank" rel="noopener noreferrer"
+                  onClick={() => trackConversion('booking_fallback_whatsapp')}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-white transition-colors hover:opacity-90"
+                  style={{ backgroundColor: '#25D366' }}
+                >
+                  <IconWhatsApp /> WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* MOBILE STICKY CTA */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3"

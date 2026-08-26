@@ -63,10 +63,20 @@ export function getAttribution() {
   return readStore()
 }
 
-// Fires the existing Google Analytics / Ads event for a Book Appointment click
-// and records the click — along with whatever ad attribution this session is
-// carrying — to our own database.
-export function trackBooking(eventName = 'ads_conversion_Contact_Us_1', extra = {}) {
+// The canonical conversion event names. Every page imports these rather than
+// repeating string literals, so Google Ads and GA4 see one consistently named
+// conversion per action no matter which page the click came from.
+export const EVENTS = {
+  book: 'ads_conversion_Contact_Us_1',
+  whatsapp: 'whatsapp_click',
+  call: 'conversion_event_phone_call_lead_1',
+}
+
+// Fires the Google Analytics / Ads event for a conversion action and records
+// the click — along with whatever ad attribution this session is carrying — to
+// our own database, so the click can later be reconciled against a booking for
+// offline conversion import.
+export function trackConversion(eventName, extra = {}) {
   if (typeof window === 'undefined') return
 
   window.gtag?.('event', eventName)
@@ -101,3 +111,9 @@ export function trackBooking(eventName = 'ads_conversion_Contact_Us_1', extra = 
     // Never let a tracking failure block the booking itself.
   }
 }
+
+// Named helpers for the three conversion actions. Using these keeps the event
+// name, the gtag call and the attribution log in one place per action.
+export const trackBooking = (eventName = EVENTS.book, extra = {}) => trackConversion(eventName, extra)
+export const trackWhatsApp = (extra = {}) => trackConversion(EVENTS.whatsapp, extra)
+export const trackCall = (extra = {}) => trackConversion(EVENTS.call, extra)

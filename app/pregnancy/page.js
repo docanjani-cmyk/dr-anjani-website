@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { trackBooking } from '../lib/attribution'
+import { trackBooking, trackWhatsApp, trackCall } from '../lib/attribution'
 import { ReviewGrid } from '../components/ReviewCard'
 import { PREGNANCY_REVIEWS, REVIEW_STATS } from '../lib/reviews'
 
@@ -13,8 +13,6 @@ const CFG = {
   maps: 'https://maps.app.goo.gl/8MKPqCCGujp34cXe7',
 
 }
-
-const track = (e) => window.gtag?.('event', e)
 
 const IMG = {
   logo: '/Photos/Anjani%20website/Anjani%20Prityn%20DP.png',
@@ -90,7 +88,7 @@ export default function PregnancyPage() {
             </div>
           </a>
           <div className="flex items-center gap-3">
-            <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="hidden sm:flex items-center gap-1.5 text-sm font-medium" style={{ color: '#2C5249' }}>
+            <a href={`tel:${CFG.phone}`} onClick={() => trackCall()} className="hidden sm:flex items-center gap-1.5 text-sm font-medium" style={{ color: '#2C5249' }}>
               <IconPhone /> {CFG.phoneDisplay}
             </a>
             <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
@@ -153,7 +151,7 @@ export default function PregnancyPage() {
                 style={{ backgroundColor: '#2C5249' }}>
                 Book a Consultation
               </a>
-              <a onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to register for antenatal care.`}
+              <a onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to register for antenatal care.`}
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold border-2 hover:shadow-md transition-shadow"
                 style={{ borderColor: '#25D366', color: '#25D366' }}>
@@ -323,7 +321,7 @@ export default function PregnancyPage() {
               style={{ color: '#2C5249' }}>
               Book a Consultation
             </a>
-            <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')}
+            <a href={`tel:${CFG.phone}`} onClick={() => trackCall()}
               className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold border-2 text-white hover:bg-white/10 transition-colors"
               style={{ borderColor: 'rgba(255,255,255,0.4)' }}>
               <IconPhone /> {CFG.phoneDisplay}
@@ -337,7 +335,7 @@ export default function PregnancyPage() {
         <a href="/" className="mt-2 inline-block hover:text-white transition-colors">← Back to main site</a>
       </footer>
 
-      <a onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to register for antenatal care.`}
+      <a onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to register for antenatal care.`}
         target="_blank" rel="noopener noreferrer"
         className="fixed z-50 flex items-center justify-center rounded-full shadow-xl"
         style={{ bottom: '5.5rem', right: '1.5rem', width: '56px', height: '56px', backgroundColor: '#25D366' }}>

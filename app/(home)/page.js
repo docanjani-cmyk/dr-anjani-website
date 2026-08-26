@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { trackBooking } from '../lib/attribution'
+import { trackBooking, trackWhatsApp, trackCall, trackConversion } from '../lib/attribution'
 import { ReviewGrid } from '../components/ReviewCard'
 import { HOME_REVIEWS, REVIEW_STATS } from '../lib/reviews'
 
@@ -239,7 +239,7 @@ export default function Home({ initialBookingOpen = false }) {
 
           <div className="hidden lg:flex items-center gap-3">
             <a
-              onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}`}
+              onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}`}
               target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all hover:shadow-sm"
               style={{ borderColor: '#25D366', color: '#25D366' }}
@@ -316,7 +316,7 @@ export default function Home({ initialBookingOpen = false }) {
                   Book a Consultation
                 </button>
                 <a
-                  onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
+                  onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
                   target="_blank" rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-center transition-all hover:shadow-md duration-200 border-2"
                   style={{ borderColor: '#2C5249', color: '#2C5249' }}
@@ -676,7 +676,7 @@ export default function Home({ initialBookingOpen = false }) {
               </p>
               <div className="flex flex-col gap-3">
                 <a
-                  href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')}
+                  href={`tel:${CFG.phone}`} onClick={() => trackCall()}
                   className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:opacity-80 transition-opacity"
                 >
                   <IconPhone /> {CFG.phoneDisplay}
@@ -858,7 +858,7 @@ export default function Home({ initialBookingOpen = false }) {
               <div className="space-y-5 mb-8">
                 {[
                   { icon: <IconPin />, label: 'Clinic', href: CFG.maps, target: '_blank', content: <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-medium hover:underline" style={{ color: '#1A2E28' }}>{CFG.clinic}<br />{CFG.address}</a> },
-                  { icon: <IconPhone />, label: 'Phone', href: `tel:${CFG.phone}`, target: null, content: <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.phoneDisplay}</a> },
+                  { icon: <IconPhone />, label: 'Phone', href: `tel:${CFG.phone}`, target: null, content: <a href={`tel:${CFG.phone}`} onClick={() => trackCall()} className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.phoneDisplay}</a> },
                   { icon: <IconMail />, label: 'Email', href: `mailto:${CFG.email}`, target: null, content: <a href={`mailto:${CFG.email}`} className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.email}</a> },
                 ].map(({ icon, label, href, target, content }, i) => (
                   <div key={i} className="flex gap-4 items-start">
@@ -900,7 +900,7 @@ export default function Home({ initialBookingOpen = false }) {
                 Book via Appointment Form
               </button>
               <a
-                onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
+                onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl text-sm font-medium border transition-all hover:shadow-sm duration-200"
                 style={{ borderColor: '#25D366', color: '#25D366' }}
@@ -953,7 +953,7 @@ export default function Home({ initialBookingOpen = false }) {
                 <p>OPD: {CFG.clinic}</p>
                 <p>{CFG.address}</p>
                 <a href="/#hospitals" className="block transition-colors hover:text-white">Surgeries &amp; IPD at 6 partner hospitals →</a>
-                <a href={`tel:${CFG.phone}`} onClick={() => track('conversion_event_phone_call_lead_1')} className="block transition-colors hover:text-white">{CFG.phoneDisplay}</a>
+                <a href={`tel:${CFG.phone}`} onClick={() => trackCall()} className="block transition-colors hover:text-white">{CFG.phoneDisplay}</a>
                 <a href={`mailto:${CFG.email}`} className="block transition-colors hover:text-white">{CFG.email}</a>
               </address>
             </div>
@@ -972,7 +972,7 @@ export default function Home({ initialBookingOpen = false }) {
 
       {/* ── FLOATING WHATSAPP ── */}
       <a
-        onClick={() => track('whatsapp_click')} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
+        onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
         target="_blank" rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
         className="fixed z-50 flex items-center justify-center rounded-full shadow-xl transition-transform hover:scale-110 duration-200"
@@ -1095,7 +1095,7 @@ export default function Home({ initialBookingOpen = false }) {
               <div className="flex items-center gap-2">
                 <a
                   href={`tel:${CFG.phone}`}
-                  onClick={() => track('booking_fallback_call')}
+                  onClick={() => trackConversion('booking_fallback_call')}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors hover:opacity-90"
                   style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}
                 >
@@ -1107,7 +1107,7 @@ export default function Home({ initialBookingOpen = false }) {
                 <a
                   href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
                   target="_blank" rel="noopener noreferrer"
-                  onClick={() => track('booking_fallback_whatsapp')}
+                  onClick={() => trackConversion('booking_fallback_whatsapp')}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-white transition-colors hover:opacity-90"
                   style={{ backgroundColor: '#25D366' }}
                 >
