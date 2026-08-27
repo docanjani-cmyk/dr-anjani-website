@@ -44,8 +44,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.anjanidixit.com' },
-    { '@type': 'ListItem', position: 2, name: 'Pregnancy Care', item: 'https://www.anjanidixit.com/pregnancy' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://anjanidixit.com' },
+    { '@type': 'ListItem', position: 2, name: 'Pregnancy Care', item: 'https://anjanidixit.com/pregnancy' },
   ],
 }
 
@@ -53,18 +53,18 @@ export const metadata = {
   title: 'Pregnancy Care & High-Risk Obstetrics in Bangalore | Dr. Anjani Dixit',
   description: 'Expert antenatal care and high-risk pregnancy management in Bangalore. Dr. Anjani Dixit, DNB Obstetrics & Gynaecology, FOGSI Life Member, 14+ years experience. In-person & video consultations. Book now.',
   keywords: 'pregnancy care bangalore, obstetrician bangalore, high risk pregnancy bangalore, antenatal care indiranagar, gynecologist for pregnancy bangalore',
-  alternates: { canonical: 'https://www.anjanidixit.com/pregnancy' },
+  alternates: { canonical: 'https://anjanidixit.com/pregnancy' },
   openGraph: {
     title: 'Pregnancy Care & High-Risk Obstetrics in Bangalore | Dr. Anjani Dixit',
     description: 'Personalised antenatal care and high-risk pregnancy expertise in Bangalore. DNB Obs & Gynae, FOGSI Life Member. 14+ years.',
-    url: 'https://www.anjanidixit.com/pregnancy',
-    images: [{ url: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - Pregnancy & High-Risk Obstetrics, Bangalore' }],
+    url: 'https://anjanidixit.com/pregnancy',
+    images: [{ url: 'https://anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - Pregnancy & High-Risk Obstetrics, Bangalore' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Pregnancy Care & High-Risk Obstetrics in Bangalore | Dr. Anjani Dixit',
     description: 'Personalised antenatal care and high-risk pregnancy expertise in Bangalore. DNB Obs & Gynae, FOGSI Life Member. 14+ years.',
-    images: ['https://www.anjanidixit.com/IMG-20251024-WA0023.jpg'],
+    images: ['https://anjanidixit.com/IMG-20251024-WA0023.jpg'],
   },
 }
 

@@ -39,8 +39,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.anjanidixit.com' },
-    { '@type': 'ListItem', position: 2, name: 'IVF & Fertility Treatment', item: 'https://www.anjanidixit.com/ivf-infertility' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://anjanidixit.com' },
+    { '@type': 'ListItem', position: 2, name: 'IVF & Fertility Treatment', item: 'https://anjanidixit.com/ivf-infertility' },
   ],
 }
 
@@ -48,18 +48,18 @@ export const metadata = {
   title: 'IVF & Fertility Treatment in Bangalore | Dr. Anjani Dixit',
   description: 'Compassionate IVF, IUI and fertility treatment in Bangalore by Dr. Anjani Dixit — ICOG certified, 14+ years experience. Thorough evaluation, honest guidance, and complete emotional support. Book a consultation.',
   keywords: 'IVF specialist bangalore, fertility treatment bangalore, IUI bangalore, infertility doctor bangalore, IVF clinic indiranagar, fertility specialist bangalore',
-  alternates: { canonical: 'https://www.anjanidixit.com/ivf-infertility' },
+  alternates: { canonical: 'https://anjanidixit.com/ivf-infertility' },
   openGraph: {
     title: 'IVF & Fertility Treatment in Bangalore | Dr. Anjani Dixit',
     description: 'Compassionate IVF, IUI and fertility treatment in Bangalore. ICOG certified. 14+ years experience. Honest guidance at every step.',
-    url: 'https://www.anjanidixit.com/ivf-infertility',
-    images: [{ url: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - IVF & Fertility Specialist, Bangalore' }],
+    url: 'https://anjanidixit.com/ivf-infertility',
+    images: [{ url: 'https://anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - IVF & Fertility Specialist, Bangalore' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'IVF & Fertility Treatment in Bangalore | Dr. Anjani Dixit',
     description: 'Compassionate IVF, IUI and fertility treatment in Bangalore. ICOG certified. 14+ years experience. Honest guidance at every step.',
-    images: ['https://www.anjanidixit.com/IMG-20251024-WA0023.jpg'],
+    images: ['https://anjanidixit.com/IMG-20251024-WA0023.jpg'],
   },
 }
 

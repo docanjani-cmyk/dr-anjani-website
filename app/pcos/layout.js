@@ -39,8 +39,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.anjanidixit.com' },
-    { '@type': 'ListItem', position: 2, name: 'PCOS & PCOD Treatment', item: 'https://www.anjanidixit.com/pcos' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://anjanidixit.com' },
+    { '@type': 'ListItem', position: 2, name: 'PCOS & PCOD Treatment', item: 'https://anjanidixit.com/pcos' },
   ],
 }
 
@@ -48,18 +48,18 @@ export const metadata = {
   title: 'PCOS & PCOD Treatment in Bangalore | Dr. Anjani Dixit – Gynaecologist',
   description: 'Comprehensive PCOS and PCOD management in Bangalore — irregular periods, hormonal imbalance, fertility, weight and acne. Dr. Anjani Dixit, 14+ years experience, FOGSI Life Member. Book a consultation.',
   keywords: 'PCOS treatment bangalore, PCOD doctor bangalore, polycystic ovary syndrome bangalore, PCOS specialist indiranagar, PCOS fertility bangalore',
-  alternates: { canonical: 'https://www.anjanidixit.com/pcos' },
+  alternates: { canonical: 'https://anjanidixit.com/pcos' },
   openGraph: {
     title: 'PCOS & PCOD Treatment in Bangalore | Dr. Anjani Dixit',
     description: 'Expert PCOS management in Bangalore — cycles, hormones, weight, fertility. Holistic, evidence-based care. 14+ years experience.',
-    url: 'https://www.anjanidixit.com/pcos',
-    images: [{ url: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - PCOS Specialist, Bangalore' }],
+    url: 'https://anjanidixit.com/pcos',
+    images: [{ url: 'https://anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - PCOS Specialist, Bangalore' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'PCOS & PCOD Treatment in Bangalore | Dr. Anjani Dixit',
     description: 'Expert PCOS management in Bangalore — cycles, hormones, weight, fertility. Holistic, evidence-based care. 14+ years experience.',
-    images: ['https://www.anjanidixit.com/IMG-20251024-WA0023.jpg'],
+    images: ['https://anjanidixit.com/IMG-20251024-WA0023.jpg'],
   },
 }
 

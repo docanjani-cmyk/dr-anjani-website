@@ -1,7 +1,7 @@
 import { CONTENT } from './content'
 
-const URL = 'https://www.anjanidixit.com/ivf-infertility/second-opinion'
-const OG_IMAGE = 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg'
+const URL = 'https://anjanidixit.com/ivf-infertility/second-opinion'
+const OG_IMAGE = 'https://anjanidixit.com/IMG-20251024-WA0023.jpg'
 const TITLE = 'IVF & Fertility Second Opinion in Bangalore | Dr. Anjani Dixit'
 const DESC = 'Failed IVF cycle with no explanation, or pushed into treatment too quickly? Dr. Anjani Dixit reviews your full cycle records, embryology reports and scans before you commit to another cycle. Fertility specialist and laparoscopic surgeon, Indiranagar, Bangalore.'
 
@@ -21,8 +21,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.anjanidixit.com' },
-    { '@type': 'ListItem', position: 2, name: 'IVF & Infertility', item: 'https://www.anjanidixit.com/ivf-infertility' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://anjanidixit.com' },
+    { '@type': 'ListItem', position: 2, name: 'IVF & Infertility', item: 'https://anjanidixit.com/ivf-infertility' },
     { '@type': 'ListItem', position: 3, name: 'Second Opinion', item: URL },
   ],
 }
@@ -39,7 +39,7 @@ const pageSchema = {
   reviewedBy: {
     '@type': 'Physician',
     name: 'Dr. Anjani Dixit',
-    url: 'https://www.anjanidixit.com',
+    url: 'https://anjanidixit.com',
     medicalSpecialty: ['ReproductiveMedicine', 'Obstetrics', 'Gynecology'],
   },
 }

@@ -1,6 +1,6 @@
 export default function robots() {
   return {
     rules: { userAgent: '*', allow: '/' },
-    sitemap: 'https://www.anjanidixit.com/sitemap.xml',
+    sitemap: 'https://anjanidixit.com/sitemap.xml',
   }
 }

@@ -39,8 +39,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.anjanidixit.com' },
-    { '@type': 'ListItem', position: 2, name: 'About Dr. Anjani Dixit', item: 'https://www.anjanidixit.com/about-us' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://anjanidixit.com' },
+    { '@type': 'ListItem', position: 2, name: 'About Dr. Anjani Dixit', item: 'https://anjanidixit.com/about-us' },
   ],
 }
 
@@ -48,18 +48,18 @@ export const metadata = {
   title: 'About Dr. Anjani Dixit | Laparoscopic Surgeon & IVF Specialist, Bangalore',
   description: "Meet Dr. Anjani Dixit — MBBS, DNB (OBG), FMAS — a laparoscopic gynaecologic surgeon and IVF specialist in Indiranagar, Bangalore. 14+ years experience, 1500+ procedures, FOGSI Life Member. Learn her qualifications, philosophy, and where she practises.",
   keywords: 'about dr anjani dixit, dr anjani dixit qualifications, gynecologist bangalore biography, laparoscopic surgeon indiranagar, IVF specialist bangalore about, dr anjani dixit MBBS DNB FMAS',
-  alternates: { canonical: 'https://www.anjanidixit.com/about-us' },
+  alternates: { canonical: 'https://anjanidixit.com/about-us' },
   openGraph: {
     title: 'About Dr. Anjani Dixit | Laparoscopic Surgeon & IVF Specialist',
     description: 'MBBS, DNB (OBG), FMAS. 14+ years experience, 1500+ procedures, FOGSI Life Member. Meet the surgeon behind the care.',
-    url: 'https://www.anjanidixit.com/about-us',
-    images: [{ url: 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - Laparoscopic Surgeon & IVF Specialist, Bangalore' }],
+    url: 'https://anjanidixit.com/about-us',
+    images: [{ url: 'https://anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - Laparoscopic Surgeon & IVF Specialist, Bangalore' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'About Dr. Anjani Dixit | Laparoscopic Surgeon & IVF Specialist',
     description: 'MBBS, DNB (OBG), FMAS. 14+ years experience, 1500+ procedures, FOGSI Life Member.',
-    images: ['https://www.anjanidixit.com/IMG-20251024-WA0023.jpg'],
+    images: ['https://anjanidixit.com/IMG-20251024-WA0023.jpg'],
   },
 }
 

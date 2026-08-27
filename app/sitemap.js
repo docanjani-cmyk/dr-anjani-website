@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const base = 'https://www.anjanidixit.com'
+  const base = 'https://anjanidixit.com'
   const lastModified = new Date()
   return [
     { url: base, lastModified, changeFrequency: 'monthly', priority: 1 },

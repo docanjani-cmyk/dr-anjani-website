@@ -28,14 +28,16 @@ Dr. Anjani Dixit is a fellowship-trained laparoscopic gynaecological surgeon, IV
 - Languages: English, Hindi, Kannada, Bengali
 
 ## Website
-- Homepage: https://www.anjanidixit.com
-- About: https://www.anjanidixit.com/about
-- Laparoscopic Surgery: https://www.anjanidixit.com/laparoscopic-surgery
-- IVF & Fertility Treatment: https://www.anjanidixit.com/ivf-infertility
-- PCOS Treatment: https://www.anjanidixit.com/pcos
-- Pregnancy Care: https://www.anjanidixit.com/pregnancy
-- Cosmetic Gynaecology: https://www.anjanidixit.com/cosmetic-gynecology
-- Sitemap: https://www.anjanidixit.com/sitemap.xml
+- Homepage: https://anjanidixit.com
+- About: https://anjanidixit.com/about-us
+- Laparoscopic Surgery: https://anjanidixit.com/laparoscopic-surgery
+- IVF & Fertility Treatment: https://anjanidixit.com/ivf-infertility
+- PCOS Treatment: https://anjanidixit.com/pcos
+- Pregnancy Care: https://anjanidixit.com/pregnancy
+- Cosmetic Gynaecology: https://anjanidixit.com/cosmetic-gynecology
+- Second Opinion (Surgery): https://anjanidixit.com/laparoscopic-surgery/second-opinion
+- Second Opinion (IVF & Fertility): https://anjanidixit.com/ivf-infertility/second-opinion
+- Sitemap: https://anjanidixit.com/sitemap.xml
 
 ## Online Profiles
 - Practo: https://www.practo.com/Bangalore/doctor/anjani-dixit-gynecologist-obstetrician

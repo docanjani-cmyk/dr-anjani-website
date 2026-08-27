@@ -1,7 +1,7 @@
 import { CONTENT } from './content'
 
-const URL = 'https://www.anjanidixit.com/laparoscopic-surgery/second-opinion'
-const OG_IMAGE = 'https://www.anjanidixit.com/IMG-20251024-WA0023.jpg'
+const URL = 'https://anjanidixit.com/laparoscopic-surgery/second-opinion'
+const OG_IMAGE = 'https://anjanidixit.com/IMG-20251024-WA0023.jpg'
 const TITLE = 'Second Opinion Before Gynaecological Surgery | Bangalore'
 const DESC = 'Been advised a hysterectomy or open surgery? Dr. Anjani Dixit reviews your scans and tells you whether the operation is needed and whether it can be done laparoscopically. FMAS, 300+ keyhole procedures, Indiranagar, Bangalore.'
 
@@ -21,8 +21,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.anjanidixit.com' },
-    { '@type': 'ListItem', position: 2, name: 'Laparoscopic Surgery', item: 'https://www.anjanidixit.com/laparoscopic-surgery' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://anjanidixit.com' },
+    { '@type': 'ListItem', position: 2, name: 'Laparoscopic Surgery', item: 'https://anjanidixit.com/laparoscopic-surgery' },
     { '@type': 'ListItem', position: 3, name: 'Second Opinion', item: URL },
   ],
 }
@@ -39,7 +39,7 @@ const pageSchema = {
   reviewedBy: {
     '@type': 'Physician',
     name: 'Dr. Anjani Dixit',
-    url: 'https://www.anjanidixit.com',
+    url: 'https://anjanidixit.com',
     medicalSpecialty: ['Obstetrics', 'Gynecology'],
   },
 }
