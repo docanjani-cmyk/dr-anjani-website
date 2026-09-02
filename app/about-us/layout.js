@@ -45,8 +45,8 @@ const breadcrumbSchema = {
 }
 
 export const metadata = {
-  title: 'About Dr. Anjani Dixit | Laparoscopic Surgeon & IVF Specialist, Bangalore',
-  description: "Meet Dr. Anjani Dixit — MBBS, DNB (OBG), FMAS — a laparoscopic gynaecologic surgeon and IVF specialist in Indiranagar, Bangalore. 14+ years experience, 1500+ procedures, FOGSI Life Member. Learn her qualifications, philosophy, and where she practises.",
+  title: 'About Dr. Anjani Dixit | Gynaecologist, Bangalore',
+  description: "Laparoscopic surgeon and IVF specialist in Indiranagar, Bangalore. 14+ years, 1500+ procedures, and the six hospitals where she operates.",
   keywords: 'about dr anjani dixit, dr anjani dixit qualifications, gynecologist bangalore biography, laparoscopic surgeon indiranagar, IVF specialist bangalore about, dr anjani dixit MBBS DNB FMAS',
   alternates: { canonical: 'https://anjanidixit.com/about-us' },
   openGraph: {

@@ -45,8 +45,8 @@ const breadcrumbSchema = {
 }
 
 export const metadata = {
-  title: 'PCOS & PCOD Treatment in Bangalore | Dr. Anjani Dixit – Gynaecologist',
-  description: 'Comprehensive PCOS and PCOD management in Bangalore — irregular periods, hormonal imbalance, fertility, weight and acne. Dr. Anjani Dixit, 14+ years experience, FOGSI Life Member. Book a consultation.',
+  title: 'PCOS & PCOD Treatment in Bangalore | Dr. Anjani Dixit',
+  description: 'PCOS and PCOD care in Bangalore for irregular periods, hormonal imbalance, weight and fertility — treating the cause, not just the symptoms.',
   keywords: 'PCOS treatment bangalore, PCOD doctor bangalore, polycystic ovary syndrome bangalore, PCOS specialist indiranagar, PCOS fertility bangalore',
   alternates: { canonical: 'https://anjanidixit.com/pcos' },
   openGraph: {

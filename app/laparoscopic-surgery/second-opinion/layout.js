@@ -3,7 +3,7 @@ import { CONTENT } from './content'
 const URL = 'https://anjanidixit.com/laparoscopic-surgery/second-opinion'
 const OG_IMAGE = 'https://anjanidixit.com/IMG-20251024-WA0023.jpg'
 const TITLE = 'Second Opinion Before Gynaecological Surgery | Bangalore'
-const DESC = 'Been advised a hysterectomy or open surgery? Dr. Anjani Dixit reviews your scans and tells you whether the operation is needed and whether it can be done laparoscopically. FMAS, 300+ keyhole procedures, Indiranagar, Bangalore.'
+const DESC = 'Advised a hysterectomy or open surgery? Have your scans reviewed before you agree — including whether it can be done as keyhole surgery instead.'
 
 // Built from the same CONTENT the page renders, so the markup always matches
 // the visible questions and answers.

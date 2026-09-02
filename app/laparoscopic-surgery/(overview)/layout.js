@@ -45,8 +45,8 @@ const breadcrumbSchema = {
 }
 
 export const metadata = {
-  title: 'Laparoscopic Surgery in Bangalore | Dr. Anjani Dixit – FMAS Surgeon',
-  description: 'Expert laparoscopic (keyhole) surgery for fibroids, endometriosis, ovarian cysts & hysterectomy in Bangalore. Dr. Anjani Dixit, Fellowship in Minimal Access Surgery, 300+ laparoscopic procedures, 5.0 Google rating. Book today.',
+  title: 'Laparoscopic Surgery in Bangalore | Dr. Anjani Dixit',
+  description: 'Keyhole surgery for fibroids, endometriosis, ovarian cysts and hysterectomy in Bangalore. 300+ procedures, most patients home within 24 hours.',
   keywords: 'laparoscopic surgery bangalore, laparoscopic hysterectomy bangalore, fibroid surgery bangalore, endometriosis surgery bangalore, ovarian cyst surgery bangalore, keyhole surgery gynecologist bangalore',
   alternates: { canonical: 'https://anjanidixit.com/laparoscopic-surgery' },
   openGraph: {

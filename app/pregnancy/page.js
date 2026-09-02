@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { trackBooking, trackWhatsApp, trackCall } from '../lib/attribution'
+import RelatedServices from '../components/RelatedServices'
 import { ReviewGrid } from '../components/ReviewCard'
 import { PREGNANCY_REVIEWS, REVIEW_STATS } from '../lib/reviews'
 
@@ -87,6 +88,11 @@ export default function PregnancyPage() {
               <div className="text-xs" style={{ color: '#7A9C90' }}>MBBS · DNB · FMAS</div>
             </div>
           </a>
+          <div className="hidden lg:flex items-center gap-5">
+            {NAV_LINKS.map(([label, href]) => (
+              <a key={href} href={href} className="text-sm font-medium whitespace-nowrap transition-opacity hover:opacity-70" style={{ color: '#2C5249' }}>{label}</a>
+            ))}
+          </div>
           <div className="flex items-center gap-3">
             <a href={`tel:${CFG.phone}`} onClick={() => trackCall()} className="hidden sm:flex items-center gap-1.5 text-sm font-medium" style={{ color: '#2C5249' }}>
               <IconPhone /> {CFG.phoneDisplay}
@@ -329,6 +335,9 @@ export default function PregnancyPage() {
           </div>
         </div>
       </section>
+
+      {/* RELATED — contextual internal links */}
+      <RelatedServices links={NAV_LINKS} />
 
       <footer className="py-8 px-5 text-center text-xs" style={{ backgroundColor: '#1A2E28', color: '#3D6A5C' }}>
         <p>© 2026 Dr. Anjani Dixit · Kasper Multi-Speciality Clinic · 31, 80 Feet Rd, Indiranagar, Bengaluru 560038</p>

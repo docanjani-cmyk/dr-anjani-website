@@ -4,8 +4,8 @@ import AttributionTracker from './lib/AttributionTracker'
 import { SCHEMA_REVIEWS } from './lib/reviews'
 
 export const metadata = {
-  title: 'Dr. Anjani Dixit | Laparoscopic Surgeon & IVF Specialist, Bangalore',
-  description: 'Dr. Anjani Dixit is a leading laparoscopic gynaecologic surgeon and IVF fertility specialist in Indiranagar, Bangalore. Expert in endometriosis, fibroids, PCOS, and advanced fertility treatment. 14+ years experience. 5.0 Google rating.',
+  title: 'Dr. Anjani Dixit | Laparoscopic Surgeon, Bangalore',
+  description: 'Keyhole surgery for fibroids, endometriosis and ovarian cysts, plus IVF and fertility care, in Indiranagar, Bangalore. 14+ years, 5.0 on Google.',
   keywords: 'best gynecologist bangalore, IVF specialist bangalore, laparoscopic surgeon bangalore, fertility specialist bangalore, endometriosis treatment bangalore, fibroid surgery bangalore, PCOS treatment bangalore, Dr Anjani Dixit, gynecologist indiranagar',
   metadataBase: new URL('https://anjanidixit.com'),
   alternates: { canonical: '/' },

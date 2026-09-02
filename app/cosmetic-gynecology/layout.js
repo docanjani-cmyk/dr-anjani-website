@@ -45,8 +45,8 @@ const breadcrumbSchema = {
 }
 
 export const metadata = {
-  title: 'Cosmetic Gynaecology in Bangalore | Dr. Anjani Dixit – Private & Confidential',
-  description: 'Private, compassionate cosmetic gynaecology in Bangalore — labiaplasty, vaginal rejuvenation, hymenoplasty, perineal repair, PRP therapy. Dr. Anjani Dixit, fellowship-trained surgeon. Complete confidentiality.',
+  title: 'Cosmetic Gynaecology in Bangalore | Dr. Anjani Dixit',
+  description: 'Labiaplasty, vaginal rejuvenation, hymenoplasty and PRP therapy in Bangalore. Discussed without awkwardness, in complete confidence.',
   keywords: 'cosmetic gynaecology bangalore, labiaplasty bangalore, vaginal rejuvenation bangalore, hymenoplasty bangalore, gynecosmetic bangalore, vaginoplasty bangalore',
   alternates: { canonical: 'https://anjanidixit.com/cosmetic-gynecology' },
   openGraph: {

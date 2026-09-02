@@ -2,8 +2,8 @@ import { CONTENT } from './content'
 
 const URL = 'https://anjanidixit.com/ivf-infertility/second-opinion'
 const OG_IMAGE = 'https://anjanidixit.com/IMG-20251024-WA0023.jpg'
-const TITLE = 'IVF & Fertility Second Opinion in Bangalore | Dr. Anjani Dixit'
-const DESC = 'Failed IVF cycle with no explanation, or pushed into treatment too quickly? Dr. Anjani Dixit reviews your full cycle records, embryology reports and scans before you commit to another cycle. Fertility specialist and laparoscopic surgeon, Indiranagar, Bangalore.'
+const TITLE = 'IVF Second Opinion in Bangalore | Dr. Anjani Dixit'
+const DESC = 'A failed IVF cycle with no explanation is worth a second look. Your full records reviewed in Bangalore before you commit to another cycle.'
 
 // Built from the same CONTENT the page renders, so the markup always matches
 // the visible questions and answers.

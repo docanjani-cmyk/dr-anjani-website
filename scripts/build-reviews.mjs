@@ -186,6 +186,21 @@ export const SCHEMA_REVIEWS = HOME_REVIEWS.filter(r => r.source === 'google' && 
 
 writeFileSync(OUT_MODULE, body)
 console.log(`wrote ${OUT_MODULE}`)
+
+// Keep llms.txt in step. AI assistants quote this figure verbatim, and it had
+// silently drifted to a count two exports out of date.
+const LLMS = 'public/llms.txt'
+if (existsSync(LLMS)) {
+  const before = readFileSync(LLMS, 'utf8')
+  const after = before.replace(
+    /\d[\d,]* verified patient reviews/,
+    `${data.source.displayedReviewCount} verified patient reviews`,
+  )
+  if (after !== before) {
+    writeFileSync(LLMS, after)
+    console.log(`updated ${LLMS} -> ${data.source.displayedReviewCount} reviews`)
+  }
+}
 console.log(`avatars: ${google.filter(g => g.fields.img).length}/${google.length} -> ${OUT_IMAGES}/`)
 for (const p of PAGES) console.log(`  ${p}: ${all.filter(r => r.pages.includes(p)).length}`)
 console.log(`stats: ${data.source.displayedReviewCount} reviews, mean ${mean.toFixed(3)}, 5★ ${dist[5]}`)

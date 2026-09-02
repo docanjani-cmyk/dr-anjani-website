@@ -50,8 +50,8 @@ const breadcrumbSchema = {
 }
 
 export const metadata = {
-  title: 'Pregnancy Care & High-Risk Obstetrics in Bangalore | Dr. Anjani Dixit',
-  description: 'Expert antenatal care and high-risk pregnancy management in Bangalore. Dr. Anjani Dixit, DNB Obstetrics & Gynaecology, FOGSI Life Member, 14+ years experience. In-person & video consultations. Book now.',
+  title: 'Pregnancy Care in Bangalore | Dr. Anjani Dixit',
+  description: 'Antenatal care and high-risk pregnancy management in Bangalore, from the first scan through delivery. In-person and video consultations.',
   keywords: 'pregnancy care bangalore, obstetrician bangalore, high risk pregnancy bangalore, antenatal care indiranagar, gynecologist for pregnancy bangalore',
   alternates: { canonical: 'https://anjanidixit.com/pregnancy' },
   openGraph: {
