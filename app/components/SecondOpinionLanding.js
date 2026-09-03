@@ -370,7 +370,7 @@ export default function SecondOpinionLanding({ content: c }) {
 
       {/* FLOATING WHATSAPP */}
       <a onClick={() => trackWhatsApp()} href={waHref} target="_blank" rel="noopener noreferrer"
-        className="fixed z-50 flex items-center justify-center rounded-full shadow-xl text-white"
+        className="hidden lg:flex fixed z-50 items-center justify-center rounded-full shadow-xl text-white"
         style={{ bottom: '5.5rem', right: '1.5rem', width: '56px', height: '56px', backgroundColor: '#25D366' }}
         aria-label="Send your reports on WhatsApp">
         <IconWhatsApp />
@@ -454,9 +454,16 @@ export default function SecondOpinionLanding({ content: c }) {
       )}
 
       {/* MOBILE STICKY CTA */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3"
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3 flex items-center gap-2.5"
         style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}>
-        <BookBtn className="flex items-center justify-center w-full py-3.5 rounded-full text-sm font-semibold text-white"
+        <a onClick={() => trackWhatsApp()} href={waHref}
+          target="_blank" rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="flex items-center justify-center rounded-full flex-shrink-0 text-white"
+          style={{ width: '52px', height: '52px', backgroundColor: '#25D366' }}>
+          <IconWhatsApp />
+        </a>
+        <BookBtn className="flex items-center justify-center flex-1 py-3.5 rounded-full text-sm font-semibold text-white"
           style={{ backgroundColor: '#2C5249' }}>
           Book a Consultation
         </BookBtn>

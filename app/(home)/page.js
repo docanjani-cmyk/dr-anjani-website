@@ -307,7 +307,7 @@ export default function Home({ initialBookingOpen = false }) {
                 Dr. Anjani Dixit · MBBS · DNB (OBG) · FMAS · 14+ Years Experience
               </p>
 
-              <div className="hidden lg:flex gap-3 mb-10">
+              <div className="flex flex-col sm:flex-row gap-3 mb-10">
                 <button
                   onClick={() => openBooking()}
                   className="px-8 py-4 rounded-full font-semibold text-white text-center transition-all hover:shadow-xl hover:-translate-y-0.5 duration-200"
@@ -879,7 +879,7 @@ export default function Home({ initialBookingOpen = false }) {
                 ].map(({ href, label, icon }) => (
                   <a
                     key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                    className="w-10 h-10 rounded-xl flex items-center justify-center transition-all hover:-translate-y-0.5 hover:shadow-md duration-200"
+                    className="w-11 h-11 rounded-xl flex items-center justify-center transition-all hover:-translate-y-0.5 hover:shadow-md duration-200"
                     style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}
                   >
                     {icon}
@@ -975,7 +975,7 @@ export default function Home({ initialBookingOpen = false }) {
         onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
         target="_blank" rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
-        className="fixed z-50 flex items-center justify-center rounded-full shadow-xl transition-transform hover:scale-110 duration-200"
+        className="hidden lg:flex fixed z-50 items-center justify-center rounded-full shadow-xl transition-transform hover:scale-110 duration-200"
         style={{ bottom: '5.5rem', right: '1.5rem', width: '56px', height: '56px', backgroundColor: '#25D366' }}
       >
         <IconWhatsApp size="w-7 h-7" />
@@ -983,12 +983,19 @@ export default function Home({ initialBookingOpen = false }) {
 
       {/* ── MOBILE STICKY CTA ── */}
       <div
-        className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3"
+        className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3 flex items-center gap-2.5"
         style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}
       >
+        <a onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}`}
+          target="_blank" rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="flex items-center justify-center rounded-full flex-shrink-0 text-white"
+          style={{ width: '52px', height: '52px', backgroundColor: '#25D366' }}>
+          <IconWhatsApp />
+        </a>
         <button
           onClick={() => openBooking()}
-          className="flex items-center justify-center w-full py-3.5 rounded-full text-sm font-semibold text-white"
+          className="flex items-center justify-center flex-1 py-3.5 rounded-full text-sm font-semibold text-white"
           style={{ backgroundColor: '#2C5249' }}
         >
           Book a Consultation

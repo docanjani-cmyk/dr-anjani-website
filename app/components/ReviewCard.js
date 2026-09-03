@@ -34,7 +34,10 @@ export default function ReviewCard({ review: t, className = '', avatarClass = 'w
   return (
     <Card
       {...linkProps}
-      className={`rounded-2xl p-6 flex flex-col no-underline${t.url ? ' hover:shadow-md transition-shadow duration-200' : ''} ${className}`}
+      // min-w-0: grid items default to min-width:auto, so the nowrap condition
+      // label below would set a floor wider than the column and scroll the page
+      // sideways on narrow screens.
+      className={`rounded-2xl p-6 flex flex-col min-w-0 no-underline${t.url ? ' hover:shadow-md transition-shadow duration-200' : ''} ${className}`}
       style={{ backgroundColor: '#FAFAF8', border: '1px solid #E3EDE9' }}
     >
       <div className="flex items-center gap-3 mb-4">

@@ -89,3 +89,34 @@ a {
 @media (min-width: 1024px) {
   .hero-crop { object-position: top; }
 }
+
+/* Mobile legibility: 12px body copy is below comfortable reading size on a
+   phone, and 14px is borderline. Nudge the two smallest steps up without
+   disturbing the desktop scale. */
+@media (max-width: 767px) {
+  .text-xs { font-size: 0.8125rem; line-height: 1.2rem; }
+  .text-sm { font-size: 0.9375rem; line-height: 1.5rem; }
+}
+
+/* Tap targets: footer links, the menu button and contact links all sat well
+   under the 44px minimum on touch screens. Padding buys the height without
+   changing the visual rhythm. */
+@media (max-width: 1023px) {
+  footer a {
+    display: inline-block;
+    padding-block: 0.8rem;
+  }
+
+  header button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  a[href^="tel:"],
+  a[href^="mailto:"],
+  a[href*="maps.app.goo.gl"] {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
