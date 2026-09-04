@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { trackBooking, trackWhatsApp, trackCall } from '../lib/attribution'
+import StickyActionBar from '../components/StickyActionBar'
 import RelatedServices from '../components/RelatedServices'
 
 const CFG = {
@@ -185,7 +186,7 @@ export default function AboutUsPage() {
             <p className="text-sm font-medium mb-8" style={{ color: '#7A9C90' }}>
               MBBS · DNB (OBG) · FMAS · 14+ Years Experience · 1500+ Procedures
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <div data-hero-cta className="flex flex-col sm:flex-row gap-3 mb-8">
               <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
                 className="px-8 py-4 rounded-full font-semibold text-white text-center hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: '#2C5249' }}>
@@ -486,21 +487,7 @@ export default function AboutUsPage() {
         <IconWhatsApp />
       </a>
 
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3 flex items-center gap-2.5"
-        style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}>
-        <a onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I'd like to know more before booking a consultation.`}
-          target="_blank" rel="noopener noreferrer"
-          aria-label="Chat on WhatsApp"
-          className="flex items-center justify-center rounded-full flex-shrink-0 text-white"
-          style={{ width: '52px', height: '52px', backgroundColor: '#25D366' }}>
-          <IconWhatsApp />
-        </a>
-        <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center flex-1 py-3.5 rounded-full text-sm font-semibold text-white"
-          style={{ backgroundColor: '#2C5249' }}>
-          Book a Consultation
-        </a>
-      </div>
+      <StickyActionBar waHref={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I'd like to know more before booking a consultation.`} bookHref={CFG.booking} />
 
       {/* LIGHTBOX */}
       {lightbox !== null && (

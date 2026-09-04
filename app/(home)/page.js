@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { trackBooking, trackWhatsApp, trackCall, trackConversion } from '../lib/attribution'
+import StickyActionBar from '../components/StickyActionBar'
 import { ReviewGrid } from '../components/ReviewCard'
 import { HOME_REVIEWS, REVIEW_STATS } from '../lib/reviews'
 
@@ -307,7 +308,7 @@ export default function Home({ initialBookingOpen = false }) {
                 Dr. Anjani Dixit · MBBS · DNB (OBG) · FMAS · 14+ Years Experience
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 mb-10">
+              <div data-hero-cta className="flex flex-col sm:flex-row gap-3 mb-10">
                 <button
                   onClick={() => openBooking()}
                   className="px-8 py-4 rounded-full font-semibold text-white text-center transition-all hover:shadow-xl hover:-translate-y-0.5 duration-200"
@@ -982,25 +983,7 @@ export default function Home({ initialBookingOpen = false }) {
       </a>
 
       {/* ── MOBILE STICKY CTA ── */}
-      <div
-        className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3 flex items-center gap-2.5"
-        style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}
-      >
-        <a onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}`}
-          target="_blank" rel="noopener noreferrer"
-          aria-label="Chat on WhatsApp"
-          className="flex items-center justify-center rounded-full flex-shrink-0 text-white"
-          style={{ width: '52px', height: '52px', backgroundColor: '#25D366' }}>
-          <IconWhatsApp />
-        </a>
-        <button
-          onClick={() => openBooking()}
-          className="flex items-center justify-center flex-1 py-3.5 rounded-full text-sm font-semibold text-white"
-          style={{ backgroundColor: '#2C5249' }}
-        >
-          Book a Consultation
-        </button>
-      </div>
+      <StickyActionBar waHref={`https://wa.me/${CFG.whatsapp}`} onBook={openBooking} />
 
       {/* ── LIGHTBOX ── */}
       {lightbox !== null && (

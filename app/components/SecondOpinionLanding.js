@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { trackBooking, trackWhatsApp, trackCall, trackConversion, EVENTS } from '../lib/attribution'
 import { ReviewGrid } from './ReviewCard'
+import StickyActionBar from './StickyActionBar'
 import { REVIEW_STATS } from '../lib/reviews'
 
 export const CFG = {
@@ -117,7 +118,7 @@ export default function SecondOpinionLanding({ content: c }) {
             ))}
             <p className="text-sm font-medium mb-7" style={{ color: '#7A9C90' }}>{c.credLine}</p>
 
-            <div className="flex flex-col sm:flex-row gap-3 mb-7">
+            <div data-hero-cta className="flex flex-col sm:flex-row gap-3 mb-7">
               <a onClick={() => trackWhatsApp()} href={waHref} target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-7 py-4 rounded-full font-semibold text-white text-center"
                 style={{ backgroundColor: '#25D366' }}>
@@ -454,20 +455,7 @@ export default function SecondOpinionLanding({ content: c }) {
       )}
 
       {/* MOBILE STICKY CTA */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 py-3 flex items-center gap-2.5"
-        style={{ backgroundColor: 'rgba(250,250,248,0.97)', backdropFilter: 'blur(10px)', borderTop: '1px solid #E3EDE9' }}>
-        <a onClick={() => trackWhatsApp()} href={waHref}
-          target="_blank" rel="noopener noreferrer"
-          aria-label="Chat on WhatsApp"
-          className="flex items-center justify-center rounded-full flex-shrink-0 text-white"
-          style={{ width: '52px', height: '52px', backgroundColor: '#25D366' }}>
-          <IconWhatsApp />
-        </a>
-        <BookBtn className="flex items-center justify-center flex-1 py-3.5 rounded-full text-sm font-semibold text-white"
-          style={{ backgroundColor: '#2C5249' }}>
-          Book a Consultation
-        </BookBtn>
-      </div>
+      <StickyActionBar waHref={waHref} onBook={openBooking} />
     </div>
   )
 }
