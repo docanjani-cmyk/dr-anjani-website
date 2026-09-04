@@ -275,7 +275,7 @@ export default function IVFInfertilityPage() {
             </p>
           </div>
           <div>
-            <ReviewGrid reviews={IVF_REVIEWS} columns="md:grid-cols-2 lg:grid-cols-3" />
+            <ReviewGrid reviews={IVF_REVIEWS} columns="md:grid-cols-2 lg:grid-cols-3" mobileLimit={4} />
           </div>
         </div>
       </section>

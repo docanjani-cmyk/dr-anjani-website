@@ -203,7 +203,7 @@ export default function SecondOpinionLanding({ content: c }) {
                 Unedited patient reviews · Google cards link to the original review
               </p>
             </div>
-            <ReviewGrid reviews={c.reviews} reveal />
+            <ReviewGrid reviews={c.reviews} reveal mobileLimit={4} />
           </div>
         </section>
       </div>

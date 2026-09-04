@@ -218,7 +218,7 @@ export default function PregnancyPage() {
             </p>
           </div>
           <div>
-            <ReviewGrid reviews={PREGNANCY_REVIEWS} columns="md:grid-cols-2 lg:grid-cols-3" />
+            <ReviewGrid reviews={PREGNANCY_REVIEWS} columns="md:grid-cols-2 lg:grid-cols-3" mobileLimit={4} />
           </div>
         </div>
       </section>

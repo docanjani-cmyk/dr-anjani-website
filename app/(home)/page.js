@@ -786,7 +786,7 @@ export default function Home({ initialBookingOpen = false }) {
           </div>
 
           <div className="mb-10">
-            <ReviewGrid reviews={HOME_REVIEWS} reveal />
+            <ReviewGrid reviews={HOME_REVIEWS} reveal mobileLimit={6} />
           </div>
 
           <div className="text-center reveal">
