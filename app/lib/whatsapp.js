@@ -13,6 +13,7 @@ export const WHATSAPP_MESSAGES = {
   pregnancy: 'Hi Dr. Anjani, I would like to register for antenatal care.',
   ivf: 'Hi Dr. Anjani, I would like to consult about fertility treatment.',
   laparoscopy: 'Hi Dr. Anjani, I would like to consult about laparoscopic surgery.',
+  hysterectomy: 'Hi Dr. Anjani, I would like to consult about a hysterectomy. I am sending my reports.',
   cosmetic: 'Hi Dr. Anjani, I would like to consult about gynecosmetic treatment.',
   'ivf-second-opinion':
     'Hi Dr. Anjani, we are undergoing fertility treatment and would like a second opinion. I am sending our reports.',

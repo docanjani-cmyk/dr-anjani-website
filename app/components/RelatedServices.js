@@ -10,6 +10,10 @@ const BLURBS = {
     title: 'Laparoscopic Surgery',
     desc: 'Keyhole surgery for fibroids, endometriosis, ovarian cysts and hysterectomy — smaller incisions and a shorter recovery.',
   },
+  '/hysterectomy': {
+    title: 'Hysterectomy',
+    desc: 'When it is genuinely needed, what is worth trying first, and what the weeks after the operation actually look like.',
+  },
   '/ivf-infertility': {
     title: 'IVF & Fertility',
     desc: 'Fertility evaluation, IUI and IVF, including the surgical causes of infertility that cycles alone will not resolve.',

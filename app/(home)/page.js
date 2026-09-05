@@ -897,6 +897,7 @@ export default function Home({ initialBookingOpen = false }) {
               <ul className="space-y-2 text-sm" style={{ color: '#5A8070' }}>
                 {[
                   ['Laparoscopic Surgery', '/laparoscopic-surgery'],
+                  ['Hysterectomy', '/hysterectomy'],
                   ['IVF & Fertility Treatment', '/ivf-infertility'],
                   ['Obstetrics & Pregnancy Care', '/pregnancy'],
                   ['PCOS Management', '/pcos'],

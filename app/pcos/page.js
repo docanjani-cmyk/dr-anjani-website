@@ -312,7 +312,7 @@ export default function PCOSPage() {
       </section>
 
       {/* RELATED — contextual internal links */}
-      <RelatedServices links={NAV_LINKS} extra={['/laparoscopic-surgery/second-opinion']} />
+      <RelatedServices links={NAV_LINKS} extra={['/hysterectomy', '/laparoscopic-surgery/second-opinion']} />
 
       <footer className="py-8 px-5 text-center text-xs" style={{ backgroundColor: '#1A2E28', color: '#3D6A5C' }}>
         <p>© 2026 Dr. Anjani Dixit · Kasper Multi-Speciality Clinic · 31, 80 Feet Rd, Indiranagar, Bengaluru 560038</p>

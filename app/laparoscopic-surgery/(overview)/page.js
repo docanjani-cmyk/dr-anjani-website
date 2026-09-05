@@ -61,6 +61,7 @@ const FAQS = [
 
 const NAV_LINKS = [
   ['Home', '/'],
+  ['Hysterectomy', '/hysterectomy'],
   ['IVF & Fertility', '/ivf-infertility'],
   ['Pregnancy Care', '/pregnancy'],
   ['PCOS Treatment', '/pcos'],
@@ -219,7 +220,7 @@ export default function LaparoscopicSurgeryPage() {
               { title: 'Uterine Fibroids', sub: 'Myomectomy', desc: 'Removal of fibroids while preserving the uterus — tailored to your fertility goals and fibroid size, number, and location.' },
               { title: 'Endometriosis', sub: 'Excision Surgery', desc: 'Complete excision of endometriotic lesions including deeply infiltrating disease, with a focus on pain relief and fertility preservation.' },
               { title: 'Ovarian Cysts', sub: 'Cystectomy', desc: 'Removal of simple, complex, and endometriotic (chocolate) cysts with ovarian conservation wherever possible.' },
-              { title: 'Hysterectomy', sub: 'TLH / LAVH', desc: 'Total laparoscopic hysterectomy — uterus removal through keyhole incisions, with a typical hospital stay of just 1–2 days.' },
+              { title: 'Hysterectomy', sub: 'TLH / LAVH', desc: 'Total laparoscopic hysterectomy — uterus removal through keyhole incisions, with a typical hospital stay of just 1–2 days.', href: '/hysterectomy', hrefLabel: 'When a hysterectomy is needed →' },
               { title: 'Diagnostic Laparoscopy', sub: 'Investigation', desc: 'Direct visualisation of the pelvic organs to investigate unexplained pelvic pain, infertility, or suspected endometriosis.' },
               { title: 'Adhesiolysis', sub: 'Scar Tissue', desc: 'Release of pelvic adhesions (scar tissue) that can cause pain, bowel disturbance, and fertility problems.' },
             ].map((c, i) => (
@@ -228,6 +229,11 @@ export default function LaparoscopicSurgeryPage() {
                   style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>{c.sub}</span>
                 <h3 className="font-semibold text-base mb-2" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>{c.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: '#5A7870' }}>{c.desc}</p>
+                {c.href && (
+                  <a href={c.href} className="inline-block text-sm font-semibold mt-3" style={{ color: '#2C5249' }}>
+                    {c.hrefLabel}
+                  </a>
+                )}
               </div>
             ))}
           </div>
@@ -347,7 +353,7 @@ export default function LaparoscopicSurgeryPage() {
 
       {/* FOOTER */}
       {/* RELATED — contextual internal links */}
-      <RelatedServices links={NAV_LINKS} extra={['/laparoscopic-surgery/second-opinion']} />
+      <RelatedServices links={NAV_LINKS} extra={['/hysterectomy', '/laparoscopic-surgery/second-opinion']} />
 
       <footer className="py-8 px-5 text-center text-xs" style={{ backgroundColor: '#1A2E28', color: '#3D6A5C' }}>
         <p>© 2026 Dr. Anjani Dixit · {CFG.clinic} · {CFG.address}</p>

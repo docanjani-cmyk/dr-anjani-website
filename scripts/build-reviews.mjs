@@ -20,16 +20,16 @@ const AVATAR_PX = 160
 const CURATED = [
   // ── newest, laparoscopy-heavy ────────────────────────────────────────────
   { order: 9,   condition: 'Stage IV Endometriosis & Ovarian Cyst', pages: ['home', 'laparoscopy', 'second-opinion-lap'] },
-  { order: 11,  condition: 'Laparoscopic Hysterectomy',             pages: ['home', 'laparoscopy'] },
-  { order: 12,  condition: 'Laparoscopic Myomectomy',               pages: ['home'] },
+  { order: 11,  condition: 'Laparoscopic Hysterectomy',             pages: ['home', 'laparoscopy', 'hysterectomy'] },
+  { order: 12,  condition: 'Laparoscopic Myomectomy',               pages: ['home', 'hysterectomy'] },
   { order: 5,   condition: 'Laparoscopic Ovarian Cystectomy',       pages: ['home', 'laparoscopy'] },
   { order: 6,   condition: 'Laparoscopic Endometriosis Surgery',    pages: ['home', 'laparoscopy'] },
   { order: 70,  condition: 'Laparoscopic Surgery · Second Opinion', pages: ['home', 'laparoscopy', 'second-opinion-lap'] },
-  { order: 55,  condition: 'Laparoscopic Hysterectomy',             pages: ['home', 'laparoscopy'] },
-  { order: 50,  condition: 'Hysteroscopy & Laparoscopic Myomectomy',pages: ['home', 'laparoscopy'] },
+  { order: 55,  condition: 'Laparoscopic Hysterectomy',             pages: ['home', 'laparoscopy', 'hysterectomy'] },
+  { order: 50,  condition: 'Hysteroscopy & Laparoscopic Myomectomy',pages: ['home', 'laparoscopy', 'hysterectomy'] },
   { order: 63,  condition: 'Laparoscopic Myomectomy',               pages: ['home', 'laparoscopy', 'second-opinion-lap'] },
   { order: 92,  condition: 'Laparoscopic Surgery',                  pages: ['home'] },
-  { order: 80,  condition: 'Laparoscopic Hysterectomy',             pages: ['home'] },
+  { order: 80,  condition: 'Laparoscopic Hysterectomy',             pages: ['home', 'hysterectomy'] },
   { order: 151, condition: 'Ovarian Cyst Surgery',                  pages: ['laparoscopy', 'second-opinion-lap'] },
   { order: 189, condition: 'Endometriosis Surgery',                 pages: ['laparoscopy', 'second-opinion-lap'] },
 
@@ -59,7 +59,7 @@ const CURATED = [
   { order: 396, condition: 'Gynaecological Care',                   pages: ['cosmetic'] },
   { order: 290, condition: 'Gynaecological Care',                   pages: ['cosmetic'] },
   { order: 34,  condition: 'Gynaecological Care',                   pages: ['cosmetic'] },
-  { order: 211, condition: 'Fibroid Removal',                       pages: ['cosmetic', 'second-opinion-lap'] },
+  { order: 211, condition: 'Fibroid Removal',                       pages: ['cosmetic', 'second-opinion-lap', 'hysterectomy'] },
 ]
 
 /** Practo reviews kept where Google has little topical coverage. Not verifiable, so no link. */
@@ -155,7 +155,7 @@ const practo = PRACTO.map(p => ({
 }))
 
 const all = [...google, ...practo]
-const PAGES = ['home', 'laparoscopy', 'pregnancy', 'ivf', 'pcos', 'cosmetic',
+const PAGES = ['home', 'laparoscopy', 'hysterectomy', 'pregnancy', 'ivf', 'pcos', 'cosmetic',
   'second-opinion-lap', 'second-opinion-ivf']
 
 const render = f => '  {\n' + Object.entries(f)
