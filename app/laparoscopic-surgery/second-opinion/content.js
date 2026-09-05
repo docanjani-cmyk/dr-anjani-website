@@ -11,7 +11,9 @@ export const CONTENT = {
   ],
   credLine: 'Fellowship in Minimal Access Surgery · 300+ laparoscopic procedures · 14+ years',
   waCta: 'Send Your Reports',
-  whatsappText: 'Hi Dr. Anjani, I have been advised surgery by another doctor and would like a second opinion. I am sending my reports.',
+  // The opener itself lives in app/lib/whatsapp.js, keyed by this name: /wa
+  // chooses it server-side and appends the reference code.
+  waService: 'laparoscopy-second-opinion',
   heroImg: '/IMG-20251024-WA0023.jpg',
   heroAlt: 'Dr. Anjani Dixit, laparoscopic gynaecological surgeon, Indiranagar, Bangalore',
   heroPos: 'center 78%',   // mobile crop focus
@@ -114,6 +116,11 @@ export const CONTENT = {
   finalCta: {
     title: 'Have your reports looked at before you decide',
     sub: 'Send your scans on WhatsApp, or book a consultation at Kasper Multi-Speciality Clinic, Indiranagar. In-person and video consultations available.',
+  },
+
+  locations: {
+    kind: 'surgery',
+    intro: 'Second-opinion consultations happen at her clinic in Indiranagar. If surgery turns out to be the right call, it is performed at one of these partner hospitals in Bangalore, with Dr. Anjani operating.',
   },
 
   footerLinks: [

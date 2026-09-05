@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { trackBooking, trackWhatsApp, trackCall } from '../lib/attribution'
 import StickyActionBar from '../components/StickyActionBar'
+import { waHref } from '../lib/whatsapp'
+import PracticeLocations from '../components/PracticeLocations'
 import RelatedServices from '../components/RelatedServices'
 import { ReviewGrid } from '../components/ReviewCard'
 import { PCOS_REVIEWS, REVIEW_STATS } from '../lib/reviews'
@@ -18,7 +20,10 @@ const CFG = {
 
 const IMG = {
   logo: '/Photos/Anjani%20website/Anjani%20Prityn%20DP.png',
-  hero: '/Photos/Anjani%20website/Informal%20photos/About%20me.jpg',
+  // A stock consultation scene, not a photograph of Dr. Anjani — the alt text
+  // below says so. The theatre selfie that was here read as surgery, not as a
+  // hormonal condition.
+  hero: '/Photos/pcos-consultation.jpg',
 }
 
 const IconStar = () => (
@@ -151,7 +156,7 @@ export default function PCOSPage() {
                 style={{ backgroundColor: '#2C5249' }}>
                 Book a Consultation
               </a>
-              <a onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to consult about PCOS treatment.`}
+              <a onClick={() => trackWhatsApp()} href={waHref('pcos', 'hero')}
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold border-2 hover:shadow-md transition-shadow"
                 style={{ borderColor: '#25D366', color: '#25D366' }}>
@@ -165,15 +170,15 @@ export default function PCOSPage() {
               <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
             </div>
           </div>
-          <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
-            <img src={IMG.hero} alt="Dr. Anjani Dixit – PCOS Specialist Bangalore"
-              className="w-full h-full object-cover object-top" />
+          <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '3/2', maxHeight: '520px' }}>
+            <img src={IMG.hero} alt="A PCOS consultation — a doctor talking a patient through an ovarian scan"
+              className="w-full h-full object-cover object-center" />
           </div>
         </div>
       </section>
 
       {/* SYMPTOMS */}
-      <section className="py-16 px-5 bg-white">
+      <section className="py-10 lg:py-16 px-5 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Recognise PCOS</p>
@@ -204,9 +209,9 @@ export default function PCOSPage() {
       </section>
 
       {/* TREATMENT AREAS */}
-      <section className="py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
+      <section className="py-10 lg:py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>How We Help</p>
             <h2 className="text-3xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               A Complete PCOS Care Plan
@@ -231,9 +236,9 @@ export default function PCOSPage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-20 px-5 bg-white">
+      <section className="py-10 lg:py-20 px-5 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>What Patients Say</h2>
             <p className="text-sm mt-3" style={{ color: '#7A9C90' }}>
@@ -247,9 +252,9 @@ export default function PCOSPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 px-5 bg-white">
+      <section className="py-10 lg:py-20 px-5 bg-white">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Questions</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               PCOS — Frequently Asked Questions
@@ -277,8 +282,13 @@ export default function PCOSPage() {
         </div>
       </section>
 
+      {/* WHERE SHE PRACTISES */}
+      <PracticeLocations
+        intro="PCOS care runs out of her Indiranagar clinic. If treatment ever needs a procedure or admission — ovarian cyst surgery, fertility treatment — it happens at one of these partner hospitals, with Dr. Anjani operating herself."
+      />
+
       {/* FINAL CTA */}
-      <section className="py-20 px-5" style={{ backgroundColor: '#2C5249' }}>
+      <section className="py-10 lg:py-20 px-5" style={{ backgroundColor: '#2C5249' }}>
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
             Take the First Step
@@ -309,14 +319,14 @@ export default function PCOSPage() {
         <a href="/" className="mt-2 inline-block hover:text-white transition-colors">← Back to main site</a>
       </footer>
 
-      <a onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to consult about PCOS treatment.`}
+      <a onClick={() => trackWhatsApp()} href={waHref('pcos', 'float')}
         target="_blank" rel="noopener noreferrer"
         className="hidden lg:flex fixed z-50 items-center justify-center rounded-full shadow-xl"
         style={{ bottom: '5.5rem', right: '1.5rem', width: '56px', height: '56px', backgroundColor: '#25D366' }}>
         <IconWhatsApp />
       </a>
 
-      <StickyActionBar waHref={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to consult about PCOS treatment.`} bookHref={CFG.booking} />
+      <StickyActionBar waHref={waHref('pcos', 'sticky')} bookHref={CFG.booking} />
     </div>
   )
 }

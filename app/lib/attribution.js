@@ -6,7 +6,7 @@
 const CLICK_IDS = ['gclid', 'gbraid', 'wbraid']
 const UTM_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
 
-const STORE_KEY = 'ad_attribution'
+const STORE_KEY = 'ad_attr'
 
 // sessionStorage throws outright in some privacy modes, so every access is
 // guarded — tracking must never be able to break the page.
@@ -23,6 +23,27 @@ const writeStore = (value) => {
     window.sessionStorage.setItem(STORE_KEY, JSON.stringify(value))
   } catch (e) {
     // Nothing to do — the click just goes unattributed.
+  }
+  writeCookie(value)
+}
+
+// The same record as a first-party cookie, because /wa records WhatsApp taps
+// server-side and cannot read sessionStorage. It also outlives the tab: Google
+// Ads attributes on a 90-day window, so a visitor who clicks an ad today and
+// messages next week still carries their gclid.
+const COOKIE_DAYS = 90
+
+const writeCookie = (value) => {
+  try {
+    const payload = encodeURIComponent(JSON.stringify(value))
+    // Well under the 4KB cookie limit in practice; skip rather than truncate
+    // into invalid JSON if some monstrous utm_content ever shows up.
+    if (payload.length > 3000) return
+    document.cookie =
+      `${STORE_KEY}=${payload}; path=/; max-age=${COOKIE_DAYS * 24 * 60 * 60}; SameSite=Lax` +
+      (window.location.protocol === 'https:' ? '; Secure' : '')
+  } catch (e) {
+    // Same as above: the tap is still recorded, just without attribution.
   }
 }
 
@@ -115,5 +136,12 @@ export function trackConversion(eventName, extra = {}) {
 // Named helpers for the three conversion actions. Using these keeps the event
 // name, the gtag call and the attribution log in one place per action.
 export const trackBooking = (eventName = EVENTS.book, extra = {}) => trackConversion(eventName, extra)
-export const trackWhatsApp = (extra = {}) => trackConversion(EVENTS.whatsapp, extra)
 export const trackCall = (extra = {}) => trackConversion(EVENTS.call, extra)
+
+// WhatsApp taps are the exception: they go through /wa, which writes the row
+// itself before redirecting. Posting from here as well would double-count them,
+// so this fires the GA/Ads event only.
+export function trackWhatsApp() {
+  if (typeof window === 'undefined') return
+  window.gtag?.('event', EVENTS.whatsapp)
+}

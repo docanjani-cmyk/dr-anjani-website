@@ -3,6 +3,11 @@
 import { useState, useEffect } from 'react'
 import { trackBooking, trackWhatsApp, trackCall, trackConversion } from '../lib/attribution'
 import StickyActionBar from '../components/StickyActionBar'
+import { waHref } from '../lib/whatsapp'
+import PhotoGallery from '../components/PhotoGallery'
+import MobileMore from '../components/MobileMore'
+import { HOME_GALLERY } from '../lib/gallery'
+import { HOSPITALS } from '../lib/practice'
 import { ReviewGrid } from '../components/ReviewCard'
 import { HOME_REVIEWS, REVIEW_STATS } from '../lib/reviews'
 
@@ -81,19 +86,7 @@ const FAQS = [
   { q: 'What makes Dr. Anjani\'s approach different?', a: 'Dr. Anjani combines advanced surgical precision with deep emotional attentiveness. She takes time to truly understand your situation — medical, emotional, and personal. Patients consistently describe feeling seen, heard, and genuinely cared for, not processed through a system. She approaches women\'s health holistically, including emotional and psychological wellbeing.' },
 ]
 
-const HOSPITALS = [
-  { name: 'Motherhood Hospital', area: 'Indiranagar' },
-  { name: 'Cloudnine Hospital', area: 'Old Airport Road' },
-  { name: 'Manipal Hospital', area: 'Old Airport Road' },
-  { name: 'Milann Fertility Center', area: 'Indiranagar' },
-  { name: 'Revive Hospital', area: 'Indiranagar' },
-  { name: 'Ayaansh Hospital', area: 'Indiranagar' },
-].map(h => ({ ...h, maps: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${h.name}, ${h.area}, Bengaluru`)}` }))
 
-const GALLERY = [1,2,3,4,5,6,7,10,11,12,13,14,15,17,18,19,20,21,22,23,24,25,26].map(i => ({
-  src: `/Gallery/About us ${i}.jpg`,
-  alt: `Dr. Anjani Dixit with patient — moment of joy ${i}`,
-}))
 
 // SVG Icons
 const IconScalpel = () => (
@@ -180,7 +173,6 @@ export default function Home({ initialBookingOpen = false }) {
   const [openFaq, setOpenFaq] = useState(null)
   const [isBookingOpen, setIsBookingOpen] = useState(initialBookingOpen)
   const [bookingLoaded, setBookingLoaded] = useState(false)
-  const [lightbox, setLightbox] = useState(null)
 
   const openBooking = (eventName = 'ads_conversion_Contact_Us_1') => {
     trackBooking(eventName)
@@ -240,7 +232,7 @@ export default function Home({ initialBookingOpen = false }) {
 
           <div className="hidden lg:flex items-center gap-3">
             <a
-              onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}`}
+              onClick={() => trackWhatsApp()} href={waHref('general', 'nav')}
               target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all hover:shadow-sm"
               style={{ borderColor: '#25D366', color: '#25D366' }}
@@ -317,7 +309,7 @@ export default function Home({ initialBookingOpen = false }) {
                   Book a Consultation
                 </button>
                 <a
-                  onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
+                  onClick={() => trackWhatsApp()} href={waHref('general', 'hero')}
                   target="_blank" rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-center transition-all hover:shadow-md duration-200 border-2"
                   style={{ borderColor: '#2C5249', color: '#2C5249' }}
@@ -402,7 +394,7 @@ export default function Home({ initialBookingOpen = false }) {
       </section>
 
       {/* ── WHY DR. ANJANI ── */}
-      <section id="services" className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
+      <section id="services" className="py-10 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>The Difference</p>
@@ -432,7 +424,7 @@ export default function Home({ initialBookingOpen = false }) {
                 body: 'Dr. Anjani integrates her passion for meditation, emotional healing, and feminine wellbeing into her practice. She treats the whole woman — not just the diagnosis — supporting physical and emotional recovery together.',
               },
             ].map((p, i) => (
-              <div key={i} className={`bg-white rounded-3xl p-8 reveal reveal-delay-${i + 1}`}>
+              <div key={i} className={`bg-white rounded-3xl p-6 lg:p-8 reveal reveal-delay-${i + 1}`}>
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-6" style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}>
                   {p.icon}
                 </div>
@@ -445,8 +437,8 @@ export default function Home({ initialBookingOpen = false }) {
       </section>
 
       {/* ── ABOUT ── */}
-      <section id="about" className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+      <section id="about" className="py-10 lg:py-24 px-5 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="relative reveal">
             <div className="rounded-3xl overflow-hidden shadow-xl" style={{ aspectRatio: '3/4', maxHeight: '580px' }}>
               <img src={IMG.about} alt="Dr. Anjani Dixit in consultation" className="w-full h-full object-cover" />
@@ -504,7 +496,7 @@ export default function Home({ initialBookingOpen = false }) {
       </section>
 
       {/* ── GALLERY ── */}
-      <section className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
+      <section className="py-10 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Moments of Joy</p>
@@ -515,42 +507,12 @@ export default function Home({ initialBookingOpen = false }) {
               Every new life is a miracle. These are some of the precious moments Dr. Anjani has been privileged to be part of.
             </p>
           </div>
-          <div style={{ columnCount: 'var(--cols)', columnGap: '1rem', '--cols': 2 }} className="gallery-grid">
-            {GALLERY.map((photo, i) => (
-              <div
-                key={i}
-                className="mb-4 rounded-2xl overflow-hidden cursor-pointer group"
-                style={{ breakInside: 'avoid' }}
-                onClick={() => setLightbox(i)}
-              >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div
-                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ backgroundColor: 'rgba(44,82,73,0.35)' }}
-                  >
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <style>{`
-            @media (min-width: 640px) { .gallery-grid { --cols: 3 !important; } }
-            @media (min-width: 1024px) { .gallery-grid { --cols: 4 !important; } }
-          `}</style>
+          <PhotoGallery photos={HOME_GALLERY} />
         </div>
       </section>
 
       {/* ── SPECIALTIES ── */}
-      <section className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
+      <section className="py-10 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Expertise</p>
@@ -559,7 +521,7 @@ export default function Home({ initialBookingOpen = false }) {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <MobileMore className="grid md:grid-cols-2 gap-6" limit={2} label="areas">
             {[
               {
                 title: 'Advanced Laparoscopic Surgery',
@@ -586,7 +548,7 @@ export default function Home({ initialBookingOpen = false }) {
                 points: ['Vaginal Rejuvenation', 'Labial Corrections', 'Hymenoplasty', 'Perineal Repair', 'PRP Therapy'],
               },
             ].map((spec, i) => (
-              <div key={i} className={`bg-white rounded-3xl p-8 reveal reveal-delay-${(i % 2) + 1}`}>
+              <div key={i} className={`bg-white rounded-3xl p-6 lg:p-8 reveal reveal-delay-${(i % 2) + 1}`}>
                 <span
                   className="inline-block text-xs font-semibold px-3 py-1 rounded-full mb-5"
                   style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}
@@ -605,12 +567,12 @@ export default function Home({ initialBookingOpen = false }) {
                 </ul>
               </div>
             ))}
-          </div>
+          </MobileMore>
         </div>
       </section>
 
       {/* ── CONDITIONS ── */}
-      <section className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
+      <section className="py-10 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Conditions Treated</p>
@@ -622,7 +584,7 @@ export default function Home({ initialBookingOpen = false }) {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <MobileMore className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" limit={4} label="conditions">
             {[
               { title: 'Endometriosis', tag: 'Surgery · Medical', desc: 'Advanced excision and pain management including deeply infiltrating endometriosis — with fertility preservation wherever possible.' },
               { title: 'Uterine Fibroids', tag: 'Surgery · Fertility', desc: 'Laparoscopic myomectomy and hysterectomy for symptomatic fibroids, tailored to your fertility and lifestyle goals.' },
@@ -648,14 +610,14 @@ export default function Home({ initialBookingOpen = false }) {
                 <p className="text-xs leading-relaxed" style={{ color: '#6A8E82' }}>{c.desc}</p>
               </div>
             ))}
-          </div>
+          </MobileMore>
         </div>
       </section>
 
       {/* ── HOSPITALS & LOCATIONS ── */}
-      <section id="hospitals" className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
+      <section id="hospitals" className="py-10 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Locations</p>
             <h2 className="text-3xl lg:text-5xl font-bold mb-4" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               Where Dr. Anjani Practises
@@ -722,7 +684,7 @@ export default function Home({ initialBookingOpen = false }) {
       </section>
 
       {/* ── PATIENT JOURNEY ── */}
-      <section className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#2C5249' }}>
+      <section className="py-10 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#2C5249' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7AB8A8' }}>Your Journey</p>
@@ -757,7 +719,7 @@ export default function Home({ initialBookingOpen = false }) {
       </section>
 
       {/* ── PHILOSOPHY ── */}
-      <section className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
+      <section className="py-10 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-4xl mx-auto text-center reveal">
           <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#7A9C90' }}>Philosophy</p>
           <h2 className="text-3xl lg:text-5xl font-bold mb-8" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
@@ -774,7 +736,7 @@ export default function Home({ initialBookingOpen = false }) {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section id="testimonials" className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
+      <section id="testimonials" className="py-10 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
@@ -787,7 +749,7 @@ export default function Home({ initialBookingOpen = false }) {
           </div>
 
           <div className="mb-10">
-            <ReviewGrid reviews={HOME_REVIEWS} reveal mobileLimit={6} />
+            <ReviewGrid reviews={HOME_REVIEWS} reveal mobileLimit={4} />
           </div>
 
           <div className="text-center reveal">
@@ -804,7 +766,7 @@ export default function Home({ initialBookingOpen = false }) {
       </section>
 
       {/* ── FAQ ── */}
-      <section id="faq" className="py-12 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
+      <section id="faq" className="py-10 lg:py-24 px-5 lg:px-8" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Common Questions</p>
@@ -845,7 +807,7 @@ export default function Home({ initialBookingOpen = false }) {
       </section>
 
       {/* ── CONTACT ── */}
-      <section id="contact" className="py-12 lg:py-24 px-5 lg:px-8 bg-white">
+      <section id="contact" className="py-10 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 lg:mb-16 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Connect</p>
@@ -889,7 +851,7 @@ export default function Home({ initialBookingOpen = false }) {
               </div>
             </div>
 
-            <div className="rounded-3xl p-8 reveal reveal-delay-2" style={{ border: '1px solid #E3EDE9', backgroundColor: '#FAFAF8' }}>
+            <div className="rounded-3xl p-6 lg:p-8 reveal reveal-delay-2" style={{ border: '1px solid #E3EDE9', backgroundColor: '#FAFAF8' }}>
               <h3 className="text-xl font-semibold mb-1" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>Book a Consultation</h3>
               <p className="text-sm mb-6" style={{ color: '#7A9C90' }}>In-person and video consultations available · Mon–Sat, 9 AM – 7 PM</p>
 
@@ -901,7 +863,7 @@ export default function Home({ initialBookingOpen = false }) {
                 Book via Appointment Form
               </button>
               <a
-                onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
+                onClick={() => trackWhatsApp()} href={waHref('general', 'contact')}
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl text-sm font-medium border transition-all hover:shadow-sm duration-200"
                 style={{ borderColor: '#25D366', color: '#25D366' }}
@@ -973,7 +935,7 @@ export default function Home({ initialBookingOpen = false }) {
 
       {/* ── FLOATING WHATSAPP ── */}
       <a
-        onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
+        onClick={() => trackWhatsApp()} href={waHref('general', 'float')}
         target="_blank" rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
         className="hidden lg:flex fixed z-50 items-center justify-center rounded-full shadow-xl transition-transform hover:scale-110 duration-200"
@@ -983,53 +945,7 @@ export default function Home({ initialBookingOpen = false }) {
       </a>
 
       {/* ── MOBILE STICKY CTA ── */}
-      <StickyActionBar waHref={`https://wa.me/${CFG.whatsapp}`} onBook={openBooking} />
-
-      {/* ── LIGHTBOX ── */}
-      {lightbox !== null && (
-        <div
-          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
-          style={{ backgroundColor: 'rgba(0,0,0,0.9)' }}
-          onClick={() => setLightbox(null)}
-        >
-          <button
-            onClick={() => setLightbox(null)}
-            className="absolute top-5 right-5 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors"
-            aria-label="Close"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <button
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors"
-            onClick={e => { e.stopPropagation(); setLightbox((lightbox + GALLERY.length - 1) % GALLERY.length) }}
-            aria-label="Previous"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <img
-            src={GALLERY[lightbox].src}
-            alt={GALLERY[lightbox].alt}
-            className="max-h-[90vh] max-w-full rounded-2xl object-contain"
-            onClick={e => e.stopPropagation()}
-          />
-          <button
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors"
-            onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % GALLERY.length) }}
-            aria-label="Next"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white text-sm" style={{ opacity: 0.6 }}>
-            {lightbox + 1} / {GALLERY.length}
-          </div>
-        </div>
-      )}
+      <StickyActionBar waHref={waHref('general', 'sticky')} onBook={openBooking} />
 
       {/* ── BOOKING MODAL ── */}
       {isBookingOpen && (
@@ -1095,9 +1011,9 @@ export default function Home({ initialBookingOpen = false }) {
                   Call
                 </a>
                 <a
-                  href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to book a consultation.`}
+                  href={waHref('general', 'booking-fallback')}
                   target="_blank" rel="noopener noreferrer"
-                  onClick={() => trackConversion('booking_fallback_whatsapp')}
+                  onClick={() => trackWhatsApp()}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-white transition-colors hover:opacity-90"
                   style={{ backgroundColor: '#25D366' }}
                 >

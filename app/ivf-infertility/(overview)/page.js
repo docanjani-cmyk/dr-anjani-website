@@ -3,6 +3,10 @@
 import { useState, useEffect } from 'react'
 import { trackBooking, trackWhatsApp, trackCall } from '../../lib/attribution'
 import StickyActionBar from '../../components/StickyActionBar'
+import { waHref } from '../../lib/whatsapp'
+import PracticeLocations from '../../components/PracticeLocations'
+import PhotoGallery from '../../components/PhotoGallery'
+import { IVF_GALLERY } from '../../lib/gallery'
 import RelatedServices from '../../components/RelatedServices'
 import { ReviewGrid } from '../../components/ReviewCard'
 import { IVF_REVIEWS, REVIEW_STATS } from '../../lib/reviews'
@@ -62,16 +66,11 @@ const NAV_LINKS = [
   ['Cosmetic Gynaecology', '/cosmetic-gynecology'],
 ]
 
-const GALLERY = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 17, 18, 23].map(i => ({
-  src: `/Gallery/About us ${i}.jpg`,
-  alt: `Dr. Anjani Dixit with newborn — delivery moment ${i}`,
-}))
 
 export default function IVFInfertilityPage() {
   const [openFaq, setOpenFaq] = useState(null)
   const [isBookingOpen, setIsBookingOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [lightbox, setLightbox] = useState(null)
 
   const openBooking = (eventName = 'ads_conversion_Contact_Us_1') => {
     trackBooking(eventName)
@@ -173,7 +172,7 @@ export default function IVFInfertilityPage() {
                 style={{ backgroundColor: '#2C5249' }}>
                 Book a Consultation
               </button>
-              <a onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to discuss fertility treatment options.`}
+              <a onClick={() => trackWhatsApp()} href={waHref('ivf', 'hero')}
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold border-2 hover:shadow-md transition-shadow"
                 style={{ borderColor: '#25D366', color: '#25D366' }}>
@@ -195,7 +194,7 @@ export default function IVFInfertilityPage() {
       </section>
 
       {/* PATIENT PROMISE */}
-      <section className="py-16 px-5 bg-white">
+      <section className="py-10 lg:py-16 px-5 bg-white">
         <div className="max-w-4xl mx-auto">
           <blockquote className="text-center">
             <p className="text-xl lg:text-2xl font-medium italic leading-relaxed mb-4"
@@ -208,9 +207,9 @@ export default function IVFInfertilityPage() {
       </section>
 
       {/* TREATMENTS */}
-      <section className="py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
+      <section className="py-10 lg:py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>What We Offer</p>
             <h2 className="text-3xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               Fertility Treatments & Services
@@ -237,9 +236,9 @@ export default function IVFInfertilityPage() {
       </section>
 
       {/* JOURNEY STEPS */}
-      <section className="py-20 px-5 bg-white">
+      <section className="py-10 lg:py-20 px-5 bg-white">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Your Path Forward</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               What to Expect
@@ -266,9 +265,9 @@ export default function IVFInfertilityPage() {
       </section>
 
       {/* TESTIMONIAL */}
-      <section className="py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
+      <section className="py-10 lg:py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>What Patients Say</h2>
             <p className="text-sm mt-3" style={{ color: '#7A9C90' }}>
@@ -282,9 +281,9 @@ export default function IVFInfertilityPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 px-5 bg-white">
+      <section className="py-10 lg:py-20 px-5 bg-white">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Questions</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               Frequently Asked Questions
@@ -313,96 +312,25 @@ export default function IVFInfertilityPage() {
       </section>
 
       {/* GALLERY */}
-      <section className="py-20 px-5 bg-white">
+      <section className="py-10 lg:py-20 px-5 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Moments of Joy</p>
             <h2 className="text-3xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               Deliveries With Dr. Anjani
             </h2>
           </div>
-          <div style={{ columnCount: 'var(--cols)', columnGap: '1rem', '--cols': 2 }} className="gallery-grid">
-            {GALLERY.map((photo, i) => (
-              <div
-                key={i}
-                className="mb-4 rounded-2xl overflow-hidden cursor-pointer group"
-                style={{ breakInside: 'avoid' }}
-                onClick={() => setLightbox(i)}
-              >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div
-                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ backgroundColor: 'rgba(44,82,73,0.35)' }}
-                  >
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <style>{`
-            @media (min-width: 640px) { .gallery-grid { --cols: 3 !important; } }
-            @media (min-width: 1024px) { .gallery-grid { --cols: 4 !important; } }
-          `}</style>
+          <PhotoGallery photos={IVF_GALLERY} />
         </div>
       </section>
 
-      {/* LIGHTBOX */}
-      {lightbox !== null && (
-        <div
-          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
-          style={{ backgroundColor: 'rgba(0,0,0,0.9)' }}
-          onClick={() => setLightbox(null)}
-        >
-          <button
-            onClick={() => setLightbox(null)}
-            className="absolute top-5 right-5 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors"
-            aria-label="Close"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <button
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors"
-            onClick={e => { e.stopPropagation(); setLightbox((lightbox + GALLERY.length - 1) % GALLERY.length) }}
-            aria-label="Previous"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <img
-            src={GALLERY[lightbox].src}
-            alt={GALLERY[lightbox].alt}
-            className="max-h-[90vh] max-w-full rounded-2xl object-contain"
-            onClick={e => e.stopPropagation()}
-          />
-          <button
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors"
-            onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % GALLERY.length) }}
-            aria-label="Next"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white text-sm" style={{ opacity: 0.6 }}>
-            {lightbox + 1} / {GALLERY.length}
-          </div>
-        </div>
-      )}
+      {/* WHERE SHE PRACTISES */}
+      <PracticeLocations kind="fertility"
+        intro="Fertility evaluation and follow-ups happen at her Indiranagar clinic. IVF, IUI, and any surgical fertility treatment are carried out at these partner centres."
+      />
 
       {/* FINAL CTA */}
-      <section className="py-20 px-5" style={{ backgroundColor: '#2C5249' }}>
+      <section className="py-10 lg:py-20 px-5" style={{ backgroundColor: '#2C5249' }}>
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
             Begin Your Fertility Journey
@@ -433,14 +361,14 @@ export default function IVFInfertilityPage() {
         <a href="/" className="mt-2 inline-block hover:text-white transition-colors">← Back to main site</a>
       </footer>
 
-      <a onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to discuss fertility treatment options.`}
+      <a onClick={() => trackWhatsApp()} href={waHref('ivf', 'float')}
         target="_blank" rel="noopener noreferrer"
         className="hidden lg:flex fixed z-50 items-center justify-center rounded-full shadow-xl"
         style={{ bottom: '5.5rem', right: '1.5rem', width: '56px', height: '56px', backgroundColor: '#25D366' }}>
         <IconWhatsApp />
       </a>
 
-      <StickyActionBar waHref={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to discuss fertility treatment options.`} onBook={openBooking} />
+      <StickyActionBar waHref={waHref('ivf', 'sticky')} onBook={openBooking} />
 
       {/* BOOKING MODAL */}
       {isBookingOpen && (

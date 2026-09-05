@@ -11,7 +11,9 @@ export const CONTENT = {
   ],
   credLine: 'Laparoscopic surgeon & fertility specialist · 14+ years · Independent consultant',
   waCta: 'Send Your Reports',
-  whatsappText: 'Hi Dr. Anjani, we are undergoing fertility treatment and would like a second opinion. I am sending our reports.',
+  // The opener itself lives in app/lib/whatsapp.js, keyed by this name: /wa
+  // chooses it server-side and appends the reference code.
+  waService: 'ivf-second-opinion',
   heroImg: '/Gallery/About%20us%2010.jpg',
   heroAlt: 'Dr. Anjani Dixit, fertility specialist and laparoscopic surgeon, Indiranagar, Bangalore',
   heroPos: 'center 25%',   // mobile crop focus
@@ -116,6 +118,11 @@ export const CONTENT = {
   finalCta: {
     title: 'Have the whole file reviewed before the next cycle',
     sub: 'Send your reports on WhatsApp, or book a consultation at Kasper Multi-Speciality Clinic, Indiranagar. In-person and video consultations available.',
+  },
+
+  locations: {
+    kind: 'fertility',
+    intro: 'Second-opinion consultations happen at her clinic in Indiranagar. If treatment follows, IVF, IUI, and any surgical step are carried out at these partner centres in Bangalore.',
   },
 
   footerLinks: [

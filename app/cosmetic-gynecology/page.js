@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { trackBooking, trackWhatsApp, trackCall } from '../lib/attribution'
 import StickyActionBar from '../components/StickyActionBar'
+import { waHref } from '../lib/whatsapp'
+import PracticeLocations from '../components/PracticeLocations'
 import RelatedServices from '../components/RelatedServices'
 import { ReviewGrid } from '../components/ReviewCard'
 import { COSMETIC_REVIEWS, REVIEW_STATS } from '../lib/reviews'
@@ -158,7 +160,7 @@ export default function CosmeticGynecologyPage() {
                 style={{ backgroundColor: '#2C5249' }}>
                 Book a Private Consultation
               </a>
-              <a onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to privately enquire about cosmetic gynaecology.`}
+              <a onClick={() => trackWhatsApp()} href={waHref('cosmetic', 'hero')}
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold border-2 hover:shadow-md transition-shadow"
                 style={{ borderColor: '#25D366', color: '#25D366' }}>
@@ -180,7 +182,7 @@ export default function CosmeticGynecologyPage() {
       </section>
 
       {/* PHILOSOPHY */}
-      <section className="py-16 px-5 bg-white">
+      <section className="py-10 lg:py-16 px-5 bg-white">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-lg leading-relaxed" style={{ color: '#4A6860' }}>
             Every woman deserves to feel comfortable, confident, and whole in her body. Dr. Anjani approaches gynecosmetic procedures with the same surgical precision she brings to complex laparoscopic surgery — and the same deep respect for the person she is treating. These are medical procedures, and they are performed in a safe, clinical environment with complete privacy.
@@ -189,9 +191,9 @@ export default function CosmeticGynecologyPage() {
       </section>
 
       {/* PROCEDURES */}
-      <section className="py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
+      <section className="py-10 lg:py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Procedures</p>
             <h2 className="text-3xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               Cosmetic Gynaecology Services
@@ -218,7 +220,7 @@ export default function CosmeticGynecologyPage() {
       </section>
 
       {/* TRUST SIGNALS */}
-      <section className="py-16 px-5 bg-white">
+      <section className="py-10 lg:py-16 px-5 bg-white">
         <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6 text-center">
           {[
             { title: 'Complete Privacy', desc: 'All consultations and procedures are 100% confidential. Your records are never shared.' },
@@ -234,9 +236,9 @@ export default function CosmeticGynecologyPage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-20 px-5 bg-white">
+      <section className="py-10 lg:py-20 px-5 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient Stories</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>What Patients Say</h2>
             <p className="text-sm mt-3" style={{ color: '#7A9C90' }}>
@@ -250,9 +252,9 @@ export default function CosmeticGynecologyPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
+      <section className="py-10 lg:py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 lg:mb-12">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Questions</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
               Frequently Asked Questions
@@ -280,8 +282,13 @@ export default function CosmeticGynecologyPage() {
         </div>
       </section>
 
+      {/* WHERE SHE PRACTISES */}
+      <PracticeLocations kind="surgery"
+        intro="Consultations happen privately at her Indiranagar clinic. Procedures requiring theatre or admission are performed at these partner hospitals."
+      />
+
       {/* FINAL CTA */}
-      <section className="py-20 px-5" style={{ backgroundColor: '#2C5249' }}>
+      <section className="py-10 lg:py-20 px-5" style={{ backgroundColor: '#2C5249' }}>
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
             Book a Private Consultation
@@ -312,14 +319,14 @@ export default function CosmeticGynecologyPage() {
         <a href="/" className="mt-2 inline-block hover:text-white transition-colors">← Back to main site</a>
       </footer>
 
-      <a onClick={() => trackWhatsApp()} href={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to privately enquire about cosmetic gynaecology.`}
+      <a onClick={() => trackWhatsApp()} href={waHref('cosmetic', 'float')}
         target="_blank" rel="noopener noreferrer"
         className="hidden lg:flex fixed z-50 items-center justify-center rounded-full shadow-xl"
         style={{ bottom: '5.5rem', right: '1.5rem', width: '56px', height: '56px', backgroundColor: '#25D366' }}>
         <IconWhatsApp />
       </a>
 
-      <StickyActionBar waHref={`https://wa.me/${CFG.whatsapp}?text=Hi Dr. Anjani, I would like to privately enquire about cosmetic gynaecology.`} bookHref={CFG.booking} />
+      <StickyActionBar waHref={waHref('cosmetic', 'sticky')} bookHref={CFG.booking} />
     </div>
   )
 }

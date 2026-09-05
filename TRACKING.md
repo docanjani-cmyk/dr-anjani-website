@@ -191,3 +191,102 @@ FROM booking_clicks
 WHERE gclid IS NOT NULL
 ORDER BY clicked_at DESC;
 ```
+
+## WhatsApp Enquiry Tracking (Ref codes)
+
+Every WhatsApp control on the site points at `/wa`, not at `wa.me`. The route
+records the tap, mints a five-character reference code, and redirects to
+WhatsApp with the code appended to the prefilled message:
+
+```
+Hi Dr. Anjani, I would like to consult about fertility treatment.
+
+(Ref: A7K2Q)
+```
+
+The code is the join key. A message that arrives carrying one can be traced back
+to the campaign, keyword, page and gclid that produced it — which is what makes
+three things possible that were not before:
+
+- **A denominator for taps.** Codes received in WhatsApp ÷ taps recorded here is
+  the real tap→conversation rate. Expect 70–85%: some people clear the prefilled
+  text before sending.
+- **Per-service truth.** Whether the PMax WhatsApp taps are IVF, PCOS or
+  laparoscopy enquiries, rather than one undifferentiated number.
+- **Offline conversion import.** Code → gclid → upload "real enquiry" (and later
+  "became a patient") back into Google Ads inside its 90-day click window. This
+  is what moves PMax bidding off a raw tap.
+
+### How it works
+
+```
+Ad click → /ivf-infertility?gclid=Cj0KCQ...
+    ↓
+AttributionTracker → sessionStorage + `ad_attr` first-party cookie (90 days)
+    ↓
+Tap "Chat on WhatsApp"  →  GET /wa?p=ivf&s=hero
+    ├→ gtag `whatsapp_click` fires client-side (unchanged)
+    └→ /wa reads the cookie, INSERTs the row, mints Ref: A7K2Q
+         ↓
+       302 → wa.me/<number>?text=<opener> (Ref: A7K2Q)
+```
+
+A redirect route rather than the previous `onClick` + keepalive `fetch`: once
+the browser hands off to the WhatsApp app the page can be frozen mid-flight and
+the request dropped. Here the row is written before the redirect is sent, so a
+recorded tap is a real tap.
+
+Attribution moved from `sessionStorage` alone to a first-party cookie as well,
+because `/wa` runs server-side and cannot read `sessionStorage` — and because a
+90-day cookie matches Google's click window, so a visitor who clicks an ad today
+and messages next week still carries their gclid.
+
+### Files
+
+| File | Role |
+|------|------|
+| `app/wa/route.js` | Records the tap, mints the code, redirects to WhatsApp |
+| `app/lib/whatsapp.js` | The number, the prefilled openers by service, `waHref()`, code generation |
+| `scripts/wa-lookup.mjs` | `A7K2Q` → the enquiry behind it; no argument → 30-day report |
+
+The prefilled text lives server-side, keyed by service (`?p=ivf`), and is never
+read from the URL: a `?text=` anyone can edit would let a third party put words
+into Dr. Anjani's mouth on a link that looks like hers. `?s=` records which
+control was tapped (hero, sticky, float, nav, contact, booking-fallback).
+
+### Daily use
+
+```bash
+# A message arrives quoting Ref: A7K2Q — who is it?
+node --env-file=.env.local scripts/wa-lookup.mjs A7K2Q
+
+# Where are WhatsApp enquiries coming from this month?
+node --env-file=.env.local scripts/wa-lookup.mjs
+```
+
+```sql
+-- Taps by service and campaign, last 30 days
+SELECT service, utm_campaign, COUNT(*) AS taps, COUNT(gclid) AS from_ads
+FROM booking_clicks
+WHERE ref_code IS NOT NULL AND clicked_at > now() - interval '30 days'
+GROUP BY service, utm_campaign
+ORDER BY taps DESC;
+
+-- Codes that became real enquiries, ready for offline conversion import.
+-- Replace the list with the codes that actually arrived in WhatsApp.
+SELECT ref_code, gclid, clicked_at
+FROM booking_clicks
+WHERE ref_code IN ('A7K2Q', 'B3M8T') AND gclid IS NOT NULL;
+```
+
+### Limits worth knowing
+
+- A visitor who deletes the prefilled text sends no code. The tap is still
+  recorded; it just cannot be matched to the conversation.
+- WhatsApp Web/Desktop keeps the text; the mobile app keeps it too, but a long
+  press-and-clear before sending is common enough to expect the 15–30% loss.
+- Codes are minted per tap, not per person: someone who taps twice produces two
+  codes, and only the one they send is matchable.
+- No code means the row was not written (database down, or `DATABASE_URL`
+  unset). The redirect still happens with the plain opener — a reference nobody
+  can look up would be worse than none.

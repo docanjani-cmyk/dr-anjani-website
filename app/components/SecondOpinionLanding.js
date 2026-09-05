@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { trackBooking, trackWhatsApp, trackCall, trackConversion, EVENTS } from '../lib/attribution'
 import { ReviewGrid } from './ReviewCard'
 import StickyActionBar from './StickyActionBar'
+import { waHref } from '../lib/whatsapp'
+import PracticeLocations from './PracticeLocations'
 import { REVIEW_STATS } from '../lib/reviews'
 
 export const CFG = {
@@ -50,7 +52,9 @@ export default function SecondOpinionLanding({ content: c }) {
   const [openFaq, setOpenFaq] = useState(null)
   const [isBookingOpen, setIsBookingOpen] = useState(false)
   const [bookingLoaded, setBookingLoaded] = useState(false)
-  const waHref = `https://wa.me/${CFG.whatsapp}?text=${encodeURIComponent(c.whatsappText)}`
+  // Every WhatsApp control goes through /wa, which records the tap and appends
+  // a reference code to the prefilled message before redirecting.
+  const wa = placement => waHref(c.waService, placement)
 
   useEffect(() => {
     const els = document.querySelectorAll('.reveal')
@@ -119,7 +123,7 @@ export default function SecondOpinionLanding({ content: c }) {
             <p className="text-sm font-medium mb-7" style={{ color: '#7A9C90' }}>{c.credLine}</p>
 
             <div data-hero-cta className="flex flex-col sm:flex-row gap-3 mb-7">
-              <a onClick={() => trackWhatsApp()} href={waHref} target="_blank" rel="noopener noreferrer"
+              <a onClick={() => trackWhatsApp()} href={wa('hero')} target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-7 py-4 rounded-full font-semibold text-white text-center"
                 style={{ backgroundColor: '#25D366' }}>
                 <IconWhatsApp /> {c.waCta}
@@ -166,7 +170,7 @@ export default function SecondOpinionLanding({ content: c }) {
           down a phone screen. From lg up the original order is restored. */}
       <div className="flex flex-col">
         {/* REASSURANCE */}
-        <section className="order-2 lg:order-1 py-14 lg:py-20 px-5 bg-white">
+        <section className="order-2 lg:order-1 py-10 lg:py-20 px-5 bg-white">
           <div className="max-w-3xl mx-auto text-center reveal">
             <h2 className="text-2xl lg:text-3xl font-bold mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>{c.reassure.title}</h2>
             {c.reassure.body.map((p, i) => (
@@ -176,9 +180,9 @@ export default function SecondOpinionLanding({ content: c }) {
         </section>
 
         {/* REASONS PEOPLE COME */}
-        <section className="order-3 lg:order-2 py-16 lg:py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
+        <section className="order-3 lg:order-2 py-10 lg:py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12 reveal">
+            <div className="text-center mb-8 lg:mb-12 reveal">
               <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Why people come</p>
               <h2 className="text-2xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>{c.reasons.title}</h2>
               <p className="text-sm mt-4 max-w-2xl mx-auto" style={{ color: '#5A7870' }}>{c.reasons.intro}</p>
@@ -195,9 +199,9 @@ export default function SecondOpinionLanding({ content: c }) {
         </section>
 
         {/* REVIEWS */}
-        <section className="order-1 lg:order-3 py-16 lg:py-20 px-5 bg-white">
+        <section className="order-1 lg:order-3 py-10 lg:py-20 px-5 bg-white">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12 reveal">
+            <div className="text-center mb-8 lg:mb-12 reveal">
               <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Patient stories</p>
               <h2 className="text-2xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>{c.reviewsTitle}</h2>
               <p className="text-sm mt-3" style={{ color: '#7A9C90' }}>
@@ -210,9 +214,9 @@ export default function SecondOpinionLanding({ content: c }) {
       </div>
 
       {/* WHAT THE REVIEW COVERS */}
-      <section className="py-16 lg:py-20 px-5 bg-white">
+      <section className="py-10 lg:py-20 px-5 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12 reveal">
+          <div className="text-center mb-8 lg:mb-12 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>What happens</p>
             <h2 className="text-2xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>{c.process.title}</h2>
           </div>
@@ -232,7 +236,7 @@ export default function SecondOpinionLanding({ content: c }) {
       </section>
 
       {/* HONEST EXPECTATIONS — the trust section */}
-      <section className="py-16 lg:py-20 px-5" style={{ backgroundColor: '#2C5249' }}>
+      <section className="py-10 lg:py-20 px-5" style={{ backgroundColor: '#2C5249' }}>
         <div className="max-w-3xl mx-auto text-center reveal">
           <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#9ECEC0' }}>Being straight with you</p>
           <h2 className="text-2xl lg:text-4xl font-bold text-white mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>{c.honesty.title}</h2>
@@ -243,9 +247,9 @@ export default function SecondOpinionLanding({ content: c }) {
       </section>
 
       {/* CONSIDERED / OFTEN MISSED */}
-      <section className="py-16 lg:py-20 px-5 bg-white">
+      <section className="py-10 lg:py-20 px-5 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 reveal">
+          <div className="text-center mb-8 lg:mb-12 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>{c.considered.eyebrow}</p>
             <h2 className="text-2xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>{c.considered.title}</h2>
             <p className="text-sm mt-4 max-w-2xl mx-auto" style={{ color: '#5A7870' }}>{c.considered.intro}</p>
@@ -264,7 +268,7 @@ export default function SecondOpinionLanding({ content: c }) {
       </section>
 
       {/* WHY HER + WHAT TO SEND */}
-      <section className="py-16 lg:py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
+      <section className="py-10 lg:py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-start">
           <div className="reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Who you would be seeing</p>
@@ -285,7 +289,7 @@ export default function SecondOpinionLanding({ content: c }) {
             </div>
           </div>
 
-          <div className="bg-white rounded-3xl p-8 reveal reveal-delay-2">
+          <div className="bg-white rounded-3xl p-6 lg:p-8 reveal reveal-delay-2">
             <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#7A9C90' }}>Before you come</p>
             <h3 className="text-xl font-semibold mb-3" style={{ fontFamily: 'Playfair Display, serif' }}>{c.bring.title}</h3>
             <p className="text-sm leading-relaxed mb-5" style={{ color: '#4A6860' }}>{c.bring.intro}</p>
@@ -298,7 +302,7 @@ export default function SecondOpinionLanding({ content: c }) {
               ))}
             </ul>
             <p className="text-xs leading-relaxed mb-5" style={{ color: '#7A9C90' }}>{c.bring.note}</p>
-            <a onClick={() => trackWhatsApp()} href={waHref} target="_blank" rel="noopener noreferrer"
+            <a onClick={() => trackWhatsApp()} href={wa('bring')} target="_blank" rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold text-white"
               style={{ backgroundColor: '#25D366' }}>
               <IconWhatsApp /> {c.waCta}
@@ -308,7 +312,7 @@ export default function SecondOpinionLanding({ content: c }) {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 lg:py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
+      <section className="py-10 lg:py-20 px-5" style={{ backgroundColor: '#F5F0E8' }}>
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10 reveal">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Common questions</p>
@@ -338,8 +342,12 @@ export default function SecondOpinionLanding({ content: c }) {
         </div>
       </section>
 
+      {/* WHERE SHE PRACTISES — link-free, so the footer stays the only way off
+          the page */}
+      <PracticeLocations kind={c.locations.kind} intro={c.locations.intro} links={false} />
+
       {/* FINAL CTA */}
-      <section className="py-16 lg:py-20 px-5" style={{ backgroundColor: '#2C5249' }}>
+      <section className="py-10 lg:py-20 px-5" style={{ backgroundColor: '#2C5249' }}>
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl lg:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>{c.finalCta.title}</h2>
           <p className="mb-8 text-base" style={{ color: '#9ECEC0' }}>{c.finalCta.sub}</p>
@@ -370,7 +378,7 @@ export default function SecondOpinionLanding({ content: c }) {
       </footer>
 
       {/* FLOATING WHATSAPP */}
-      <a onClick={() => trackWhatsApp()} href={waHref} target="_blank" rel="noopener noreferrer"
+      <a onClick={() => trackWhatsApp()} href={wa('float')} target="_blank" rel="noopener noreferrer"
         className="hidden lg:flex fixed z-50 items-center justify-center rounded-full shadow-xl text-white"
         style={{ bottom: '5.5rem', right: '1.5rem', width: '56px', height: '56px', backgroundColor: '#25D366' }}
         aria-label="Send your reports on WhatsApp">
@@ -440,9 +448,9 @@ export default function SecondOpinionLanding({ content: c }) {
                   <IconPhone /> Call
                 </a>
                 <a
-                  href={waHref}
+                  href={wa('booking-fallback')}
                   target="_blank" rel="noopener noreferrer"
-                  onClick={() => trackConversion('booking_fallback_whatsapp')}
+                  onClick={() => trackWhatsApp()}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-white transition-colors hover:opacity-90"
                   style={{ backgroundColor: '#25D366' }}
                 >
@@ -455,7 +463,7 @@ export default function SecondOpinionLanding({ content: c }) {
       )}
 
       {/* MOBILE STICKY CTA */}
-      <StickyActionBar waHref={waHref} onBook={openBooking} />
+      <StickyActionBar waHref={wa('sticky')} onBook={openBooking} />
     </div>
   )
 }

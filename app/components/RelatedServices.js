@@ -52,7 +52,7 @@ export default function RelatedServices({ links = [], extra = [], heading = 'Exp
   if (!items.length) return null
 
   return (
-    <section className="py-16 px-5" style={{ backgroundColor: bg, borderTop: '1px solid #E3EDE9' }}>
+    <section className="py-10 lg:py-16 px-5" style={{ backgroundColor: bg, borderTop: '1px solid #E3EDE9' }}>
       <div className="max-w-6xl mx-auto">
         <h2 className="text-2xl font-bold mb-8" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
           {heading}

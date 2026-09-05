@@ -35,3 +35,19 @@ CREATE INDEX IF NOT EXISTS booking_clicks_gclid_idx
 
 CREATE INDEX IF NOT EXISTS booking_clicks_campaign_idx
   ON booking_clicks (utm_campaign) WHERE utm_campaign IS NOT NULL;
+
+-- WhatsApp taps go through /wa, which mints a short reference code (Ref: A7K2Q),
+-- stores it on the row and appends it to the prefilled message. The code that
+-- arrives in WhatsApp is the join key back to the campaign, keyword and page
+-- that produced the enquiry — and to the gclid, for offline conversion import.
+ALTER TABLE booking_clicks ADD COLUMN IF NOT EXISTS ref_code  TEXT;
+ALTER TABLE booking_clicks ADD COLUMN IF NOT EXISTS service   TEXT;
+ALTER TABLE booking_clicks ADD COLUMN IF NOT EXISTS placement TEXT;
+
+-- Unique so a code can never point at two enquiries; partial so the millions of
+-- non-WhatsApp rows stay out of the index.
+CREATE UNIQUE INDEX IF NOT EXISTS booking_clicks_ref_code_idx
+  ON booking_clicks (ref_code) WHERE ref_code IS NOT NULL;
+
+CREATE INDEX IF NOT EXISTS booking_clicks_service_idx
+  ON booking_clicks (service) WHERE service IS NOT NULL;
