@@ -61,15 +61,18 @@ a {
   color: inherit;
 }
 
-/* Scroll reveal */
-.reveal {
+/* Scroll reveal. The hidden state applies only once ScrollReveal has mounted
+   and marked the document — otherwise a page whose JS has not arrived yet (or
+   never will) would render its sections permanently invisible, and the largest
+   element on screen would wait on hydration to paint. */
+.reveal-ready .reveal {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal.revealed {
+.reveal-ready .reveal.revealed {
   opacity: 1;
   transform: translateY(0);
 }
@@ -79,15 +82,18 @@ a {
 .reveal-delay-3 { transition-delay: 0.24s; }
 .reveal-delay-4 { transition-delay: 0.32s; }
 
-/* FAQ accordion */
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+/* FAQ accordion — native <details>, so it opens with no JavaScript. Only the
+   plus/minus icon needs styling; the marker triangle is hidden in both engines. */
+.faq summary {
+  list-style: none;
 }
 
-.faq-answer.open {
-  max-height: 500px;
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq[open] .faq-icon {
+  transform: rotate(45deg);
 }
 
 /* Credentials marquee */

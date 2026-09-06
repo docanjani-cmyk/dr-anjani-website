@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { trackWhatsApp, trackBooking } from '../lib/attribution'
+import { useBooking } from './Booking'
 
 const IconWhatsApp = () => (
   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -18,8 +19,11 @@ const IconWhatsApp = () => (
  * element (or no IntersectionObserver) the bar simply shows, which is the safe
  * fallback: a visitor always has a way to act.
  */
-export default function StickyActionBar({ waHref, bookHref, onBook, bookLabel = 'Book a Consultation' }) {
+export default function StickyActionBar({ waHref, bookHref, onBook, useBookingModal = false, bookLabel = 'Book a Consultation' }) {
   const [visible, setVisible] = useState(false)
+  // `useBookingModal` opts into the page's booking modal instead of a link or a
+  // callback, so a server-rendered page can still put the modal behind this bar.
+  const openBooking = useBooking()
 
   useEffect(() => {
     const hero = document.querySelector('[data-hero-cta]')
@@ -47,8 +51,9 @@ export default function StickyActionBar({ waHref, bookHref, onBook, bookLabel = 
     }
   }, [])
 
-  const book = onBook
-    ? <button type="button" onClick={onBook}
+  const onBookClick = onBook || (useBookingModal ? () => openBooking() : null)
+  const book = onBookClick
+    ? <button type="button" onClick={onBookClick}
         className="flex items-center justify-center flex-1 py-3.5 rounded-full text-sm font-semibold text-white"
         style={{ backgroundColor: '#2C5249' }}>{bookLabel}</button>
     : <a href={bookHref} onClick={() => trackBooking()} target="_blank" rel="noopener noreferrer"

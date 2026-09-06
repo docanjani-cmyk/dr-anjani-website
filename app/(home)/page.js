@@ -1,8 +1,13 @@
-'use client'
-
-import { useState, useEffect } from 'react'
+// A server component. The homepage is mostly text, and text does not need
+// JavaScript: only the header, the booking modal, the gallery, the review grid
+// and the two "show more" grids ship to the browser, as the client islands
+// imported below. Everything else renders once, on the server.
 import Image from 'next/image'
-import { trackBooking, trackWhatsApp, trackCall, trackConversion } from '../lib/attribution'
+import HomeHeader from '../components/HomeHeader'
+import { BookingProvider, BookButton } from '../components/Booking'
+import { CallLink, WhatsAppLink } from '../components/TrackedLinks'
+import ScrollReveal from '../components/ScrollReveal'
+import FaqList from '../components/FaqList'
 import StickyActionBar from '../components/StickyActionBar'
 import { waHref } from '../lib/whatsapp'
 import PhotoGallery from '../components/PhotoGallery'
@@ -12,46 +17,7 @@ import { HOSPITALS } from '../lib/practice'
 import { ReviewGrid } from '../components/ReviewCard'
 import { HOME_REVIEWS, REVIEW_STATS } from '../lib/reviews'
 
-const track = (e) => {
-  window.gtag?.('event', e)
-}
 
-const trackFormSubmission = async (data) => {
-  try {
-    const timestamp = new Date().toISOString()
-
-    // Track in Google Analytics
-    window.gtag?.('event', 'appointment_form_submitted', {
-      timestamp,
-      source: 'website',
-      event_category: 'appointment',
-      event_label: data?.service_type || 'booking'
-    })
-
-    // Track in Google Ads (direct conversion tracking)
-    // Business profile - Form submit conversion (created 12/16/2024)
-    window.gtag?.('event', 'conversion', {
-      send_to: 'AW-1796712782/6962668268',
-      value: data?.conversion_value || 1000, // ₹1000 default (consultation fee)
-      currency: 'INR',
-      transaction_id: `apt_${Date.now()}`
-    })
-
-    // Log to backend for DocPulse integration
-    await fetch('/api/track-appointment', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        timestamp,
-        booked_channel: 'Website Form',
-        source: 'appointment_website',
-        ...data
-      })
-    }).catch(err => console.log('Form submission logged'))
-  } catch (e) {
-    console.error('Tracking error:', e)
-  }
-}
 
 const CFG = {
   name: 'Dr. Anjani Dixit',
@@ -169,112 +135,12 @@ const MARQUEE_ITEMS = [
 ]
 
 export default function Home({ initialBookingOpen = false }) {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [openFaq, setOpenFaq] = useState(null)
-  const [isBookingOpen, setIsBookingOpen] = useState(initialBookingOpen)
-  const [bookingLoaded, setBookingLoaded] = useState(false)
-
-  const openBooking = (eventName = 'ads_conversion_Contact_Us_1') => {
-    trackBooking(eventName)
-    setBookingLoaded(false)
-    setIsBookingOpen(true)
-  }
-
-  useEffect(() => {
-    if (initialBookingOpen) track('gbp_book_appointment_visit')
-  }, [])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed') }),
-      { threshold: 0.1 }
-    )
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
-
-    const onScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', onScroll, { passive: true })
-
-    const onKey = (e) => { if (e.key === 'Escape') { setIsBookingOpen(false); setLightbox(null); setMenuOpen(false) } }
-    window.addEventListener('keydown', onKey)
-
-    return () => { observer.disconnect(); window.removeEventListener('scroll', onScroll); window.removeEventListener('keydown', onKey) }
-  }, [])
-
-  useEffect(() => {
-    if (!menuOpen) return
-    const onClickOutside = (e) => { if (!e.target.closest('header')) setMenuOpen(false) }
-    document.addEventListener('click', onClickOutside)
-    return () => document.removeEventListener('click', onClickOutside)
-  }, [menuOpen])
-
   return (
+    <BookingProvider initialOpen={initialBookingOpen}>
     <div style={{ backgroundColor: '#FAFAF8', color: '#1A2E28' }}>
+      <ScrollReveal />
 
-      {/* ── NAV ── */}
-      <header
-        className="sticky top-0 z-50 transition-all duration-300"
-        style={{ backgroundColor: scrolled ? 'rgba(250,250,248,0.96)' : 'rgba(250,250,248,0.92)', backdropFilter: 'blur(12px)', borderBottom: scrolled ? '1px solid #E3EDE9' : '1px solid transparent', boxShadow: scrolled ? '0 1px 20px rgba(44,82,73,0.06)' : 'none' }}
-      >
-        <nav className="max-w-7xl mx-auto px-5 lg:px-8 py-4 flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-3">
-            <img src={IMG.logo} alt="Dr. Anjani Dixit" className="w-11 h-11 rounded-full object-cover" style={{ border: '2px solid #C4D9D1' }} />
-            <div>
-              <div className="font-semibold text-sm" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>Dr. Anjani Dixit</div>
-              <div className="text-xs" style={{ color: '#7A9C90' }}>MBBS · DNB · FMAS</div>
-            </div>
-          </a>
-
-          <div className="hidden lg:flex items-center gap-7 text-sm font-medium" style={{ color: '#3D6358' }}>
-            {[['About', '#about'], ['Services', '#services'], ['Hospitals', '#hospitals'], ['Testimonials', '#testimonials'], ['FAQ', '#faq'], ['Contact', '#contact']].map(([label, href]) => (
-              <a key={label} href={href} className="hover:opacity-60 transition-opacity">{label}</a>
-            ))}
-          </div>
-
-          <div className="hidden lg:flex items-center gap-3">
-            <a
-              onClick={() => trackWhatsApp()} href={waHref('general', 'nav')}
-              target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all hover:shadow-sm"
-              style={{ borderColor: '#25D366', color: '#25D366' }}
-            >
-              <IconWhatsApp size="w-4 h-4" /> WhatsApp
-            </a>
-            <button
-              onClick={() => openBooking()}
-              className="px-5 py-2 rounded-full text-sm font-semibold text-white transition-all hover:opacity-90 hover:shadow-lg"
-              style={{ backgroundColor: '#2C5249' }}
-            >
-              Book Consultation
-            </button>
-          </div>
-
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden p-2"
-            aria-label="Toggle menu"
-          >
-            <div className="w-5 flex flex-col gap-1.5">
-              <span className="block h-px w-full transition-all origin-center" style={{ backgroundColor: '#1A2E28', transform: menuOpen ? 'rotate(45deg) translateY(5px)' : 'none' }} />
-              <span className="block h-px transition-all" style={{ backgroundColor: '#1A2E28', width: menuOpen ? 0 : '100%' }} />
-              <span className="block h-px w-full transition-all origin-center" style={{ backgroundColor: '#1A2E28', transform: menuOpen ? 'rotate(-45deg) translateY(-5px)' : 'none' }} />
-            </div>
-          </button>
-        </nav>
-
-        {menuOpen && (
-          <div className="lg:hidden px-5 pb-5 space-y-4" style={{ borderTop: '1px solid #E3EDE9', paddingTop: '1rem' }}>
-            {[['About', '#about'], ['Services', '#services'], ['Hospitals', '#hospitals'], ['Testimonials', '#testimonials'], ['FAQ', '#faq'], ['Contact', '#contact']].map(([label, href]) => (
-              <a key={label} href={href} onClick={() => setMenuOpen(false)} className="block text-sm font-medium py-1" style={{ color: '#2C5249' }}>{label}</a>
-            ))}
-            <button onClick={() => { openBooking(); setMenuOpen(false); }}
-              className="block w-full text-center text-white py-3 rounded-full text-sm font-semibold"
-              style={{ backgroundColor: '#2C5249' }}>
-              Book Consultation
-            </button>
-          </div>
-        )}
-      </header>
+      <HomeHeader />
 
       {/* ── HERO ── */}
       <section id="home" style={{ background: 'linear-gradient(135deg, #f5f0e8 0%, #fafaf8 55%, #eef4f1 100%)' }}>
@@ -302,21 +168,18 @@ export default function Home({ initialBookingOpen = false }) {
               </p>
 
               <div data-hero-cta className="flex flex-col sm:flex-row gap-3 mb-10">
-                <button
-                  onClick={() => openBooking()}
+                <BookButton
                   className="px-8 py-4 rounded-full font-semibold text-white text-center transition-all hover:shadow-xl hover:-translate-y-0.5 duration-200"
                   style={{ backgroundColor: '#2C5249' }}
                 >
                   Book a Consultation
-                </button>
-                <a
-                  onClick={() => trackWhatsApp()} href={waHref('general', 'hero')}
-                  target="_blank" rel="noopener noreferrer"
+                </BookButton>
+                <WhatsAppLink placement="hero"
                   className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-center transition-all hover:shadow-md duration-200 border-2"
                   style={{ borderColor: '#2C5249', color: '#2C5249' }}
                 >
                   <IconWhatsApp size="w-5 h-5" /> Chat on WhatsApp
-                </a>
+                </WhatsAppLink>
               </div>
 
               <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-3 lg:pt-5" style={{ borderTop: '1px solid #D5E5DF' }}>
@@ -487,13 +350,12 @@ export default function Home({ initialBookingOpen = false }) {
               ))}
             </div>
 
-            <button
-              onClick={() => openBooking()}
+            <BookButton
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-white transition-all hover:shadow-lg hover:-translate-y-0.5 duration-200"
               style={{ backgroundColor: '#2C5249' }}
             >
               Book a Consultation <IconArrow />
-            </button>
+            </BookButton>
           </div>
         </div>
       </section>
@@ -641,12 +503,9 @@ export default function Home({ initialBookingOpen = false }) {
                 All outpatient consultations, follow-ups, and pre-surgical evaluations happen here. Video consultations are also available.
               </p>
               <div className="flex flex-col gap-3">
-                <a
-                  href={`tel:${CFG.phone}`} onClick={() => trackCall()}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:opacity-80 transition-opacity"
-                >
+                <CallLink className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:opacity-80 transition-opacity">
                   <IconPhone /> {CFG.phoneDisplay}
-                </a>
+                </CallLink>
                 <a
                   href={CFG.maps} target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:opacity-80 transition-opacity"
@@ -778,34 +637,7 @@ export default function Home({ initialBookingOpen = false }) {
             </h2>
           </div>
 
-          <div className="space-y-2">
-            {FAQS.map((faq, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-2xl overflow-hidden reveal"
-                style={{ transitionDelay: `${i * 0.04}s` }}
-              >
-                <button
-                  className="w-full flex items-center justify-between p-6 text-left"
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  aria-expanded={openFaq === i}
-                >
-                  <span className="font-medium text-sm pr-4 leading-snug" style={{ color: '#1A2E28' }}>{faq.q}</span>
-                  <span
-                    className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-transform duration-300"
-                    style={{ backgroundColor: '#E3EDE9', color: '#2C5249', transform: openFaq === i ? 'rotate(45deg)' : 'none' }}
-                  >
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
-                    </svg>
-                  </span>
-                </button>
-                <div className={`faq-answer ${openFaq === i ? 'open' : ''}`}>
-                  <p className="px-6 pb-6 text-sm leading-relaxed" style={{ color: '#5A7870' }}>{faq.a}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <FaqList faqs={FAQS} />
         </div>
       </section>
 
@@ -824,7 +656,7 @@ export default function Home({ initialBookingOpen = false }) {
               <div className="space-y-5 mb-8">
                 {[
                   { icon: <IconPin />, label: 'Clinic', href: CFG.maps, target: '_blank', content: <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-medium hover:underline" style={{ color: '#1A2E28' }}>{CFG.clinic}<br />{CFG.address}</a> },
-                  { icon: <IconPhone />, label: 'Phone', href: `tel:${CFG.phone}`, target: null, content: <a href={`tel:${CFG.phone}`} onClick={() => trackCall()} className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.phoneDisplay}</a> },
+                  { icon: <IconPhone />, label: 'Phone', href: `tel:${CFG.phone}`, target: null, content: <CallLink className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.phoneDisplay}</CallLink> },
                   { icon: <IconMail />, label: 'Email', href: `mailto:${CFG.email}`, target: null, content: <a href={`mailto:${CFG.email}`} className="text-sm font-semibold hover:underline" style={{ color: '#2C5249' }}>{CFG.email}</a> },
                 ].map(({ icon, label, href, target, content }, i) => (
                   <div key={i} className="flex gap-4 items-start">
@@ -858,21 +690,18 @@ export default function Home({ initialBookingOpen = false }) {
               <h3 className="text-xl font-semibold mb-1" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>Book a Consultation</h3>
               <p className="text-sm mb-6" style={{ color: '#7A9C90' }}>In-person and video consultations available · Mon–Sat, 9 AM – 7 PM</p>
 
-              <button
-                onClick={() => openBooking()}
+              <BookButton
                 className="flex items-center justify-center w-full py-4 rounded-2xl text-sm font-semibold text-white mb-3 transition-all hover:shadow-lg hover:opacity-95 duration-200"
                 style={{ backgroundColor: '#2C5249' }}
               >
                 Book via Appointment Form
-              </button>
-              <a
-                onClick={() => trackWhatsApp()} href={waHref('general', 'contact')}
-                target="_blank" rel="noopener noreferrer"
+              </BookButton>
+              <WhatsAppLink placement="contact"
                 className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl text-sm font-medium border transition-all hover:shadow-sm duration-200"
                 style={{ borderColor: '#25D366', color: '#25D366' }}
               >
                 <IconWhatsApp size="w-4 h-4" /> Chat on WhatsApp
-              </a>
+              </WhatsAppLink>
             </div>
           </div>
         </div>
@@ -920,7 +749,7 @@ export default function Home({ initialBookingOpen = false }) {
                 <p>OPD: {CFG.clinic}</p>
                 <p>{CFG.address}</p>
                 <a href="/#hospitals" className="block transition-colors hover:text-white">Surgeries &amp; IPD at 6 partner hospitals →</a>
-                <a href={`tel:${CFG.phone}`} onClick={() => trackCall()} className="block transition-colors hover:text-white">{CFG.phoneDisplay}</a>
+                <CallLink className="block transition-colors hover:text-white">{CFG.phoneDisplay}</CallLink>
                 <a href={`mailto:${CFG.email}`} className="block transition-colors hover:text-white">{CFG.email}</a>
               </address>
             </div>
@@ -938,98 +767,18 @@ export default function Home({ initialBookingOpen = false }) {
       </footer>
 
       {/* ── FLOATING WHATSAPP ── */}
-      <a
-        onClick={() => trackWhatsApp()} href={waHref('general', 'float')}
-        target="_blank" rel="noopener noreferrer"
+      <WhatsAppLink placement="float"
         aria-label="Chat on WhatsApp"
         className="hidden lg:flex fixed z-50 items-center justify-center rounded-full shadow-xl transition-transform hover:scale-110 duration-200"
         style={{ bottom: '5.5rem', right: '1.5rem', width: '56px', height: '56px', backgroundColor: '#25D366' }}
       >
         <IconWhatsApp size="w-7 h-7" />
-      </a>
+      </WhatsAppLink>
 
       {/* ── MOBILE STICKY CTA ── */}
-      <StickyActionBar waHref={waHref('general', 'sticky')} onBook={openBooking} />
-
-      {/* ── BOOKING MODAL ── */}
-      {isBookingOpen && (
-        <div
-          className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center sm:p-4"
-          style={{ backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
-          onClick={() => setIsBookingOpen(false)}
-        >
-          <div
-            className="relative bg-white rounded-t-2xl sm:rounded-2xl overflow-hidden shadow-2xl w-full max-w-2xl flex flex-col"
-            style={{ height: '95vh', maxHeight: '760px' }}
-            onClick={e => e.stopPropagation()}
-          >
-            <div className="flex items-start justify-between px-5 py-4 flex-shrink-0" style={{ borderBottom: '1px solid #E3EDE9' }}>
-              <div>
-                <h3 className="font-semibold text-base" style={{ fontFamily: 'Playfair Display, serif', color: '#1A2E28' }}>
-                  Book a Consultation
-                </h3>
-                <p className="text-xs mt-0.5" style={{ color: '#7A9C90' }}>
-                  Takes about a minute · Instant confirmation
-                </p>
-              </div>
-              <button
-                onClick={() => setIsBookingOpen(false)}
-                className="w-8 h-8 -mr-1 rounded-full flex items-center justify-center transition-colors hover:bg-gray-100 flex-shrink-0"
-                style={{ color: '#7A9C90' }}
-                aria-label="Close"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <div className="flex-1 relative">
-              {!bookingLoaded && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none" style={{ backgroundColor: '#FAFAF8' }}>
-                  <div className="w-8 h-8 rounded-full border-2 animate-spin" style={{ borderColor: '#E3EDE9', borderTopColor: '#2C5249' }} />
-                  <p className="text-xs" style={{ color: '#7A9C90' }}>Loading secure booking form…</p>
-                </div>
-              )}
-              <iframe
-                src={CFG.booking}
-                onLoad={() => setBookingLoaded(true)}
-                className="w-full h-full border-0"
-                style={{ opacity: bookingLoaded ? 1 : 0, transition: 'opacity 250ms ease' }}
-                title="Book a Consultation with Dr. Anjani Dixit"
-              />
-            </div>
-
-            <div className="flex-shrink-0 px-5 py-3 flex items-center justify-between gap-3 flex-wrap" style={{ borderTop: '1px solid #E3EDE9', backgroundColor: '#FAFAF8' }}>
-              <p className="text-xs font-medium" style={{ color: '#7A9C90' }}>Trouble? We're here:</p>
-              <div className="flex items-center gap-2">
-                <a
-                  href={`tel:${CFG.phone}`}
-                  onClick={() => trackConversion('booking_fallback_call')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors hover:opacity-90"
-                  style={{ backgroundColor: '#E3EDE9', color: '#2C5249' }}
-                >
-                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
-                  </svg>
-                  Call
-                </a>
-                <a
-                  href={waHref('general', 'booking-fallback')}
-                  target="_blank" rel="noopener noreferrer"
-                  onClick={() => trackWhatsApp()}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-white transition-colors hover:opacity-90"
-                  style={{ backgroundColor: '#25D366' }}
-                >
-                  <IconWhatsApp size="w-3 h-3" />
-                  WhatsApp
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <StickyActionBar waHref={waHref('general', 'sticky')} useBookingModal />
 
     </div>
+    </BookingProvider>
   )
 }

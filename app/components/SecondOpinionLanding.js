@@ -7,6 +7,7 @@ import { ReviewGrid } from './ReviewCard'
 import StickyActionBar from './StickyActionBar'
 import { waHref } from '../lib/whatsapp'
 import PracticeLocations from './PracticeLocations'
+import FaqList from './FaqList'
 import { REVIEW_STATS } from '../lib/reviews'
 
 export const CFG = {
@@ -50,7 +51,6 @@ const IconCheck = () => (
  * words — never in structure or tracking.
  */
 export default function SecondOpinionLanding({ content: c }) {
-  const [openFaq, setOpenFaq] = useState(null)
   const [isBookingOpen, setIsBookingOpen] = useState(false)
   const [bookingLoaded, setBookingLoaded] = useState(false)
   // Every WhatsApp control goes through /wa, which records the tap and appends
@@ -320,27 +320,7 @@ export default function SecondOpinionLanding({ content: c }) {
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#7A9C90' }}>Common questions</p>
             <h2 className="text-2xl lg:text-4xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>Questions people ask before coming</h2>
           </div>
-          <div className="space-y-3">
-            {c.faqs.map((f, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden" style={{ border: '1px solid #E3EDE9' }}>
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full text-left px-6 py-5 flex items-center justify-between gap-4"
-                  aria-expanded={openFaq === i}
-                >
-                  <span className="font-semibold text-sm lg:text-base">{f.q}</span>
-                  <span className="flex-shrink-0 transition-transform duration-300" style={{ transform: openFaq === i ? 'rotate(45deg)' : 'none', color: '#7A9C90' }}>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                    </svg>
-                  </span>
-                </button>
-                <div className={`faq-answer${openFaq === i ? ' open' : ''}`}>
-                  <p className="px-6 pb-5 text-sm leading-relaxed" style={{ color: '#4A6860' }}>{f.a}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <FaqList faqs={c.faqs} />
         </div>
       </section>
 
