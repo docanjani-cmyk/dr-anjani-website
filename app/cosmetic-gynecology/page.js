@@ -21,7 +21,10 @@ const CFG = {
 
 const IMG = {
   logo: '/Photos/Anjani%20website/Anjani%20Prityn%20DP.png',
-  hero: '/Photos/Anjani%20website/Informal%20photos/About%20me.jpg',
+  // The same consultation scene the PCOS page uses. It is a stock image, not a
+  // photograph of Dr. Anjani — the alt text below says so — and it suits a page
+  // about a conversation people find hard to start better than a theatre selfie.
+  hero: '/Photos/pcos-consultation.jpg',
 }
 
 const IconStar = () => (
@@ -175,10 +178,10 @@ export default function CosmeticGynecologyPage() {
               <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
             </div>
           </div>
-          <div className="relative order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
-            <Image src={IMG.hero} alt="Dr. Anjani Dixit – Cosmetic Gynaecologist Bangalore"
+          <div className="relative order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '3/2', maxHeight: '520px' }}>
+            <Image src={IMG.hero} alt="A gynaecology consultation — a doctor talking a patient through a scan"
               fill priority sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover object-top" />
+              className="object-cover object-center" />
           </div>
         </div>
       </section>

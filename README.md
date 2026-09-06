@@ -94,6 +94,23 @@ Colors are in `tailwind.config.js`. Change the `teal` color to your preference.
 5. Click "Deploy"
 6. Your website goes live!
 
+## Tell search engines a page changed (IndexNow)
+
+Bing, Yandex, Seznam and Naver accept a ping when a page is new or has changed,
+instead of waiting to re-crawl. Google does not participate — for Google, use
+Search Console.
+
+```bash
+npm run indexnow                      # every URL in the sitemap
+npm run indexnow -- /hysterectomy     # just the pages you name
+npm run indexnow -- --dry-run         # print what would be sent
+```
+
+Run it **after** deploying, not before: the search engine fetches
+`public/<key>.txt` from the live site to verify ownership, so a URL that is not
+yet live wastes the ping. The key is public by design; it lives in
+`scripts/indexnow.mjs` and must match the filename of the key file in `public/`.
+
 ## Need Help?
 
 Contact: doc.anjani@gmail.com

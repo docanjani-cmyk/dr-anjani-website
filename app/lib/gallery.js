@@ -9,74 +9,161 @@
 // patient's name, age and UHID legible on the theatre whiteboard behind her;
 // the file now ships with that background blurred out.
 
-const CAPTIONS = {
-  1: 'Dr. Anjani Dixit holding a newborn wrapped in a blue swaddle outside the ward',
-  2: 'Dr. Anjani Dixit in her consulting room with a newborn wrapped in a pink blanket',
-  3: 'Dr. Anjani Dixit bringing a newborn to her mother at the bedside',
-  4: 'Dr. Anjani Dixit in surgical scrubs holding a newborn moments after delivery',
-  5: 'Dr. Anjani Dixit carrying a newborn wrapped in a pink blanket at the clinic',
-  6: 'Dr. Anjani Dixit holding a newborn in a yellow blanket beside the mother’s bed',
-  7: 'Dr. Anjani Dixit with a newborn in the ward after delivery',
-  9: 'New parents with their baby beside the mother’s bed after delivery',
-  10: 'Dr. Anjani Dixit holding newborn twins, one in each arm',
-  11: 'Dr. Anjani Dixit with a family and their newborn on the day of discharge',
-  12: 'Dr. Anjani Dixit with parents and their toddler at a follow-up visit',
-  13: 'Dr. Anjani Dixit holding a newborn while the mother stands beside her',
-  14: 'Dr. Anjani Dixit carrying a newborn in a blue swaddle at the ward door',
-  15: 'Dr. Anjani Dixit laughing as she holds a newborn at the clinic',
-  17: 'Dr. Anjani Dixit in theatre scrubs holding a newborn after a delivery',
-  18: 'Dr. Anjani Dixit with a family and their baby outside the ward',
-  19: 'Dr. Anjani Dixit and the theatre team during a laparoscopic procedure',
-  20: 'Laparoscopic surgery under way, the laparoscope view on the theatre monitor',
-  21: 'Dr. Anjani Dixit operating, seen close up over the surgical drapes',
-  22: 'Dr. Anjani Dixit with a theatre colleague after a procedure',
-  23: 'Dr. Anjani Dixit holding a newborn in a printed blanket in her consulting room',
-  24: 'The theatre team in full protective gear during a procedure',
-  25: 'Dr. Anjani Dixit performing laparoscopic surgery, watching the monitor',
-  26: 'Dr. Anjani Dixit and her team operating, the laparoscope view on the monitor',
+// One entry per photo: where the file is, what it shows, and its intrinsic
+// pixel size. next/image needs the dimensions to reserve the right box before
+// the image arrives — the gallery is a masonry column layout, so a wrong ratio
+// would shuffle every photo below it.
+//
+// Numeric keys are the original "About us N.jpg" set; newer photos are keyed by
+// name and carry a filename that says what they are.
+const PHOTOS = {
+  1: {
+    src: '/Gallery/About us 1.jpg',
+    alt: 'Dr. Anjani Dixit holding a newborn wrapped in a blue swaddle outside the ward',
+    width: 781, height: 998,
+  },
+  2: {
+    src: '/Gallery/About us 2.jpg',
+    alt: 'Dr. Anjani Dixit in her consulting room with a newborn wrapped in a pink blanket',
+    width: 327, height: 520,
+  },
+  3: {
+    src: '/Gallery/About us 3.jpg',
+    alt: 'Dr. Anjani Dixit bringing a newborn to her mother at the bedside',
+    width: 390, height: 520,
+  },
+  4: {
+    src: '/Gallery/About us 4.jpg',
+    alt: 'Dr. Anjani Dixit in surgical scrubs holding a newborn moments after delivery',
+    width: 315, height: 520,
+  },
+  5: {
+    src: '/Gallery/About us 5.jpg',
+    alt: 'Dr. Anjani Dixit carrying a newborn wrapped in a pink blanket at the clinic',
+    width: 293, height: 520,
+  },
+  6: {
+    src: '/Gallery/About us 6.jpg',
+    alt: 'Dr. Anjani Dixit holding a newborn in a yellow blanket beside the mother’s bed',
+    width: 390, height: 520,
+  },
+  7: {
+    src: '/Gallery/About us 7.jpg',
+    alt: 'Dr. Anjani Dixit with a newborn in the ward after delivery',
+    width: 293, height: 520,
+  },
+  9: {
+    src: '/Gallery/About us 9.jpg',
+    alt: 'New parents with their baby beside the mother’s bed after delivery',
+    width: 520, height: 390,
+  },
+  10: {
+    src: '/Gallery/About us 10.jpg',
+    alt: 'Dr. Anjani Dixit holding newborn twins, one in each arm',
+    width: 390, height: 520,
+  },
+  11: {
+    src: '/Gallery/About us 11.jpg',
+    alt: 'Dr. Anjani Dixit with a family and their newborn on the day of discharge',
+    width: 520, height: 476,
+  },
+  12: {
+    src: '/Gallery/About us 12.jpg',
+    alt: 'Dr. Anjani Dixit with parents and their toddler at a follow-up visit',
+    width: 293, height: 520,
+  },
+  13: {
+    src: '/Gallery/About us 13.jpg',
+    alt: 'Dr. Anjani Dixit holding a newborn while the mother stands beside her',
+    width: 390, height: 520,
+  },
+  14: {
+    src: '/Gallery/About us 14.jpg',
+    alt: 'Dr. Anjani Dixit carrying a newborn in a blue swaddle at the ward door',
+    width: 390, height: 520,
+  },
+  15: {
+    src: '/Gallery/About us 15.jpg',
+    alt: 'Dr. Anjani Dixit laughing as she holds a newborn at the clinic',
+    width: 945, height: 1600,
+  },
+  17: {
+    src: '/Gallery/About us 17.jpg',
+    alt: 'Dr. Anjani Dixit in theatre scrubs holding a newborn after a delivery',
+    width: 960, height: 1280,
+  },
+  18: {
+    src: '/Gallery/About us 18.jpg',
+    alt: 'Dr. Anjani Dixit with a family and their baby outside the ward',
+    width: 960, height: 1280,
+  },
+  19: {
+    src: '/Gallery/About us 19.jpg',
+    alt: 'Dr. Anjani Dixit and the theatre team during a laparoscopic procedure',
+    width: 561, height: 519,
+  },
+  20: {
+    src: '/Gallery/About us 20.jpg',
+    alt: 'Laparoscopic surgery under way, the laparoscope view on the theatre monitor',
+    width: 960, height: 1280,
+  },
+  21: {
+    src: '/Gallery/About us 21.jpg',
+    alt: 'Dr. Anjani Dixit operating, seen close up over the surgical drapes',
+    width: 960, height: 1280,
+  },
+  22: {
+    src: '/Gallery/About us 22.jpg',
+    alt: 'Dr. Anjani Dixit with a theatre colleague after a procedure',
+    width: 876, height: 1280,
+  },
+  23: {
+    src: '/Gallery/About us 23.jpg',
+    alt: 'Dr. Anjani Dixit holding a newborn in a printed blanket in her consulting room',
+    width: 960, height: 1280,
+  },
+  24: {
+    src: '/Gallery/About us 24.jpg',
+    alt: 'The theatre team in full protective gear during a procedure',
+    width: 900, height: 805,
+  },
+  25: {
+    src: '/Gallery/About us 25.jpg',
+    alt: 'Dr. Anjani Dixit performing laparoscopic surgery, watching the monitor',
+    width: 960, height: 1280,
+  },
+  26: {
+    src: '/Gallery/About us 26.jpg',
+    alt: 'Dr. Anjani Dixit and her team operating, the laparoscope view on the monitor',
+    width: 1280, height: 667,
+  },
+  'theatre-lap': {
+    src: '/Gallery/laparoscopic-surgery-theatre-sep-2026.jpg',
+    alt: 'Dr. Anjani Dixit operating laparoscopically, passing an instrument to her assistant',
+    width: 960, height: 1019,
+  },
+  'theatre-lap-wide': {
+    src: '/Gallery/laparoscopic-surgery-team-sep-2026.jpg',
+    alt: 'Dr. Anjani Dixit and her theatre team mid-procedure, laparoscopic ports in place',
+    width: 960, height: 1280,
+  },
+  'theatre-open': {
+    src: '/Gallery/open-surgery-theatre-sep-2026.jpg',
+    alt: 'Dr. Anjani Dixit operating with a scrub nurse assisting at the table',
+    width: 960, height: 1280,
+  },
 }
 
-// Intrinsic pixel sizes, measured from the files. next/image needs them to
-// reserve the right box before the image arrives — the gallery is a masonry
-// column layout, so a wrong ratio would shuffle every photo below it.
-const SIZES = {
-  1: [781, 998],
-  2: [327, 520],
-  3: [390, 520],
-  4: [315, 520],
-  5: [293, 520],
-  6: [390, 520],
-  7: [293, 520],
-  9: [520, 390],
-  10: [390, 520],
-  11: [520, 476],
-  12: [293, 520],
-  13: [390, 520],
-  14: [390, 520],
-  15: [945, 1600],
-  17: [960, 1280],
-  18: [960, 1280],
-  19: [561, 519],
-  20: [960, 1280],
-  21: [960, 1280],
-  22: [876, 1280],
-  23: [960, 1280],
-  24: [900, 805],
-  25: [960, 1280],
-  26: [1280, 667],
-}
-
-const photos = ids => ids.map(i => ({
-  src: `/Gallery/About us ${i}.jpg`,
-  alt: CAPTIONS[i],
-  width: SIZES[i][0],
-  height: SIZES[i][1],
-}))
+const photos = ids => ids.map(id => {
+  const photo = PHOTOS[id]
+  if (!photo) throw new Error(`gallery.js: no photo "${id}"`)
+  return photo
+})
 
 /** Newborns and families first — the homepage gallery is "Moments of Joy". */
 export const HOME_GALLERY = photos([
   10, 2, 6, 4, 1, 11, 12, 23,
-  17, 5, 14, 13, 22, 15, 19, 25, 21, 26, 20, 24, 9, 3, 7,
+  17, 5, 14, 13, 22, 15, 19, 'theatre-lap', 25, 21, 26, 20, 24, 9, 3, 7,
 ])
 
 export const ABOUT_GALLERY = photos([
@@ -97,4 +184,7 @@ export const IVF_GALLERY = photos([
 ])
 
 /** Theatre photos only — the clearest views of her operating come first. */
-export const SURGERY_GALLERY = photos([19, 25, 21, 26, 20, 22, 24])
+export const SURGERY_GALLERY = photos([
+  'theatre-lap', 19, 25, 'theatre-open',
+  21, 'theatre-lap-wide', 26, 20, 22, 24,
+])
