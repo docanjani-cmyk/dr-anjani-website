@@ -120,9 +120,12 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/uterus-favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/uterus-favicon.svg" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+        {/* The faces themselves are declared in globals.css and served from
+            /fonts. Preloaded because they are needed by the first paint —
+            body copy and every heading — and would otherwise be discovered
+            only after the CSS has been parsed. */}
+        <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/playfair-display-variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(physicianSchema) }}
@@ -135,14 +138,20 @@ export default function RootLayout({ children }) {
       <body>
         <AttributionTracker />
         {children}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-TKCQJPPP68" strategy="afterInteractive" />
-        <Script id="gtag-init" strategy="afterInteractive">{`
+        {/* The queue is defined inline and immediately, so a conversion clicked
+            two seconds after load is captured whether or not the tag has
+            arrived — gtag() calls simply queue in dataLayer and are replayed
+            when gtag.js loads. The tag itself is lazyOnload: GA4 plus the Ads
+            tag are 333KB of script, the heaviest thing on the page, and
+            nothing needs them before a click. */}
+        <Script id="gtag-queue" strategy="beforeInteractive">{`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-TKCQJPPP68');
           gtag('config', 'AW-1796712782');
         `}</Script>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-TKCQJPPP68" strategy="lazyOnload" />
       </body>
     </html>
   )

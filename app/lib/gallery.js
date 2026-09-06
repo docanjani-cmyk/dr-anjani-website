@@ -36,9 +36,41 @@ const CAPTIONS = {
   26: 'Dr. Anjani Dixit and her team operating, the laparoscope view on the monitor',
 }
 
+// Intrinsic pixel sizes, measured from the files. next/image needs them to
+// reserve the right box before the image arrives — the gallery is a masonry
+// column layout, so a wrong ratio would shuffle every photo below it.
+const SIZES = {
+  1: [781, 998],
+  2: [327, 520],
+  3: [390, 520],
+  4: [315, 520],
+  5: [293, 520],
+  6: [390, 520],
+  7: [293, 520],
+  9: [520, 390],
+  10: [390, 520],
+  11: [520, 476],
+  12: [293, 520],
+  13: [390, 520],
+  14: [390, 520],
+  15: [945, 1600],
+  17: [960, 1280],
+  18: [960, 1280],
+  19: [561, 519],
+  20: [960, 1280],
+  21: [960, 1280],
+  22: [876, 1280],
+  23: [960, 1280],
+  24: [900, 805],
+  25: [960, 1280],
+  26: [1280, 667],
+}
+
 const photos = ids => ids.map(i => ({
   src: `/Gallery/About us ${i}.jpg`,
   alt: CAPTIONS[i],
+  width: SIZES[i][0],
+  height: SIZES[i][1],
 }))
 
 /** Newborns and families first — the homepage gallery is "Moments of Joy". */

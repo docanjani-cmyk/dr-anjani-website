@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { trackBooking, trackWhatsApp, trackCall } from '../../lib/attribution'
 import StickyActionBar from '../../components/StickyActionBar'
 import { waHref } from '../../lib/whatsapp'
@@ -177,9 +178,10 @@ export default function LaparoscopicSurgeryPage() {
               <span className="text-sm" style={{ color: '#7A9C90' }}>· {REVIEW_STATS.total} reviews</span>
             </div>
           </div>
-          <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
-            <img src={IMG.hero} alt="Dr. Anjani Dixit – Laparoscopic Surgeon Bangalore"
-              className="w-full h-full object-cover object-top" />
+          <div className="relative order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
+            <Image src={IMG.hero} alt="Dr. Anjani Dixit – Laparoscopic Surgeon Bangalore"
+              fill priority sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover object-top" />
           </div>
         </div>
       </section>

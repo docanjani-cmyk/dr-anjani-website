@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { trackBooking, trackWhatsApp, trackCall, trackConversion, EVENTS } from '../lib/attribution'
 import { ReviewGrid } from './ReviewCard'
 import StickyActionBar from './StickyActionBar'
@@ -142,9 +143,10 @@ export default function SecondOpinionLanding({ content: c }) {
           </div>
           {/* Short, wide crop on phones so the hero does not eat the screen before
               any copy is read; the portrait framing returns from lg up. */}
-          <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full aspect-[3/2] sm:aspect-[16/9] lg:aspect-[4/5] lg:max-h-[500px]">
-            <img src={c.heroImg} alt={c.heroAlt} style={{ '--hero-pos': c.heroPos }}
-              className="w-full h-full object-cover hero-crop" />
+          <div className="relative order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full aspect-[3/2] sm:aspect-[16/9] lg:aspect-[4/5] lg:max-h-[500px]">
+            <Image src={c.heroImg} alt={c.heroAlt} style={{ '--hero-pos': c.heroPos }}
+              fill priority sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover hero-crop" />
           </div>
         </div>
       </section>

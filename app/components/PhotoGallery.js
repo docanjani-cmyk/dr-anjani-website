@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 
 /**
  * Masonry photo gallery with a lightbox, shared by every page that shows the
@@ -10,9 +11,9 @@ import { useState } from 'react'
  * a phone tighter — the grid drops to two columns below 640px, so the same
  * count is twice as many rows there. A full set runs to several screens and
  * crowds out whatever follows it. The rest stay in the DOM — hidden with CSS,
- * not removed — so they cost nothing to load (hidden images are never fetched
- * with loading="lazy"), still exist for crawlers, and the lightbox can page
- * through the whole set from any thumbnail.
+ * not removed — so they cost nothing to load (a display:none image is never
+ * fetched), still exist for crawlers, and the lightbox can page through the
+ * whole set from any thumbnail.
  */
 export default function PhotoGallery({ photos, initial = 8, mobileInitial = 4 }) {
   const [lightbox, setLightbox] = useState(null)
@@ -41,11 +42,13 @@ export default function PhotoGallery({ photos, initial = 8, mobileInitial = 4 })
             onClick={() => setLightbox(i)}
           >
             <div className="relative overflow-hidden">
-              <img
+              <Image
                 src={photo.src}
                 alt={photo.alt}
+                width={photo.width}
+                height={photo.height}
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
               />
               <div
                 className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -116,10 +119,13 @@ export default function PhotoGallery({ photos, initial = 8, mobileInitial = 4 })
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <img
+          <Image
             src={photos[lightbox].src}
             alt={photos[lightbox].alt}
-            className="max-h-[90vh] max-w-full rounded-2xl object-contain"
+            width={photos[lightbox].width}
+            height={photos[lightbox].height}
+            sizes="100vw"
+            className="max-h-[90vh] w-auto max-w-full rounded-2xl object-contain"
             onClick={e => e.stopPropagation()}
           />
           <button

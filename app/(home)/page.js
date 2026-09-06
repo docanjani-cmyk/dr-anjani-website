@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { trackBooking, trackWhatsApp, trackCall, trackConversion } from '../lib/attribution'
 import StickyActionBar from '../components/StickyActionBar'
 import { waHref } from '../lib/whatsapp'
@@ -329,11 +330,12 @@ export default function Home({ initialBookingOpen = false }) {
             </div>
 
             <div className="relative">
-              <div className="rounded-3xl overflow-hidden shadow-2xl" style={{ aspectRatio: '4/5', maxHeight: '580px' }}>
-                <img
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl" style={{ aspectRatio: '4/5', maxHeight: '580px' }}>
+                <Image
                   src={IMG.hero}
                   alt="Dr. Anjani Dixit — Laparoscopic Surgeon and IVF Specialist, Bangalore"
-                  className="w-full h-full object-cover object-top"
+                  fill priority sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-top"
                 />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,46,40,0.18) 0%, transparent 50%)' }} />
               </div>
@@ -440,8 +442,9 @@ export default function Home({ initialBookingOpen = false }) {
       <section id="about" className="py-10 lg:py-24 px-5 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="relative reveal">
-            <div className="rounded-3xl overflow-hidden shadow-xl" style={{ aspectRatio: '3/4', maxHeight: '580px' }}>
-              <img src={IMG.about} alt="Dr. Anjani Dixit in consultation" className="w-full h-full object-cover" />
+            <div className="relative rounded-3xl overflow-hidden shadow-xl" style={{ aspectRatio: '3/4', maxHeight: '580px' }}>
+              <Image src={IMG.about} alt="Dr. Anjani Dixit in consultation"
+                fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
             </div>
             <blockquote
               className="lg:absolute lg:bottom-6 lg:left-6 lg:right-6 mt-4 lg:mt-0 rounded-2xl p-5"

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { trackBooking, trackWhatsApp, trackCall } from '../lib/attribution'
 import StickyActionBar from '../components/StickyActionBar'
 import { waHref } from '../lib/whatsapp'
@@ -170,9 +171,10 @@ export default function PCOSPage() {
               <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
             </div>
           </div>
-          <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '3/2', maxHeight: '520px' }}>
-            <img src={IMG.hero} alt="A PCOS consultation — a doctor talking a patient through an ovarian scan"
-              className="w-full h-full object-cover object-center" />
+          <div className="relative order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '3/2', maxHeight: '520px' }}>
+            <Image src={IMG.hero} alt="A PCOS consultation — a doctor talking a patient through an ovarian scan"
+              fill priority sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover object-center" />
           </div>
         </div>
       </section>
