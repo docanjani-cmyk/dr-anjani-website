@@ -172,10 +172,15 @@ export default function PregnancyPage() {
               <span className="text-sm" style={{ color: '#C4D9D1' }}>|</span>
             </div>
           </div>
-          <div className="relative order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
+          {/* 3:4 rather than the 4:5 the other pages use: the photo is 315x520,
+              and from the top of her cap to the hand under the swaddle is 410px
+              of it. A 4:5 window is only 393px tall, so it always cut either her
+              face or the baby. 3:4 gives 420px — everything fits, positioned 40%
+              down. */}
+          <div className="relative order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '3/4', maxHeight: '560px' }}>
             <Image src={IMG.hero} alt="Dr. Anjani Dixit in surgical scrubs holding a newborn moments after delivery"
               fill priority sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover object-top" />
+              className="object-cover" style={{ objectPosition: 'center 40%' }} />
           </div>
         </div>
       </section>
