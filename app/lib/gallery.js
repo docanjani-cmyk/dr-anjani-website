@@ -142,11 +142,6 @@ const PHOTOS = {
     alt: 'Dr. Anjani Dixit operating laparoscopically, passing an instrument to her assistant',
     width: 960, height: 1019,
   },
-  'theatre-lap-wide': {
-    src: '/Gallery/laparoscopic-surgery-team-sep-2026.jpg',
-    alt: 'Dr. Anjani Dixit and her theatre team mid-procedure, laparoscopic ports in place',
-    width: 960, height: 1280,
-  },
   'theatre-open': {
     src: '/Gallery/open-surgery-theatre-sep-2026.jpg',
     alt: 'Dr. Anjani Dixit operating with a scrub nurse assisting at the table',
@@ -186,5 +181,5 @@ export const IVF_GALLERY = photos([
 /** Theatre photos only — the clearest views of her operating come first. */
 export const SURGERY_GALLERY = photos([
   'theatre-lap', 19, 25, 'theatre-open',
-  21, 'theatre-lap-wide', 26, 20, 22, 24,
+  21, 26, 20, 22, 24,
 ])
