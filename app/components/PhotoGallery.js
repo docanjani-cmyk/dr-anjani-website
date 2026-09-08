@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 /**
@@ -8,65 +8,124 @@ import Image from 'next/image'
  * patient photos.
  *
  * `initial` caps how many thumbnails are visible, with `mobileInitial` capping
- * a phone tighter — the grid drops to two columns below 640px, so the same
- * count is twice as many rows there. A full set runs to several screens and
- * crowds out whatever follows it. The rest stay in the DOM — hidden with CSS,
- * not removed — so they cost nothing to load (a display:none image is never
- * fetched), still exist for crawlers, and the lightbox can page through the
- * whole set from any thumbnail.
+ * a phone tighter — two columns below 640px means the same count is twice as
+ * many rows. The photos past the cap stay in the DOM, hidden, so they cost
+ * nothing to load (a display:none image is never fetched), still exist for
+ * crawlers, and the lightbox can page through the whole set.
  */
+
+/** Columns at each breakpoint, matching the Tailwind sm/lg widths. */
+const columnsFor = width => (width >= 1024 ? 4 : width >= 640 ? 3 : 2)
+
+/**
+ * Deal the photos into columns so that every column holds the same number of
+ * them, give or take one, and the columns still end at roughly the same depth.
+ *
+ * CSS multi-column gives you the second half of that and not the first: it
+ * balances by height alone, so a column of short photos ends up holding two or
+ * three more than its neighbour.
+ *
+ * The first row is filled left to right, so the strongest photos — the list is
+ * curated — stay at the top in order. The rest are placed tallest-first into
+ * whichever column is shortest and still has room, which is the standard
+ * greedy fix for this and gets the depths close. Intrinsic sizes are known
+ * here, so nothing has to be measured in the browser.
+ */
+function dealIntoColumns(items, columns) {
+  const perColumn = Math.ceil(items.length / columns)
+  const buckets = Array.from({ length: columns }, () => [])
+  const depths = new Array(columns).fill(0)
+  // Height at a column's width, in units of that width.
+  const depthOf = item => item.photo.height / item.photo.width
+
+  const firstRow = items.slice(0, columns)
+  firstRow.forEach((item, c) => {
+    buckets[c].push(item)
+    depths[c] += depthOf(item)
+  })
+
+  const rest = items.slice(columns).sort((a, b) => depthOf(b) - depthOf(a))
+  for (const item of rest) {
+    let target = -1
+    for (let c = 0; c < columns; c++) {
+      if (buckets[c].length >= perColumn) continue
+      if (target === -1 || depths[c] < depths[target]) target = c
+    }
+    buckets[target].push(item)
+    depths[target] += depthOf(item)
+  }
+  return buckets
+}
+
 export default function PhotoGallery({ photos, initial = 8, mobileInitial = 4 }) {
   const [lightbox, setLightbox] = useState(null)
   const [expanded, setExpanded] = useState(false)
+  // Two until the browser tells us otherwise: the server has no viewport, and
+  // mobile is both the common case and the narrower layout to correct from.
+  const [columns, setColumns] = useState(2)
 
-  const hiddenCount = photos.length - initial
-  const mobileHiddenCount = photos.length - mobileInitial
+  useEffect(() => {
+    const update = () => setColumns(columnsFor(window.innerWidth))
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
 
-  // Which thumbnails a viewport hides is a CSS question, not a JS one: the
-  // component renders once and both breakpoints read the same markup.
-  const capClass = i => {
-    if (expanded) return ''
-    if (i >= initial) return ' hidden'
-    if (i >= mobileInitial) return ' hidden sm:block'
-    return ''
-  }
+  const collapsedCap = columns === 2 ? mobileInitial : initial
+  const cap = expanded ? photos.length : collapsedCap
+  const hiddenCount = photos.length - collapsedCap
+  const indexed = photos.map((photo, i) => ({ photo, i }))
+  const shown = indexed.slice(0, cap)
+  const rest = indexed.slice(cap)
+  const buckets = dealIntoColumns(shown, columns)
 
   return (
     <>
-      <div style={{ columnCount: 'var(--cols)', columnGap: '1rem', '--cols': 2 }} className="photo-gallery-grid">
-        {photos.map((photo, i) => (
-          <div
-            key={i}
-            className={`mb-4 rounded-2xl overflow-hidden cursor-pointer group${capClass(i)}`}
-            style={{ breakInside: 'avoid' }}
-            onClick={() => setLightbox(i)}
-          >
-            <div className="relative overflow-hidden">
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                width={photo.width}
-                height={photo.height}
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+      <div className="photo-gallery-grid flex gap-4 items-start">
+        {buckets.map((bucket, c) => (
+          <div key={c} className="flex flex-col gap-4 flex-1 min-w-0">
+            {bucket.map(({ photo, i }) => (
               <div
-                className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ backgroundColor: 'rgba(44,82,73,0.35)' }}
+                key={i}
+                className="rounded-2xl overflow-hidden cursor-pointer group"
+                onClick={() => setLightbox(i)}
               >
-                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                </svg>
+                <div className="relative overflow-hidden">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={photo.width}
+                    height={photo.height}
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ backgroundColor: 'rgba(44,82,73,0.35)' }}
+                  >
+                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                    </svg>
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         ))}
       </div>
 
-      {photos.length > mobileInitial && (
-        // Below the sm breakpoint every gallery long enough to cap on a phone
-        // gets the button; above it, only the ones still holding photos back.
-        <div className={`text-center mt-2${photos.length > initial ? '' : ' sm:hidden'}`}>
+      {/* Past the cap: kept in the DOM for crawlers, never painted, never
+          fetched. They join the columns when the gallery is expanded. */}
+      {rest.length > 0 && (
+        <div hidden>
+          {rest.map(({ photo, i }) => (
+            <Image key={i} src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="25vw" />
+          ))}
+        </div>
+      )}
+
+      {hiddenCount > 0 && (
+        <div className="text-center mt-2">
           <button
             type="button"
             onClick={() => setExpanded(!expanded)}
@@ -74,12 +133,7 @@ export default function PhotoGallery({ photos, initial = 8, mobileInitial = 4 })
             style={{ border: '1px solid #2C5249', color: '#2C5249', backgroundColor: 'transparent' }}
             aria-expanded={expanded}
           >
-            {expanded ? 'Show fewer photos' : (
-              <>
-                <span className="sm:hidden">View {mobileHiddenCount} more photos</span>
-                {hiddenCount > 0 && <span className="hidden sm:inline">View {hiddenCount} more photos</span>}
-              </>
-            )}
+            {expanded ? 'Show fewer photos' : `View ${hiddenCount} more photo${hiddenCount === 1 ? '' : 's'}`}
             <svg
               className={`w-4 h-4 transition-transform duration-300${expanded ? ' rotate-180' : ''}`}
               fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true"
@@ -89,11 +143,6 @@ export default function PhotoGallery({ photos, initial = 8, mobileInitial = 4 })
           </button>
         </div>
       )}
-
-      <style>{`
-        @media (min-width: 640px) { .photo-gallery-grid { --cols: 3 !important; } }
-        @media (min-width: 1024px) { .photo-gallery-grid { --cols: 4 !important; } }
-      `}</style>
 
       {lightbox !== null && (
         <div
