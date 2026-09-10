@@ -93,6 +93,26 @@ export const EVENTS = {
   call: 'conversion_event_phone_call_lead_1',
 }
 
+// ChatGPT Ads pixel. Its SDK documents the event names it accepts and requires
+// `type` to name the event's category, so the two are kept together here:
+// anything else is rejected and logged as an issue rather than counted.
+//
+//   oaiq('measure', <event>, { type: <category>, ...props })
+const OAIQ_EVENTS = {
+  appointment_scheduled: 'customer_action',
+  lead_created: 'customer_action',
+}
+
+function measure(eventName, props = {}) {
+  const type = OAIQ_EVENTS[eventName]
+  if (!type || typeof window.oaiq !== 'function') return
+  try {
+    window.oaiq('measure', eventName, { type, ...props })
+  } catch (e) {
+    // A pixel must never be able to break a conversion.
+  }
+}
+
 // Fires the Google Analytics / Ads event for a conversion action and records
 // the click — along with whatever ad attribution this session is carrying — to
 // our own database, so the click can later be reconciled against a booking for
@@ -101,6 +121,10 @@ export function trackConversion(eventName, extra = {}) {
   if (typeof window === 'undefined') return
 
   window.gtag?.('event', eventName)
+  measure(
+    eventName === EVENTS.book ? 'appointment_scheduled' : 'lead_created',
+    eventName === EVENTS.book ? { amount: 1000, currency: 'INR' } : {},
+  )
 
   const a = getAttribution() || {}
   const payload = {
@@ -144,4 +168,5 @@ export const trackCall = (extra = {}) => trackConversion(EVENTS.call, extra)
 export function trackWhatsApp() {
   if (typeof window === 'undefined') return
   window.gtag?.('event', EVENTS.whatsapp)
+  measure('lead_created')
 }

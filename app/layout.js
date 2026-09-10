@@ -152,6 +152,19 @@ export default function RootLayout({ children }) {
           gtag('config', 'AW-1796712782');
         `}</Script>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-TKCQJPPP68" strategy="lazyOnload" />
+
+        {/* ChatGPT Ads pixel, split the same way as gtag: the queue and the
+            init call run immediately so an event fired before the SDK arrives
+            is replayed, and the SDK itself waits for load rather than
+            competing with the page.
+
+            `debug: true` logs pixel activity to the console — keep it while the
+            conversion setup is being verified in ChatGPT Ads, then turn it off. */}
+        <Script id="oaiq-queue" strategy="beforeInteractive">{`
+          window.oaiq = window.oaiq || function(){ (window.oaiq.q = window.oaiq.q || []).push(arguments) };
+          window.oaiq('init', { pixelId: '52sETQskKJ8czQvYYBQk17', debug: true });
+        `}</Script>
+        <Script src="https://bzrcdn.openai.com/sdk/oaiq.min.js" strategy="lazyOnload" />
       </body>
     </html>
   )
