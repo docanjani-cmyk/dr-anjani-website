@@ -14,9 +14,12 @@ export const CONTENT = {
   // The opener itself lives in app/lib/whatsapp.js, keyed by this name: /wa
   // chooses it server-side and appends the reference code.
   waService: 'laparoscopy-second-opinion',
-  heroImg: '/IMG-20251024-WA0023.jpg',
-  heroAlt: 'Dr. Anjani Dixit, laparoscopic gynaecological surgeon, Indiranagar, Bangalore',
-  heroPos: 'center 78%',   // mobile crop focus
+  // Same stock consultation photo used on the PCOS page — a doctor listening
+  // to a patient, not a photograph of Dr. Anjani. A surgery-in-progress photo
+  // doesn't fit a page whose pitch is "someone will actually listen first."
+  heroImg: '/Photos/pcos-consultation.jpg',
+  heroAlt: 'A doctor listening to a patient during a consultation, reviewing her file together',
+  heroPos: 'center',   // mobile crop focus
 
   stats: [
     { value: '300+', label: 'Laparoscopic procedures' },

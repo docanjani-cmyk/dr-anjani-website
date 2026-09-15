@@ -14,9 +14,12 @@ export const CONTENT = {
   // The opener itself lives in app/lib/whatsapp.js, keyed by this name: /wa
   // chooses it server-side and appends the reference code.
   waService: 'ivf-second-opinion',
-  heroImg: '/Gallery/About%20us%2010.jpg',
-  heroAlt: 'Dr. Anjani Dixit, fertility specialist and laparoscopic surgeon, Indiranagar, Bangalore',
-  heroPos: 'center 25%',   // mobile crop focus
+  // Same stock consultation photo used on the PCOS page — a doctor listening
+  // to a patient, not a photograph of Dr. Anjani. Chosen so a second-opinion
+  // visitor feels heard before anything else on the page.
+  heroImg: '/Photos/pcos-consultation.jpg',
+  heroAlt: 'A doctor listening to a patient during a consultation, reviewing her file together',
+  heroPos: 'center',   // mobile crop focus
 
   stats: [
     { value: '14+', label: 'Years in practice' },

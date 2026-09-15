@@ -35,7 +35,7 @@ const physicianSchema = {
   url: 'https://anjanidixit.com',
   telephone: '+917411722580',
   email: 'doc.anjani@gmail.com',
-  image: 'https://anjanidixit.com/image.webp',
+  image: 'https://anjanidixit.com/IMG-20251024-WA0023.jpg',
   address: {
     '@type': 'PostalAddress',
     streetAddress: '31, 80 Feet Rd, Indiranagar',
