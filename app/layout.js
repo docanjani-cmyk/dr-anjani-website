@@ -3,25 +3,34 @@ import Script from 'next/script'
 import AttributionTracker from './lib/AttributionTracker'
 import { SCHEMA_REVIEWS } from './lib/reviews'
 
+// Homepage title/description were rewritten 2026-09-17: GSC showed five
+// Indiranagar-flavored queries (gynaecologist/gynecologist x in/indiranagar
+// word order) ranking position 1-2.3 with ~100 combined impressions and zero
+// clicks. The old title ("Laparoscopic Surgeon, Bangalore") never matched
+// what those searchers typed, so nothing was bolded and there was no reason
+// to click a snippet that didn't look relevant. Leading with "Gynaecologist
+// in Indiranagar" targets that exact cluster; the laparoscopic-surgery and
+// ivf-infertility pages already carry their own dedicated titles for those
+// terms, so the homepage doesn't need to double up on them.
 export const metadata = {
-  title: 'Dr. Anjani Dixit | Laparoscopic Surgeon, Bangalore',
-  description: 'Keyhole surgery for fibroids, endometriosis and ovarian cysts, plus IVF and fertility care, in Indiranagar, Bangalore. 14+ years, 5.0 on Google.',
+  title: 'Dr. Anjani Dixit | Gynaecologist in Indiranagar, Bengaluru',
+  description: 'Dr. Anjani Dixit — a trusted gynaecologist in Indiranagar, Bengaluru. 14+ years, 5.0★ on Google, 420+ reviews. Book online or via WhatsApp.',
   keywords: 'best gynecologist bangalore, IVF specialist bangalore, laparoscopic surgeon bangalore, fertility specialist bangalore, endometriosis treatment bangalore, fibroid surgery bangalore, PCOS treatment bangalore, Dr Anjani Dixit, gynecologist indiranagar',
   metadataBase: new URL('https://anjanidixit.com'),
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'Dr. Anjani Dixit | Laparoscopic Surgeon & IVF Specialist',
-    description: 'Advanced laparoscopic surgery and compassionate fertility care in Bangalore. 14+ years experience. 5.0 Google rating. 420 verified reviews.',
+    title: 'Dr. Anjani Dixit | Gynaecologist in Indiranagar, Bengaluru',
+    description: 'Trusted gynaecologist in Indiranagar, Bengaluru with 14+ years\' experience. 5.0★ rating, 420+ verified reviews. Book online or on WhatsApp.',
     url: 'https://anjanidixit.com',
     siteName: 'Dr. Anjani Dixit',
-    images: [{ url: 'https://anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - Laparoscopic Surgeon & IVF Specialist, Bangalore' }],
+    images: [{ url: 'https://anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - Gynaecologist in Indiranagar, Bengaluru' }],
     locale: 'en_IN',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dr. Anjani Dixit | Laparoscopic Surgeon & IVF Specialist',
-    description: 'Advanced laparoscopic surgery and compassionate fertility care in Bangalore.',
+    title: 'Dr. Anjani Dixit | Gynaecologist in Indiranagar, Bengaluru',
+    description: 'Trusted gynaecologist in Indiranagar, Bengaluru. 14+ years, 5.0★ on Google, 420+ reviews.',
     images: ['https://anjanidixit.com/IMG-20251024-WA0023.jpg'],
   },
   robots: { index: true, follow: true },
