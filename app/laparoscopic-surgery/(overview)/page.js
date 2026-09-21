@@ -194,7 +194,7 @@ export default function LaparoscopicSurgeryPage() {
             { value: '14+', label: 'Years Experience' },
             { value: '1–2 wks', label: 'Average Recovery' },
             { value: '5.0 ★', label: 'Google Rating', href: CFG.maps },
-            { value: '100%', label: 'Patient Satisfaction' },
+            { value: `${REVIEW_STATS.total}+`, label: 'Google Reviews', href: CFG.maps },
           ].map((s, i) => (
             <div key={i}>
               {s.href ? (
@@ -359,7 +359,8 @@ export default function LaparoscopicSurgeryPage() {
 
       <footer className="py-8 px-5 text-center text-xs" style={{ backgroundColor: '#1A2E28', color: '#3D6A5C' }}>
         <p>© 2026 Dr. Anjani Dixit · {CFG.clinic} · {CFG.address}</p>
-        <a href="/" className="mt-2 inline-block hover:text-white transition-colors">← Back to main site</a>
+        <a href="/privacy-policy" className="mt-2 inline-block hover:text-white transition-colors">Privacy Policy</a>
+        <a href="/" className="mt-2 ml-4 inline-block hover:text-white transition-colors">← Back to main site</a>
       </footer>
 
       {/* FLOATING WHATSAPP */}

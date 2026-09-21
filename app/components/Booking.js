@@ -92,6 +92,12 @@ export function BookingProvider({ children, initialOpen = false }) {
               />
             </div>
 
+            <p className="px-5 py-2.5 text-xs flex-shrink-0" style={{ color: '#7A9C90', backgroundColor: '#FAFAF8', borderTop: '1px solid #E3EDE9' }}>
+              Details entered above go to our secure scheduler to book and manage your visit; any health
+              information you share is confidential and used only for your care. See our{' '}
+              <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: '#2C5249' }}>Privacy Policy</a>.
+            </p>
+
             <div className="px-5 py-3 flex items-center justify-between gap-3 flex-shrink-0" style={{ borderTop: '1px solid #E3EDE9', backgroundColor: '#FAFAF8' }}>
               <p className="text-xs" style={{ color: '#7A9C90' }}>Form not loading?</p>
               <div className="flex items-center gap-2">

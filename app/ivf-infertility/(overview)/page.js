@@ -360,7 +360,8 @@ export default function IVFInfertilityPage() {
 
       <footer className="py-8 px-5 text-center text-xs" style={{ backgroundColor: '#1A2E28', color: '#3D6A5C' }}>
         <p>© 2026 Dr. Anjani Dixit · Kasper Multi-Speciality Clinic · 31, 80 Feet Rd, Indiranagar, Bengaluru 560038</p>
-        <a href="/" className="mt-2 inline-block hover:text-white transition-colors">← Back to main site</a>
+        <a href="/privacy-policy" className="mt-2 inline-block hover:text-white transition-colors">Privacy Policy</a>
+        <a href="/" className="mt-2 ml-4 inline-block hover:text-white transition-colors">← Back to main site</a>
       </footer>
 
       <a onClick={() => trackWhatsApp()} href={waHref('ivf', 'float')}

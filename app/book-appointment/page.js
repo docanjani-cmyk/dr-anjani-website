@@ -187,6 +187,14 @@ export default function BookAppointmentPage() {
             />
           </div>
 
+          {/* Privacy / consent notice */}
+          <p className="mt-4 text-xs text-center" style={{ color: '#7A9C90' }}>
+            The details you enter above go to our secure appointment scheduler to book and manage your
+            visit, and any health information you share is kept confidential and used only for your care.
+            By submitting this form you agree to our{' '}
+            <a href="/privacy-policy" className="underline" style={{ color: '#2C5249' }}>Privacy Policy</a>.
+          </p>
+
           {/* Fallback Info */}
           <div
             className="mt-12 p-8 rounded-2xl text-center"

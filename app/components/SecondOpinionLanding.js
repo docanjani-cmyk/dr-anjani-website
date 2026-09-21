@@ -88,7 +88,7 @@ export default function SecondOpinionLanding({ content: c }) {
       <header className="sticky top-0 z-50" style={{ backgroundColor: 'rgba(250,250,248,0.96)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #E3EDE9' }}>
         <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <img src={CFG.logo} alt="" className="w-10 h-10 rounded-full object-cover" style={{ border: '2px solid #C4D9D1' }} />
+            <img src={CFG.logo} alt="Dr. Anjani Dixit" className="w-10 h-10 rounded-full object-cover" style={{ border: '2px solid #C4D9D1' }} />
             <div>
               <div className="font-semibold text-sm" style={{ fontFamily: 'Playfair Display, serif' }}>Dr. Anjani Dixit</div>
               <div className="text-xs" style={{ color: '#7A9C90' }}>MBBS · DNB · FMAS</div>
@@ -357,6 +357,7 @@ export default function SecondOpinionLanding({ content: c }) {
           ))}
         </div>
         <p>© 2026 Dr. Anjani Dixit · {CFG.clinic} · {CFG.address}</p>
+        <a href="/privacy-policy" className="mt-2 inline-block hover:text-white transition-colors">Privacy Policy</a>
       </footer>
 
       {/* FLOATING WHATSAPP */}
@@ -417,6 +418,12 @@ export default function SecondOpinionLanding({ content: c }) {
                 title="Book a Consultation with Dr. Anjani Dixit"
               />
             </div>
+
+            <p className="flex-shrink-0 px-5 py-2.5 text-xs" style={{ color: '#7A9C90', backgroundColor: '#FAFAF8', borderTop: '1px solid #E3EDE9' }}>
+              Details entered above go to our secure scheduler to book and manage your visit; any health
+              information you share is confidential and used only for your care. See our{' '}
+              <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: '#2C5249' }}>Privacy Policy</a>.
+            </p>
 
             <div className="flex-shrink-0 px-5 py-3 flex items-center justify-between gap-3 flex-wrap" style={{ borderTop: '1px solid #E3EDE9', backgroundColor: '#FAFAF8' }}>
               <p className="text-xs font-medium" style={{ color: '#7A9C90' }}>Trouble? We&apos;re here:</p>

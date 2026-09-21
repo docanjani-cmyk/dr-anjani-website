@@ -12,5 +12,6 @@ export default function sitemap() {
     { url: `${base}/pcos`, lastModified, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/pregnancy`, lastModified, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/cosmetic-gynecology`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${base}/privacy-policy`, lastModified, changeFrequency: 'yearly', priority: 0.3 },
   ]
 }

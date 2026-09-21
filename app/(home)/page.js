@@ -244,7 +244,7 @@ export default function Home({ initialBookingOpen = false }) {
             { value: '14+', label: 'Years of Experience' },
             { value: '1500+', label: 'Procedures Performed' },
             { value: '5.0 ★', label: 'Google Rating', href: CFG.maps },
-            { value: '100%', label: 'Patient Satisfaction' },
+            { value: `${REVIEW_STATS.total}+`, label: 'Google Reviews', href: CFG.maps },
           ].map((s, i) => (
             <div key={i} className="reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
               {s.href ? (
@@ -758,6 +758,7 @@ export default function Home({ initialBookingOpen = false }) {
           <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs" style={{ borderTop: '1px solid #243D35', color: '#3D6A5C' }}>
             <p>© 2026 Dr. Anjani Dixit · All rights reserved · Reg. {CFG.license}</p>
             <div className="flex gap-5">
+              <a href="/privacy-policy" className="transition-colors hover:text-white">Privacy Policy</a>
               {[['LinkedIn', CFG.linkedin], ['YouTube', CFG.youtube], ['Google', CFG.maps]].map(([label, href]) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">{label}</a>
               ))}

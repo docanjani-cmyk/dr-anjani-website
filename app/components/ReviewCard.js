@@ -45,7 +45,7 @@ export default function ReviewCard({ review: t, className = '', avatarClass = 'w
       <div className="flex items-center gap-3 mb-4">
         {t.img ? (
           <>
-            <img src={t.img} alt="" loading="lazy" width="44" height="44"
+            <img src={t.img} alt={`${t.name}, patient of Dr. Anjani Dixit`} loading="lazy" width="44" height="44"
               className={`${avatarClass} rounded-full object-cover flex-shrink-0`}
               onError={e => {
                 e.currentTarget.style.display = 'none'
