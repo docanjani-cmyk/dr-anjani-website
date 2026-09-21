@@ -181,7 +181,7 @@ export default function LaparoscopicSurgeryPage() {
           <div className="relative order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
             <Image src={IMG.hero} alt="Dr. Anjani Dixit – Laparoscopic Surgeon Bangalore"
               fill priority sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover object-top" />
+              className="object-cover object-center" />
           </div>
         </div>
       </section>

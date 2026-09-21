@@ -147,6 +147,16 @@ const PHOTOS = {
     alt: 'Dr. Anjani Dixit operating with a scrub nurse assisting at the table',
     width: 960, height: 1280,
   },
+  'delivery-motherhood': {
+    src: '/Gallery/delivery-motherhood-hospital-sep-2026.jpg',
+    alt: 'Dr. Anjani Dixit smiling in the hallway at Motherhood Hospital, holding a newborn',
+    width: 960, height: 1280,
+  },
+  'delivery-nicu': {
+    src: '/Gallery/delivery-newborn-care-unit-sep-2026.jpg',
+    alt: 'Dr. Anjani Dixit in the newborn care unit holding a swaddled baby',
+    width: 960, height: 1280,
+  },
 }
 
 const photos = ids => ids.map(id => {
@@ -157,7 +167,7 @@ const photos = ids => ids.map(id => {
 
 /** Newborns and families first — the homepage gallery is "Moments of Joy". */
 export const HOME_GALLERY = photos([
-  10, 2, 6, 4, 1, 11, 12, 23,
+  10, 2, 6, 4, 1, 'delivery-motherhood', 'delivery-nicu', 11, 12, 23,
   17, 5, 14, 13, 22, 15, 19, 'theatre-lap', 25, 21, 26, 20, 24, 9, 3, 7,
 ])
 
@@ -168,13 +178,13 @@ export const ABOUT_GALLERY = photos([
 
 /** Delivery-room photos lead on the pregnancy page. */
 export const PREGNANCY_GALLERY = photos([
-  4, 17, 2, 6, 10, 1, 23, 11,
+  4, 17, 'delivery-motherhood', 'delivery-nicu', 2, 6, 10, 1, 23, 11,
   13, 5, 14, 15, 12, 3, 7, 18,
 ])
 
 /** Twins and growing families lead on the IVF page. */
 export const IVF_GALLERY = photos([
-  10, 2, 6, 12, 11, 1, 4, 23,
+  10, 2, 6, 12, 11, 'delivery-motherhood', 'delivery-nicu', 1, 4, 23,
   5, 13, 14, 15, 17, 3, 7, 18,
 ])
 
