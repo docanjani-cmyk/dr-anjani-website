@@ -18,7 +18,7 @@ const homeFaqSchema = {
     {
       '@type': 'Question',
       name: 'Where are surgeries and deliveries performed?',
-      acceptedAnswer: { '@type': 'Answer', text: 'OPD consultations happen at Kasper Multi-Speciality Clinic, Indiranagar. Surgeries, deliveries, and hospital admissions (IPD) are performed at partner hospitals where Dr. Anjani is a visiting consultant: Motherhood Hospital (Indiranagar), Cloudnine Hospital (Old Airport Road), Manipal Hospital (Old Airport Road), Milann Fertility Center (Indiranagar), Revive Hospital (Indiranagar), and Ayaansh Hospital (Indiranagar). The hospital is chosen together with you based on your location, insurance coverage, budget, and the facilities your procedure needs.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'OPD consultations happen at Kasper Multi-Speciality Clinic, Indiranagar. Surgeries, deliveries, and hospital admissions (IPD) are performed at partner hospitals where Dr. Anjani is a visiting consultant: Motherhood Hospital (Indiranagar), Cloudnine Hospital (Old Airport Road), Manipal Hospital (Old Airport Road), Milann Fertility Center (Indiranagar), Revive Hospital (Indiranagar), and Ayaansh Hospital (Indiranagar). With multiple partner hospitals to choose from, the hospital is chosen together with you — so we can find one that fits well with your insurance, along with your location, budget, and the facilities your procedure needs.' },
     },
     {
       '@type': 'Question',

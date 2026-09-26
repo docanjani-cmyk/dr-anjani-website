@@ -44,7 +44,7 @@ const IMG = {
 const FAQS = [
   { q: 'What conditions do you specialise in?', a: 'Dr. Anjani specialises in advanced laparoscopic surgery (fibroids, endometriosis, ovarian cysts, hysterectomy), IVF and fertility treatment, high-risk obstetrics, PCOS management, and gynecosmetic procedures. She offers comprehensive care across all aspects of women\'s reproductive and gynaecological health.' },
   { q: 'How do I book a consultation?', a: 'You can book through our online appointment form, by calling directly, or by messaging on WhatsApp. Dr. Anjani consults at Kasper Multi-Speciality Clinic, Indiranagar, Bangalore. Video consultations are available for initial evaluations and international patients.' },
-  { q: 'Where are surgeries and deliveries performed?', a: 'OPD consultations happen at Kasper Multi-Speciality Clinic, Indiranagar. Surgeries, deliveries, and hospital admissions (IPD) are performed at partner hospitals where Dr. Anjani is a visiting consultant: Motherhood Hospital (Indiranagar), Cloudnine Hospital (Old Airport Road), Manipal Hospital (Old Airport Road), Milann Fertility Center (Indiranagar), Revive Hospital (Indiranagar), and Ayaansh Hospital (Indiranagar). The hospital is chosen together with you based on your location, insurance coverage, budget, and the facilities your procedure needs.' },
+  { q: 'Where are surgeries and deliveries performed?', a: 'OPD consultations happen at Kasper Multi-Speciality Clinic, Indiranagar. Surgeries, deliveries, and hospital admissions (IPD) are performed at partner hospitals where Dr. Anjani is a visiting consultant: Motherhood Hospital (Indiranagar), Cloudnine Hospital (Old Airport Road), Manipal Hospital (Old Airport Road), Milann Fertility Center (Indiranagar), Revive Hospital (Indiranagar), and Ayaansh Hospital (Indiranagar). With multiple partner hospitals to choose from, the hospital is chosen together with you — so we can find one that fits well with your insurance, along with your location, budget, and the facilities your procedure needs.' },
   { q: 'What are the consultation charges?', a: 'The consultation fee is ₹1000, and it stays valid for a full seven days from your visit. This means that if you return within the week — to discuss test results, clarify a prescription, or ask anything that came up after your appointment — no additional fee is charged. The idea is straightforward: once you have consulted, the cost should never be a barrier to coming back with questions.' },
   { q: 'Do you treat international or NRI patients?', a: 'Yes. Dr. Anjani regularly consults with patients from outside India, including NRIs and international patients seeking advanced laparoscopic surgery or IVF treatment in Bangalore. Video consultations for initial assessment can be arranged easily.' },
   { q: 'What is the recovery like after laparoscopic surgery?', a: 'Laparoscopic (keyhole) surgery is minimally invasive — most patients return home the same day or the next, with a recovery period of 1–2 weeks for most procedures. Dr. Anjani has performed over 300 such procedures and provides detailed post-operative guidance and monitoring.' },
@@ -537,7 +537,7 @@ export default function Home({ initialBookingOpen = false }) {
                   ))}
                 </div>
                 <p className="text-xs leading-relaxed mt-5" style={{ color: '#7A9C90' }}>
-                  The hospital for your surgery or delivery is chosen together with you — based on your location, insurance coverage, budget, and the facilities your procedure needs. Dr. Anjani personally performs and supervises your care at every one of these hospitals.
+                  With several partner hospitals across Bangalore, you have options — so we can find one that fits well with your insurance, along with your location, budget, and the facilities your procedure needs. Dr. Anjani personally performs and supervises your care at every one of these hospitals.
                 </p>
               </div>
             </div>
@@ -606,7 +606,7 @@ export default function Home({ initialBookingOpen = false }) {
               In Their Own Words
             </h2>
             <p className="text-sm" style={{ color: '#7A9C90' }}>
-              Unedited Google reviews · every card links to the original · {REVIEW_STATS.total} reviews as of August 2026
+              Unedited Google reviews · every card links to the original · {REVIEW_STATS.total} reviews as of September 2026
             </p>
           </div>
 

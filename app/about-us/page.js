@@ -44,15 +44,15 @@ const TIMELINE = [
   { year: 'Surgical Fellowship', title: 'FMAS — Fellowship in Minimal Access Surgery', desc: 'Specialised training in advanced laparoscopic (keyhole) techniques for hysterectomy, myomectomy, endometriosis excision, and ovarian cyst removal.' },
   { year: 'Fertility Certification', title: 'Reproductive Medicine, ICOG', desc: 'Certified in reproductive medicine by the Indian College of Obstetrics and Gynaecology, extending her practice into IVF and fertility care.' },
   { year: 'Est. 2013', title: 'Independent Practice, Indiranagar', desc: 'Began consulting independently at Kasper Multi-Speciality Clinic, Indiranagar, Bangalore, alongside visiting-consultant roles at partner hospitals across the city.' },
-  { year: 'Today', title: '14+ Years · 1500+ Procedures', desc: 'Over 1500 successful procedures and 420 Google reviews later, Dr. Anjani continues to combine surgical precision with unhurried, whole-person care.' },
+  { year: 'Today', title: '14+ Years · 1500+ Procedures', desc: 'Over 1500 successful procedures and 444 Google reviews later, Dr. Anjani continues to combine surgical precision with unhurried, whole-person care.' },
 ]
 
 const FAQS = [
-  { q: 'Who is Dr. Anjani Dixit?', a: 'Dr. Anjani Dixit is a laparoscopic gynaecologic surgeon, IVF and fertility specialist, and obstetrician based in Indiranagar, Bangalore. She has over 14 years of experience and has performed 1500+ successful procedures, with a 5.0 Google rating across 420 reviews.' },
+  { q: 'Who is Dr. Anjani Dixit?', a: 'Dr. Anjani Dixit is a laparoscopic gynaecologic surgeon, IVF and fertility specialist, and obstetrician based in Indiranagar, Bangalore. She has over 14 years of experience and has performed 1500+ successful procedures, with a 5.0 Google rating across 444 reviews.' },
   { q: 'What are Dr. Anjani Dixit\'s medical qualifications?', a: 'She holds an MBBS from IPGME&R and SSKM Hospital, Kolkata, and a DNB in Obstetrics & Gynaecology from Holy Family Hospital, New Delhi. She is a Fellow in Minimal Access Surgery (FMAS) and holds a Reproductive Medicine certification from the Indian College of Obstetrics and Gynaecology (ICOG). She is a Life Member of FOGSI, AMASI, AOGD, and ASI.' },
   { q: 'How many years of experience does Dr. Anjani have?', a: 'Dr. Anjani has 14+ years of clinical and surgical experience in obstetrics, gynaecology, laparoscopic surgery, and fertility medicine, and has been practising in Indiranagar, Bangalore since 2013.' },
   { q: 'Where does Dr. Anjani Dixit practice in Bangalore?', a: 'Outpatient consultations take place at Kasper Multi-Speciality Clinic, 31, 80 Feet Rd, Indiranagar, Bengaluru, Monday to Saturday, 9 AM to 7 PM. Video consultations are also available.' },
-  { q: 'Which hospitals is Dr. Anjani associated with?', a: 'Dr. Anjani is a visiting consultant for surgeries, deliveries, and hospital admissions at Motherhood Hospital, Cloudnine Hospital, Manipal Hospital, Milann Fertility Center, Revive Hospital, and Ayaansh Hospital across Bangalore. The hospital is chosen together with the patient based on location, insurance, budget, and procedure needs.' },
+  { q: 'Which hospitals is Dr. Anjani associated with?', a: 'Dr. Anjani is a visiting consultant for surgeries, deliveries, and hospital admissions at Motherhood Hospital, Cloudnine Hospital, Manipal Hospital, Milann Fertility Center, Revive Hospital, and Ayaansh Hospital across Bangalore. With multiple partner hospitals to choose from, the hospital is chosen together with the patient — so a place that fits well with their insurance can be found, along with location, budget, and procedure needs.' },
   { q: 'Does Dr. Anjani see international or NRI patients?', a: 'Yes. Dr. Anjani regularly consults with NRI and international patients seeking laparoscopic surgery or IVF treatment in Bangalore, and video consultations can be arranged for an initial evaluation.' },
 ]
 
@@ -194,7 +194,7 @@ export default function AboutUsPage() {
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <IconStar key={i} />)}</div>
               <a href={CFG.maps} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold hover:underline" style={{ color: '#1A2E28' }}>5.0 on Google</a>
-              <span className="text-sm" style={{ color: '#7A9C90' }}>· 420 reviews</span>
+              <span className="text-sm" style={{ color: '#7A9C90' }}>· 444 reviews</span>
             </div>
           </div>
           <div className="relative order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl mx-auto w-full" style={{ aspectRatio: '4/5', maxHeight: '520px' }}>
@@ -356,7 +356,7 @@ export default function AboutUsPage() {
                   ))}
                 </div>
                 <p className="text-xs mt-5 leading-relaxed" style={{ color: '#7A9C90' }}>
-                  The hospital for your procedure is chosen together with you, based on your location, insurance coverage, budget, and the facilities the case requires.
+                  With several partner hospitals to choose from, the hospital for your procedure is chosen together with you — so we can find one that fits well with your insurance, along with your location, budget, and the facilities the case requires.
                 </p>
               </div>
             </div>
@@ -418,7 +418,7 @@ export default function AboutUsPage() {
             Meet Dr. Anjani in Person
           </h2>
           <p className="mb-8 text-base" style={{ color: '#9ECEC0' }}>
-            A single consultation is all it takes to experience the care behind 1500+ successful procedures and 420 Google reviews.
+            A single consultation is all it takes to experience the care behind 1500+ successful procedures and 444 Google reviews.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a href={CFG.booking} onClick={() => trackBooking('ads_conversion_Contact_Us_1')} target="_blank" rel="noopener noreferrer"

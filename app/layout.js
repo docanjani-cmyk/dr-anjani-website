@@ -14,13 +14,13 @@ import { SCHEMA_REVIEWS } from './lib/reviews'
 // terms, so the homepage doesn't need to double up on them.
 export const metadata = {
   title: 'Dr. Anjani Dixit | Gynaecologist in Indiranagar, Bengaluru',
-  description: 'Dr. Anjani Dixit — a trusted gynaecologist in Indiranagar, Bengaluru. 14+ years, 5.0★ on Google, 420+ reviews. Book online or via WhatsApp.',
+  description: 'Dr. Anjani Dixit — a trusted gynaecologist in Indiranagar, Bengaluru. 14+ years, 5.0★ on Google, 444+ reviews. Book online or via WhatsApp.',
   keywords: 'best gynecologist bangalore, IVF specialist bangalore, laparoscopic surgeon bangalore, fertility specialist bangalore, endometriosis treatment bangalore, fibroid surgery bangalore, PCOS treatment bangalore, Dr Anjani Dixit, gynecologist indiranagar',
   metadataBase: new URL('https://anjanidixit.com'),
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Dr. Anjani Dixit | Gynaecologist in Indiranagar, Bengaluru',
-    description: 'Trusted gynaecologist in Indiranagar, Bengaluru with 14+ years\' experience. 5.0★ rating, 420+ verified reviews. Book online or on WhatsApp.',
+    description: 'Trusted gynaecologist in Indiranagar, Bengaluru with 14+ years\' experience. 5.0★ rating, 444+ verified reviews. Book online or on WhatsApp.',
     url: 'https://anjanidixit.com',
     siteName: 'Dr. Anjani Dixit',
     images: [{ url: 'https://anjanidixit.com/IMG-20251024-WA0023.jpg', width: 1200, height: 630, alt: 'Dr. Anjani Dixit - Gynaecologist in Indiranagar, Bengaluru' }],
@@ -30,7 +30,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Dr. Anjani Dixit | Gynaecologist in Indiranagar, Bengaluru',
-    description: 'Trusted gynaecologist in Indiranagar, Bengaluru. 14+ years, 5.0★ on Google, 420+ reviews.',
+    description: 'Trusted gynaecologist in Indiranagar, Bengaluru. 14+ years, 5.0★ on Google, 444+ reviews.',
     images: ['https://anjanidixit.com/IMG-20251024-WA0023.jpg'],
   },
   robots: { index: true, follow: true },
@@ -66,7 +66,7 @@ const physicianSchema = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '5.0',
-    reviewCount: '420',
+    reviewCount: '444',
     bestRating: '5',
   },
   review: SCHEMA_REVIEWS.map(r => ({
@@ -112,7 +112,7 @@ const localBusinessSchema = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '5.0',
-    reviewCount: '420',
+    reviewCount: '444',
     bestRating: '5',
   },
   priceRange: '₹₹',

@@ -5,7 +5,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'Who is Dr. Anjani Dixit?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Dr. Anjani Dixit is a laparoscopic gynaecologic surgeon, IVF and fertility specialist, and obstetrician based in Indiranagar, Bangalore. She has over 14 years of experience and has performed 1500+ successful procedures, with a 5.0 Google rating across 420 reviews.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Dr. Anjani Dixit is a laparoscopic gynaecologic surgeon, IVF and fertility specialist, and obstetrician based in Indiranagar, Bangalore. She has over 14 years of experience and has performed 1500+ successful procedures, with a 5.0 Google rating across 444 reviews.' },
     },
     {
       '@type': 'Question',
@@ -25,7 +25,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'Which hospitals is Dr. Anjani associated with?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Dr. Anjani is a visiting consultant for surgeries, deliveries, and hospital admissions at Motherhood Hospital, Cloudnine Hospital, Manipal Hospital, Milann Fertility Center, Revive Hospital, and Ayaansh Hospital across Bangalore. The hospital is chosen together with the patient based on location, insurance, budget, and procedure needs.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Dr. Anjani is a visiting consultant for surgeries, deliveries, and hospital admissions at Motherhood Hospital, Cloudnine Hospital, Manipal Hospital, Milann Fertility Center, Revive Hospital, and Ayaansh Hospital across Bangalore. With multiple partner hospitals to choose from, the hospital is chosen together with the patient — so a place that fits well with their insurance can be found, along with location, budget, and procedure needs.' },
     },
     {
       '@type': 'Question',

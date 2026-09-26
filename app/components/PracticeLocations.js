@@ -77,7 +77,7 @@ export default function PracticeLocations({ kind, intro, links = true }) {
               ))}
             </div>
             <p className="text-xs leading-relaxed mt-4" style={{ color: '#7A9C90' }}>
-              The hospital is chosen together with you — based on your location, insurance coverage, budget, and the facilities your care needs.
+              With multiple partner hospitals to choose from, we can find one that fits well with your insurance — along with your location, budget, and the facilities your care needs.
             </p>
           </div>
         </div>
